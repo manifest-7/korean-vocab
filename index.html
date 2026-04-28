@@ -736,6 +736,111 @@
             font-size: 0.9rem;
             color: #888;
         }
+
+        /* 全部单词列表 */
+        .allwords-list {
+            margin-top: 20px;
+        }
+
+        .allword-item {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 12px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .allword-content {
+            flex: 1;
+        }
+
+        .allword-korean {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #5B4B8A;
+            margin-bottom: 5px;
+        }
+
+        .allword-chinese {
+            font-size: 1rem;
+            color: #666;
+        }
+
+        .allword-category {
+            font-size: 0.8rem;
+            color: #aaa;
+            margin-top: 5px;
+        }
+
+        .allword-audio-btn {
+            background: #5B4B8A;
+            color: white;
+            border: none;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.2rem;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .allword-audio-btn:hover {
+            background: #4a3c70;
+            transform: scale(1.1);
+        }
+
+        .allwords-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding: 15px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+        }
+
+        .allwords-count {
+            color: #5B4B8A;
+            font-weight: 600;
+        }
+
+        .play-all-btn {
+            background: #5B4B8A;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: all 0.3s;
+        }
+
+        .play-all-btn:hover {
+            background: #4a3c70;
+        }
+
+        /* 检验按钮样式 */
+        .check-btn {
+            background: #4CAF50;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+
+        .check-btn:hover {
+            background: #45a049;
+        }
     </style>
 </head>
 <body>
@@ -763,6 +868,13 @@
             <button class="back-btn" onclick="showPage('home')">← 返回</button>
             <h2 class="page-title" id="vocab-title"></h2>
             <div class="lesson-list" id="lesson-list"></div>
+        </div>
+
+        <!-- 全部单词页面 -->
+        <div id="page-allwords" class="page">
+            <button class="back-btn" onclick="showPage('vocab')">← 返回</button>
+            <h2 class="page-title" id="allwords-title">📚 全部单词</h2>
+            <div class="allwords-list" id="allwords-list"></div>
         </div>
 
         <!-- 课程详情页：模式选择 -->
@@ -1068,8 +1180,21 @@
                 totalLearned += lesson.words.filter(w => learnedWords.has(`${w.korean}-${currentVocab.id}-${lesson.lesson}`)).length;
             });
             
-            // 添加整册练习入口
+            // 添加全部单词入口
             let html = `
+                <div class="lesson-item" onclick="showAllWords()" style="background: white; border: 2px solid #5B4B8A;">
+                    <div class="lesson-info">
+                        <div class="lesson-title" style="color: #5B4B8A;">📖 全部单词</div>
+                        <div class="lesson-subtitle">查看所有单词及发音</div>
+                    </div>
+                    <div class="lesson-progress">
+                        <div class="lesson-count" style="color: #5B4B8A;">${totalWords} 词</div>
+                    </div>
+                </div>
+            `;
+            
+            // 添加整册练习入口
+            html += `
                 <div class="lesson-item all-practice" onclick="startAllPractice()" style="background: linear-gradient(135deg, #5B4B8A 0%, #7B6BA8 100%); color: white;">
                     <div class="lesson-info">
                         <div class="lesson-title" style="color: white;">📚 整册综合练习</div>
@@ -1104,6 +1229,99 @@
             }).join('');
             
             container.innerHTML = html;
+        }
+        
+        // 显示全部单词页面
+        function showAllWords() {
+            document.getElementById('allwords-title').textContent = `📚 ${currentVocab.name} - 全部单词`;
+            renderAllWordsList();
+            showPage('allwords');
+        }
+        
+        // 渲染全部单词列表
+        function renderAllWordsList() {
+            const container = document.getElementById('allwords-list');
+            
+            // 收集所有单词
+            let allWords = [];
+            currentVocab.lessons.forEach(lesson => {
+                lesson.words.forEach(word => {
+                    allWords.push({...word, lessonName: lesson.lesson});
+                });
+            });
+            
+            // 统计信息
+            let html = `
+                <div class="allwords-header">
+                    <span class="allwords-count">共 ${allWords.length} 个单词</span>
+                    <button class="play-all-btn" onclick="playAllWords()">🔊 连续播放全部</button>
+                </div>
+            `;
+            
+            // 单词列表
+            html += allWords.map((word, index) => `
+                <div class="allword-item">
+                    <div class="allword-content">
+                        <div class="allword-korean">${word.korean}</div>
+                        <div class="allword-chinese">${word.chinese}</div>
+                        <div class="allword-category">${word.lessonName} · ${word.category || ''}</div>
+                    </div>
+                    <button class="allword-audio-btn" onclick="speak('${word.korean}')">🔊</button>
+                </div>
+            `).join('');
+            
+            container.innerHTML = html;
+        }
+        
+        // 连续播放所有单词
+        let isPlayingAll = false;
+        let playAllIndex = 0;
+        let allWordsToPlay = [];
+        
+        function playAllWords() {
+            if (isPlayingAll) {
+                // 停止播放
+                isPlayingAll = false;
+                speechSynthesis.cancel();
+                return;
+            }
+            
+            // 收集所有单词
+            allWordsToPlay = [];
+            currentVocab.lessons.forEach(lesson => {
+                lesson.words.forEach(word => {
+                    allWordsToPlay.push(word.korean);
+                });
+            });
+            
+            playAllIndex = 0;
+            isPlayingAll = true;
+            playNextWord();
+        }
+        
+        function playNextWord() {
+            if (!isPlayingAll || playAllIndex >= allWordsToPlay.length) {
+                isPlayingAll = false;
+                return;
+            }
+            
+            const word = allWordsToPlay[playAllIndex];
+            const utterance = new SpeechSynthesisUtterance(word);
+            utterance.lang = 'ko-KR';
+            utterance.rate = 0.85;
+            utterance.pitch = 1.1;
+            
+            // 选择女声
+            const voices = speechSynthesis.getVoices();
+            const koreanVoice = voices.find(v => v.lang.includes('ko'));
+            if (koreanVoice) utterance.voice = koreanVoice;
+            
+            utterance.onend = () => {
+                playAllIndex++;
+                setTimeout(playNextWord, 500); // 间隔500ms播放下一个
+            };
+            
+            speechSynthesis.speak(utterance);
         }
         
         // 开始整册练习
@@ -1244,6 +1462,8 @@
                     <button class="nav-btn primary" onclick="nextWord()">下一个 →</button>
                 </div>
             `;
+            // 自动播放发音
+            setTimeout(() => speak(word.korean), 300);
         }
 
         // 打字练习
@@ -1262,38 +1482,56 @@
                     </div>
                 </div>
                 <div id="typing-feedback"></div>
-                <div class="nav-buttons">
-                    <button class="nav-btn secondary" onclick="nextWord()">跳过</button>
-                    <button class="nav-btn primary" onclick="nextWord()">下一个 →</button>
+                <div class="nav-buttons" id="typing-nav">
+                    <button class="check-btn" onclick="submitTyping()">✓ 检验</button>
+                    <button class="nav-btn secondary" onclick="nextWord()">跳过 →</button>
                 </div>
             `;
             setTimeout(() => document.getElementById('typing-input').focus(), 100);
         }
+        
+        // 提交打字答案（点击检验按钮）
+        function submitTyping() {
+            const input = document.getElementById('typing-input');
+            checkTypingAnswer(input.value.trim());
+        }
 
         function checkTyping(event) {
+            if (event.key === 'Enter') {
+                const input = document.getElementById('typing-input');
+                checkTypingAnswer(input.value.trim());
+            }
+        }
+        
+        function checkTypingAnswer(userAnswer) {
             const word = studyWords[currentIndex];
             const input = document.getElementById('typing-input');
             const feedback = document.getElementById('typing-feedback');
             
-            if (event.key === 'Enter') {
-                const userAnswer = input.value.trim();
-                if (userAnswer === word.korean) {
-                    input.classList.add('correct');
+            if (userAnswer === word.korean) {
+                input.classList.add('correct');
+                input.classList.remove('wrong');
+                feedback.innerHTML = '<div class="feedback correct">✅ 正确！</div>';
+                learnedWords.add(`${word.korean}-${currentVocab.id}-${currentLesson.lesson}`);
+                saveData();
+                // 1.5秒后自动进入下一个
+                setTimeout(() => nextWord(), 1500);
+            } else {
+                input.classList.add('wrong');
+                input.classList.remove('correct');
+                feedback.innerHTML = `
+                    <div class="feedback wrong">
+                        ❌ 错误！请重新输入
+                        <div class="feedback-info">正确答案：${word.korean}</div>
+                    </div>
+                `;
+                addToWrongList(word, userAnswer, 'typing');
+                // 清空输入框让用户重试
+                setTimeout(() => {
+                    input.value = '';
                     input.classList.remove('wrong');
-                    feedback.innerHTML = '<div class="feedback correct">✅ 正确！</div>';
-                    learnedWords.add(`${word.korean}-${currentVocab.id}-${currentLesson.lesson}`);
-                    saveData();
-                } else {
-                    input.classList.add('wrong');
-                    input.classList.remove('correct');
-                    feedback.innerHTML = `
-                        <div class="feedback wrong">
-                            ❌ 错误！正确答案是：${word.korean}
-                            <div class="feedback-info">${word.chinese} - ${word.example}</div>
-                        </div>
-                    `;
-                    addToWrongList(word, userAnswer, 'typing');
-                }
+                    input.focus();
+                }, 800);
             }
         }
 
@@ -1317,15 +1555,14 @@
                 </div>
                 <div id="choice-feedback"></div>
                 <div class="nav-buttons" style="margin-top: 30px;">
-                    <button class="nav-btn secondary" onclick="nextWord()">跳过</button>
-                    <button class="nav-btn primary" onclick="nextWord()">下一个 →</button>
+                    <button class="nav-btn secondary" onclick="nextWord()">跳过 →</button>
                 </div>
             `;
         }
 
         function generateOptions(correctWord) {
             const options = [correctWord.korean];
-            const allWords = currentLesson.words.map(w => w.korean);
+            const allWords = currentLesson.words ? currentLesson.words.map(w => w.korean) : studyWords.map(w => w.korean);
             
             while (options.length < 4 && allWords.length > 1) {
                 const random = allWords[Math.floor(Math.random() * allWords.length)];
@@ -1341,22 +1578,25 @@
             const feedback = document.getElementById('choice-feedback');
             const buttons = document.querySelectorAll('.choice-btn');
             
-            buttons.forEach(b => {
-                b.disabled = true;
-                if (b.textContent === correct) {
-                    b.classList.add('correct');
-                }
-            });
-            
             if (selected === correct) {
+                // 答对
+                btn.classList.add('correct');
                 feedback.innerHTML = '<div class="feedback correct">✅ 正确！</div>';
                 learnedWords.add(`${correct}-${currentVocab.id}-${currentLesson.lesson}`);
                 saveData();
+                // 1.5秒后自动进入下一个
+                setTimeout(() => nextWord(), 1500);
             } else {
+                // 答错
                 btn.classList.add('wrong');
-                const word = studyWords[currentIndex];
                 feedback.innerHTML = `<div class="feedback wrong">❌ 错误！正确答案是：${correct}</div>`;
+                const word = studyWords[currentIndex];
                 addToWrongList(word, selected, 'choice');
+                // 0.8秒后重置按钮状态，让用户重选
+                setTimeout(() => {
+                    btn.classList.remove('wrong');
+                    btn.disabled = false;
+                }, 800);
             }
         }
 
@@ -1373,56 +1613,91 @@
                            autocomplete="off" autofocus style="margin-top: 30px;">
                 </div>
                 <div id="listen-feedback"></div>
-                <div class="nav-buttons">
+                <div class="nav-buttons" id="listen-nav">
                     <button class="nav-btn secondary" onclick="speak('${word.korean}')">🔁 重听</button>
-                    <button class="nav-btn secondary" onclick="nextWord()">跳过</button>
-                    <button class="nav-btn primary" onclick="nextWord()">下一个 →</button>
+                    <button class="check-btn" onclick="submitListen()">✓ 检验</button>
+                    <button class="nav-btn secondary" onclick="nextWord()">跳过 →</button>
                 </div>
             `;
             // 自动播放一次
             setTimeout(() => speak(word.korean), 500);
             setTimeout(() => document.getElementById('typing-input').focus(), 100);
         }
+        
+        // 提交听写答案（点击检验按钮）
+        function submitListen() {
+            const input = document.getElementById('typing-input');
+            checkListenAnswer(input.value.trim());
+        }
 
         function checkListen(event) {
+            if (event.key === 'Enter') {
+                const input = document.getElementById('typing-input');
+                checkListenAnswer(input.value.trim());
+            }
+        }
+        
+        function checkListenAnswer(userAnswer) {
             const word = studyWords[currentIndex];
             const input = document.getElementById('typing-input');
             const feedback = document.getElementById('listen-feedback');
             
-            if (event.key === 'Enter') {
-                const userAnswer = input.value.trim();
-                if (userAnswer === word.korean) {
-                    input.classList.add('correct');
+            if (userAnswer === word.korean) {
+                input.classList.add('correct');
+                input.classList.remove('wrong');
+                feedback.innerHTML = '<div class="feedback correct">✅ 正确！</div>';
+                learnedWords.add(`${word.korean}-${currentVocab.id}-${currentLesson.lesson}`);
+                saveData();
+                // 1.5秒后自动进入下一个
+                setTimeout(() => nextWord(), 1500);
+            } else {
+                input.classList.add('wrong');
+                input.classList.remove('correct');
+                feedback.innerHTML = `
+                    <div class="feedback wrong">
+                        ❌ 错误！请重新输入
+                        <div class="feedback-info">正确答案：${word.korean}</div>
+                    </div>
+                `;
+                addToWrongList(word, userAnswer, 'listen');
+                // 清空输入框让用户重试
+                setTimeout(() => {
+                    input.value = '';
                     input.classList.remove('wrong');
-                    feedback.innerHTML = '<div class="feedback correct">✅ 正确！</div>';
-                    learnedWords.add(`${word.korean}-${currentVocab.id}-${currentLesson.lesson}`);
-                    saveData();
-                } else {
-                    input.classList.add('wrong');
-                    input.classList.remove('correct');
-                    feedback.innerHTML = `
-                        <div class="feedback wrong">
-                            ❌ 错误！正确答案是：${word.korean}
-                            <div class="feedback-info">${word.chinese}</div>
-                        </div>
-                    `;
-                    addToWrongList(word, userAnswer, 'listen');
-                }
+                    input.focus();
+                }, 800);
             }
         }
 
-        // TTS发音
+        // TTS发音 - 优先选择女声
         function speak(text) {
             if ('speechSynthesis' in window) {
                 speechSynthesis.cancel();
                 
                 const utterance = new SpeechSynthesisUtterance(text);
                 utterance.lang = 'ko-KR';
-                utterance.rate = 0.8;
-                utterance.pitch = 1;
+                utterance.rate = 0.85;
+                utterance.pitch = 1.1;
                 
+                // 获取所有语音
                 const voices = speechSynthesis.getVoices();
-                const koreanVoice = voices.find(v => v.lang.includes('ko'));
+                
+                // 优先选择韩语女声
+                const koreanFemaleVoice = voices.find(v => {
+                    const name = v.name.toLowerCase();
+                    return v.lang.includes('ko') && (
+                        name.includes('female') || 
+                        name.includes('여') || 
+                        name.includes('woman') ||
+                        name.includes('onsei') ||
+                        name.includes('google') ||
+                        name.includes('microsoft')
+                    );
+                });
+                
+                // 其次选择任意韩语语音
+                const koreanVoice = koreanFemaleVoice || voices.find(v => v.lang.includes('ko'));
+                
                 if (koreanVoice) {
                     utterance.voice = koreanVoice;
                 }
@@ -1433,8 +1708,10 @@
 
         // 加载语音
         if ('speechSynthesis' in window) {
-            speechSynthesis.getVoices();
-            speechSynthesis.onvoiceschanged = () => speechSynthesis.getVoices();
+            // 确保语音列表加载完成
+            if (speechSynthesis.getVoices().length === 0) {
+                speechSynthesis.onvoiceschanged = () => speechSynthesis.getVoices();
+            }
         }
 
         // 标记已学习
