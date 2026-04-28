@@ -50,6 +50,16 @@
             transition: all 0.3s;
         }
 
+        .header-btn.secondary {
+            background: white;
+            color: #5B4B8A;
+            border: 2px solid #5B4B8A;
+        }
+
+        .header-btn.secondary:hover {
+            background: #f5f0fa;
+        }
+
         .header-btn:hover {
             background: #4a3c70;
             transform: translateY(-2px);
@@ -1007,7 +1017,12 @@
         <div id="page-home" class="page active">
             <div class="header">
                 <h1>🇰🇷 韩语单词学习</h1>
-                <button class="header-btn" onclick="showPage('wrong')">📝 错题本</button>
+                <div style="display: flex; gap: 8px;">
+                    <button class="header-btn secondary" onclick="exportProgress()">📤 导出进度</button>
+                    <button class="header-btn secondary" onclick="document.getElementById('import-file').click()">📥 导入进度</button>
+                    <input type="file" id="import-file" accept=".json" style="display: none;" onchange="importProgress(event)">
+                    <button class="header-btn" onclick="showPage('wrong')">📝 错题本</button>
+                </div>
             </div>
             
             <div class="vocab-category">
@@ -1663,9 +1678,71 @@
         function saveData() {
             const data = {
                 learnedWords: Array.from(learnedWords),
-                wrongWords: wrongWords
+                wrongWords: wrongWords,
+                exportTime: new Date().toISOString()
             };
             localStorage.setItem('korean_learn', JSON.stringify(data));
+        }
+
+        // 导出进度
+        function exportProgress() {
+            const data = {
+                learnedWords: Array.from(learnedWords),
+                wrongWords: wrongWords,
+                exportTime: new Date().toISOString(),
+                version: '1.0'
+            };
+            
+            const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `korean-progress-${new Date().toISOString().slice(0, 10)}.json`;
+            a.click();
+            URL.revokeObjectURL(url);
+            
+            alert('✅ 进度已导出！\n\n你可以：\n1. 保存到本地\n2. 上传到云盘\n3. 手动上传到GitHub仓库\n4. 发邮件给自己');
+        }
+
+        // 导入进度
+        function importProgress(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+            
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                try {
+                    const data = JSON.parse(e.target.result);
+                    
+                    // 验证数据格式
+                    if (!data.learnedWords || !data.wrongWords) {
+                        throw new Error('无效的进度文件');
+                    }
+                    
+                    // 确认导入
+                    const exportInfo = data.exportTime ? `\n导出时间：${new Date(data.exportTime).toLocaleString('zh-CN')}` : '';
+                    if (!confirm(`确定要导入进度吗？\n\n学习记录：${data.learnedWords.length} 条\n错题记录：${data.wrongWords.length} 条${exportInfo}\n\n⚠️ 这将覆盖当前进度！`)) {
+                        return;
+                    }
+                    
+                    // 导入数据
+                    learnedWords = new Set(data.learnedWords);
+                    wrongWords = data.wrongWords;
+                    saveData();
+                    
+                    // 刷新显示
+                    renderVocabList();
+                    renderWrongList();
+                    
+                    alert('✅ 进度导入成功！');
+                } catch (err) {
+                    alert('❌ 导入失败：' + err.message);
+                }
+            };
+            reader.readAsText(file);
+            
+            // 清空input，允许重复导入同一文件
+            event.target.value = '';
         }
 
         // 页面切换
@@ -2617,7 +2694,7 @@
 
         // 更新课程统计数据
         function updateLessonStats() {
-            if (currentLesson && currentVocab) {
+            if (currentLesson && currentVocab && currentLesson.words) {
                 const total = currentLesson.words.length;
                 const learned = currentLesson.words.filter(w => learnedWords.has(`${w.korean}-${currentVocab.id}-${currentLesson.lesson}`)).length;
                 const wrong = wrongWords.filter(w => w.vocabId === currentVocab.id && w.lesson === currentLesson.lesson).length;
@@ -2630,6 +2707,11 @@
 
         // 返回课程详情页
         function goBackToDetail() {
+            // 如果是整册练习，返回词库列表页
+            if (!currentLesson || !currentLesson.words) {
+                goBackToVocab();
+                return;
+            }
             updateLessonStats();
             showPage('detail');
         }
