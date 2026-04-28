@@ -607,7 +607,81 @@
         }
 
         /* 错题本 */
-        .wrong-list {
+        .wrong-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .wrong-stat-card {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+        }
+
+        .wrong-stat-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #5B4B8A;
+        }
+
+        .wrong-stat-label {
+            font-size: 0.85rem;
+            color: #888;
+            margin-top: 5px;
+        }
+
+        .wrong-category-list {
+            margin-top: 20px;
+        }
+
+        .wrong-category-card {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 12px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            border-left: 4px solid #5B4B8A;
+        }
+
+        .wrong-category-card:hover {
+            transform: translateX(5px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .wrong-category-info h3 {
+            font-size: 1.1rem;
+            color: #333;
+            margin-bottom: 5px;
+        }
+
+        .wrong-category-info p {
+            font-size: 0.85rem;
+            color: #888;
+        }
+
+        .wrong-category-count {
+            background: #5B4B8A;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-weight: 600;
+        }
+
+        .wrong-category-count.empty {
+            background: #e0e0e0;
+            color: #999;
+        }
+
+        .wrong-detail-list {
             margin-top: 20px;
         }
 
@@ -645,6 +719,16 @@
 
         .wrong-item-answer span {
             color: #f44336;
+        }
+
+        .wrong-item-count {
+            display: inline-block;
+            background: #ffebee;
+            color: #f44336;
+            padding: 2px 8px;
+            border-radius: 10px;
+            font-size: 0.8rem;
+            margin-left: 8px;
         }
 
         .wrong-item-actions {
@@ -990,24 +1074,21 @@
         <div id="page-wrong" class="page">
             <button class="back-btn" onclick="showPage('home')">← 返回</button>
             <h2 class="page-title">📝 错题本</h2>
-            <div class="stats">
-                <div class="stat-item">
-                    <div class="stat-value" id="wrong-total">0</div>
-                    <div class="stat-label">总错题</div>
-                </div>
-                <div class="stat-item">
-                    <div class="stat-value" id="wrong-lesson1">0</div>
-                    <div class="stat-label">第1册</div>
-                </div>
-                <div class="stat-item">
-                    <div class="stat-value" id="wrong-lesson2">0</div>
-                    <div class="stat-label">第2册</div>
-                </div>
+            <div class="wrong-stats" id="wrong-stats">
+                <!-- 统计卡片将由JS生成 -->
             </div>
-            <div class="wrong-list" id="wrong-list"></div>
-            <div class="wrong-actions" id="wrong-actions" style="display: none;">
-                <button class="nav-btn primary" onclick="practiceWrongWords()">📝 开始复习错题</button>
-                <button class="nav-btn secondary" onclick="clearWrongList()">🗑️ 清空错题本</button>
+            <div class="wrong-category-list" id="wrong-category-list">
+                <!-- 分类入口将由JS生成 -->
+            </div>
+        </div>
+        
+        <!-- 错题详情页 -->
+        <div id="page-wrong-detail" class="page">
+            <button class="back-btn" onclick="showPage('wrong')">← 返回</button>
+            <h2 class="page-title" id="wrong-detail-title">📝 错题详情</h2>
+            <div class="wrong-detail-list" id="wrong-detail-list"></div>
+            <div class="wrong-actions" id="wrong-detail-actions" style="display: none;">
+                <button class="nav-btn primary" onclick="practiceWrongByType()">📝 练习这些错题</button>
             </div>
         </div>
     </div>
@@ -2052,12 +2133,25 @@
 
         function generateOptions(correctWord) {
             const options = [correctWord.korean];
-            const allWords = currentLesson.words ? currentLesson.words.map(w => w.korean) : studyWords.map(w => w.korean);
             
-            while (options.length < 4 && allWords.length > 1) {
-                const random = allWords[Math.floor(Math.random() * allWords.length)];
-                if (!options.includes(random)) {
-                    options.push(random);
+            // 收集所有词库的单词作为干扰项
+            let allWords = [];
+            vocabularies.textbook.forEach(vocab => {
+                vocab.lessons.forEach(lesson => {
+                    allWords = allWords.concat(lesson.words.map(w => w.korean));
+                });
+            });
+            vocabularies.extension.forEach(vocab => {
+                vocab.lessons.forEach(lesson => {
+                    allWords = allWords.concat(lesson.words.map(w => w.korean));
+                });
+            });
+            
+            // 打乱并选择不重复的干扰项
+            allWords = shuffleArray(allWords);
+            for (let i = 0; i < allWords.length && options.length < 4; i++) {
+                if (!options.includes(allWords[i])) {
+                    options.push(allWords[i]);
                 }
             }
             
@@ -2334,11 +2428,22 @@
             }
         }
 
-        // 错题本
+        // 错题本 - 按单词+类型分别记录
+        let currentWrongType = null; // 当前查看的错题类型
+        
         function addToWrongList(word, userAnswer, mode) {
-            const existingIndex = wrongWords.findIndex(w => w.korean === word.korean && w.vocabId === currentVocab.id);
+            // 使用单词+类型作为唯一标识
+            const uniqueKey = `${word.korean}-${currentVocab.id}-${currentLesson.lesson}-${mode}`;
+            const existingIndex = wrongWords.findIndex(w => 
+                w.korean === word.korean && 
+                w.vocabId === currentVocab.id && 
+                w.lesson === currentLesson.lesson &&
+                w.mode === mode
+            );
+            
             if (existingIndex >= 0) {
                 wrongWords[existingIndex].count++;
+                wrongWords[existingIndex].userAnswer = userAnswer;
             } else {
                 wrongWords.push({
                     korean: word.korean,
@@ -2349,82 +2454,131 @@
                     vocabId: currentVocab.id,
                     vocabName: currentVocab.name,
                     lesson: currentLesson.lesson,
-                    mode: mode,
+                    mode: mode, // typing, choice, listen, sentence
                     count: 1
                 });
             }
             saveData();
         }
 
-        function renderWrongList() {
-            const container = document.getElementById('wrong-list');
-            
-            // 更新统计
-            document.getElementById('wrong-total').textContent = wrongWords.length;
-            document.getElementById('wrong-lesson1').textContent = wrongWords.filter(w => w.vocabId === 'sejong1').length;
-            document.getElementById('wrong-lesson2').textContent = wrongWords.filter(w => w.vocabId === 'sejong2').length;
+        // 错题类型映射
+        const wrongTypeNames = {
+            'typing': { name: '打字错题', icon: '⌨️', desc: '打字练习中的错误' },
+            'choice': { name: '选择错题', icon: '📋', desc: '选择测试中的错误' },
+            'listen': { name: '听写错题', icon: '🎧', desc: '听写练习中的错误' },
+            'sentence': { name: '填空错题', icon: '✏️', desc: '例句填空中的错误' }
+        };
 
-            if (wrongWords.length === 0) {
-                container.innerHTML = `
+        function renderWrongList() {
+            // 计算各类型错题数量
+            const typeCounts = {
+                'typing': wrongWords.filter(w => w.mode === 'typing').length,
+                'choice': wrongWords.filter(w => w.mode === 'choice').length,
+                'listen': wrongWords.filter(w => w.mode === 'listen').length,
+                'sentence': wrongWords.filter(w => w.mode === 'sentence').length
+            };
+            
+            const total = wrongWords.length;
+            
+            // 渲染统计
+            const statsContainer = document.getElementById('wrong-stats');
+            statsContainer.innerHTML = `
+                <div class="wrong-stat-card">
+                    <div class="wrong-stat-value">${total}</div>
+                    <div class="wrong-stat-label">总错题</div>
+                </div>
+                <div class="wrong-stat-card">
+                    <div class="wrong-stat-value">${wrongWords.filter(w => w.vocabId === 'sejong1').length}</div>
+                    <div class="wrong-stat-label">第1册</div>
+                </div>
+                <div class="wrong-stat-card">
+                    <div class="wrong-stat-value">${wrongWords.filter(w => w.vocabId === 'sejong2').length}</div>
+                    <div class="wrong-stat-label">其他词库</div>
+                </div>
+            `;
+            
+            // 渲染分类入口
+            const categoryContainer = document.getElementById('wrong-category-list');
+            if (total === 0) {
+                categoryContainer.innerHTML = `
                     <div class="empty-state">
                         <div class="empty-state-icon">✨</div>
                         <div class="empty-state-text">太棒了！暂无错题</div>
                     </div>
                 `;
-                document.getElementById('wrong-actions').style.display = 'none';
-                return;
-            }
-
-            document.getElementById('wrong-actions').style.display = 'flex';
-
-            container.innerHTML = wrongWords.map((item, index) => `
-                <div class="wrong-item">
-                    <div class="wrong-item-header">
-                        <span class="wrong-item-word">${item.korean}</span>
-                        <span class="wrong-item-lesson">${item.vocabName || ''} · ${item.lesson}</span>
-                    </div>
-                    <div class="wrong-item-answer">
-                        中文：${item.chinese}<br>
-                        你的答案：<span>${item.userAnswer || '未作答'}</span> (错${item.count}次)
-                    </div>
-                    <div class="wrong-item-actions">
-                        <button class="wrong-item-btn" onclick="speak('${item.korean}')">🔊 发音</button>
-                        <button class="wrong-item-btn primary" onclick="practiceWrongWord(${index})">📝 再练习</button>
-                        <button class="wrong-item-btn" onclick="removeWrongWord(${index})">✕ 移除</button>
-                    </div>
-                </div>
-            `).join('');
-        }
-
-        // 从错题本练习单个单词
-        function practiceWrongWord(index) {
-            const item = wrongWords[index];
-            
-            // 构建学习数据
-            studyWords = [{
-                korean: item.korean,
-                chinese: item.chinese,
-                example: item.example || '',
-                exampleChinese: item.exampleChinese || '',
-                category: '错题'
-            }];
-            
-            currentVocab = { id: item.vocabId, name: item.vocabName || '错题' };
-            currentLesson = { lesson: item.lesson, title: '错题复习' };
-            currentIndex = 0;
-            currentMode = 'typing';
-            showPage('study');
-            renderStudyContent();
-        }
-
-        // 批量练习错题
-        function practiceWrongWords() {
-            if (wrongWords.length === 0) {
-                alert('没有错题可以练习');
                 return;
             }
             
-            studyWords = wrongWords.map(item => ({
+            categoryContainer.innerHTML = Object.entries(wrongTypeNames).map(([type, info]) => {
+                const count = typeCounts[type];
+                return `
+                    <div class="wrong-category-card" onclick="showWrongByType('${type}')">
+                        <div class="wrong-category-info">
+                            <h3>${info.icon} ${info.name}</h3>
+                            <p>${info.desc}</p>
+                        </div>
+                        <div class="wrong-category-count ${count === 0 ? 'empty' : ''}">${count}</div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        // 显示某类型的错题详情
+        function showWrongByType(type) {
+            currentWrongType = type;
+            const typeInfo = wrongTypeNames[type];
+            const typeWrongWords = wrongWords.filter(w => w.mode === type);
+            
+            document.getElementById('wrong-detail-title').textContent = `${typeInfo.icon} ${typeInfo.name}`;
+            
+            const container = document.getElementById('wrong-detail-list');
+            const actionsDiv = document.getElementById('wrong-detail-actions');
+            
+            if (typeWrongWords.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <div class="empty-state-icon">✨</div>
+                        <div class="empty-state-text">该类型暂无错题</div>
+                    </div>
+                `;
+                actionsDiv.style.display = 'none';
+            } else {
+                actionsDiv.style.display = 'flex';
+                container.innerHTML = typeWrongWords.map((item, index) => {
+                    const globalIndex = wrongWords.indexOf(item);
+                    return `
+                        <div class="wrong-item">
+                            <div class="wrong-item-header">
+                                <span class="wrong-item-word">${item.korean}</span>
+                                <span class="wrong-item-lesson">${item.vocabName || ''} · ${item.lesson}</span>
+                            </div>
+                            <div class="wrong-item-answer">
+                                中文：${item.chinese}<br>
+                                你的答案：<span>${item.userAnswer || '未作答'}</span>
+                                <span class="wrong-item-count">错${item.count}次</span>
+                            </div>
+                            <div class="wrong-item-actions">
+                                <button class="wrong-item-btn" onclick="speak('${item.korean}')">🔊 发音</button>
+                                <button class="wrong-item-btn" onclick="removeWrongWord(${globalIndex})">✕ 移除</button>
+                            </div>
+                        </div>
+                    `;
+                }).join('');
+            }
+            
+            showPage('wrong-detail');
+        }
+
+        // 练习当前类型的错题
+        function practiceWrongByType() {
+            const typeWrongWords = wrongWords.filter(w => w.mode === currentWrongType);
+            
+            if (typeWrongWords.length === 0) {
+                alert('该类型暂无错题');
+                return;
+            }
+            
+            studyWords = typeWrongWords.map(item => ({
                 korean: item.korean,
                 chinese: item.chinese,
                 example: item.example || '',
@@ -2432,10 +2586,20 @@
                 category: '错题'
             }));
             
+            // 根据错题类型选择练习模式
+            const modeMap = {
+                'typing': 'typing',
+                'choice': 'choice',
+                'listen': 'listen',
+                'sentence': 'sentence'
+            };
+            
             currentVocab = { id: 'wrong', name: '错题本' };
-            currentLesson = { lesson: '错题复习', title: '错题本复习' };
+            currentLesson = { lesson: '错题复习', title: wrongTypeNames[currentWrongType].name };
+            currentMode = modeMap[currentWrongType];
             currentIndex = 0;
-            currentMode = 'typing';
+            studyWords = shuffleArray(studyWords);
+            
             showPage('study');
             renderStudyContent();
         }
@@ -2445,13 +2609,9 @@
             wrongWords.splice(index, 1);
             saveData();
             renderWrongList();
-        }
-
-        function clearWrongList() {
-            if (confirm('确定要清空错题本吗？')) {
-                wrongWords = [];
-                saveData();
-                renderWrongList();
+            // 如果在详情页，重新渲染
+            if (currentWrongType) {
+                showWrongByType(currentWrongType);
             }
         }
 
