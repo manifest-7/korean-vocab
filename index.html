@@ -535,6 +535,13 @@
             color: #666;
         }
 
+        .feedback-hint {
+            margin-top: 8px;
+            font-size: 0.85rem;
+            color: #888;
+            font-weight: 500;
+        }
+
         /* 选择题 */
         .choice-grid {
             display: grid;
@@ -939,14 +946,14 @@
 
         <!-- 全部单词页面 -->
         <div id="page-allwords" class="page">
-            <button class="back-btn" onclick="showPage('vocab')">← 返回</button>
+            <button class="back-btn" onclick="goBackToVocab()">← 返回</button>
             <h2 class="page-title" id="allwords-title">📚 全部单词</h2>
             <div class="allwords-list" id="allwords-list"></div>
         </div>
 
         <!-- 课程详情页：模式选择 -->
         <div id="page-detail" class="page">
-            <button class="back-btn" onclick="showPage('vocab')">← 返回</button>
+            <button class="back-btn" onclick="goBackToVocab()">← 返回</button>
             <h2 class="page-title" id="detail-title"></h2>
             <div class="stats">
                 <div class="stat-item">
@@ -1133,12 +1140,12 @@
                                 { korean: "보내다", chinese: "寄、发送", example: "카드를 보내요.", exampleChinese: "我寄卡片。", category: "动词" },
                                 { korean: "쓰다", chinese: "写", example: "편지를 써요.", exampleChinese: "我写信。", category: "动词" },
                                 // 问候表达
-                                { korean: "반갑다", chinese: "高兴", example: "만나서 반갑습니다.", exampleChinese: "很高兴见到你。", category: "问候" },
-                                { korean: "실례하다", chinese: "打扰、劳驾", example: "실례합니다.", exampleChinese: "打扰了。", category: "问候" },
-                                { korean: "고맙다", chinese: "谢谢(口语)", example: "고마워요.", exampleChinese: "谢谢。", category: "问候" },
-                                { korean: "감사하다", chinese: "感谢(正式)", example: "감사합니다.", exampleChinese: "谢谢。", category: "问候" },
-                                { korean: "미안하다", chinese: "对不起", example: "미안해요.", exampleChinese: "对不起。", category: "问候" },
-                                { korean: "괜찮다", chinese: "没关系", example: "괜찮아요.", exampleChinese: "没关系。", category: "问候" },
+                                { korean: "반갑습니다", chinese: "高兴(敬语)", example: "만나서 반갑습니다.", exampleChinese: "很高兴见到你。", category: "问候" },
+                                { korean: "실례합니다", chinese: "打扰、劳驾(敬语)", example: "실례합니다.", exampleChinese: "打扰了。", category: "问候" },
+                                { korean: "고마워요", chinese: "谢谢(口语)", example: "고마워요.", exampleChinese: "谢谢。", category: "问候" },
+                                { korean: "감사합니다", chinese: "感谢(正式)", example: "감사합니다.", exampleChinese: "谢谢。", category: "问候" },
+                                { korean: "미안해요", chinese: "对不起(口语)", example: "미안해요.", exampleChinese: "对不起。", category: "问候" },
+                                { korean: "괜찮아요", chinese: "没关系", example: "괜찮아요.", exampleChinese: "没关系。", category: "问候" },
                                 { korean: "안녕히 가세요", chinese: "再见(留步)", example: "안녕히 가세요.", exampleChinese: "再见。(对离开的人说)", category: "问候" },
                                 { korean: "안녕히 계세요", chinese: "再见(慢走)", example: "안녕히 계세요.", exampleChinese: "再见。(对留下的人说)", category: "问候" },
                                 { korean: "천만에요", chinese: "不客气", example: "천만에요.", exampleChinese: "不客气。", category: "问候" }
@@ -1410,6 +1417,70 @@
                                 { korean: "뭘", chinese: "什么(做什么)", example: "뭘 사 갈까요?", exampleChinese: "买什么去呢？", category: "表达" },
                                 { korean: "가야 하다", chinese: "必须去", example: "가야 해요.", exampleChinese: "必须去。", category: "表达" }
                             ]
+                        },
+                        {
+                            lesson: "第18课",
+                            title: "길이 막히니까 공연장까지 지하철로 갑시다",
+                            words: [
+                                // 여가 활동 (休闲活动)
+                                { korean: "텔레비전", chinese: "电视", example: "텔레비전을 봐요.", exampleChinese: "看电视。", category: "休闲" },
+                                { korean: "프로그램", chinese: "节目", example: "어떤 프로그램을 좋아해요?", exampleChinese: "你喜欢什么节目？", category: "休闲" },
+                                { korean: "낮잠", chinese: "午觉", example: "낮잠을 자요.", exampleChinese: "睡午觉。", category: "休闲" },
+                                { korean: "미용실", chinese: "美容院", example: "미용실에 갔어요.", exampleChinese: "去了美容院。", category: "休闲" },
+                                { korean: "산책", chinese: "散步", example: "공원에서 산책해요.", exampleChinese: "在公园散步。", category: "休闲" },
+                                { korean: "외국어", chinese: "外语", example: "외국어를 배워요.", exampleChinese: "学外语。", category: "休闲" },
+                                // 문화생활 (文化生活)
+                                { korean: "공연", chinese: "演出", example: "공연을 봤어요.", exampleChinese: "看了演出。", category: "文化" },
+                                { korean: "연극", chinese: "话剧", example: "연극을 봤어요.", exampleChinese: "看了话剧。", category: "文化" },
+                                { korean: "콘서트", chinese: "演唱会", example: "콘서트에 갔어요.", exampleChinese: "去了演唱会。", category: "文化" },
+                                { korean: "표", chinese: "票", example: "표를 샀어요.", exampleChinese: "买了票。", category: "文化" },
+                                { korean: "극장", chinese: "剧场", example: "극장에서 영화를 봐요.", exampleChinese: "在剧场看电影。", category: "文化" },
+                                { korean: "영화관", chinese: "电影院", example: "영화관에 가요.", exampleChinese: "去电影院。", category: "文化" },
+                                { korean: "박물관", chinese: "博物馆", example: "박물관에 갔어요.", exampleChinese: "去了博物馆。", category: "文化" },
+                                { korean: "미술관", chinese: "美术馆", example: "미술관을 구경했어요.", exampleChinese: "参观了美术馆。", category: "文化" },
+                                // 표현 (表达)
+                                { korean: "연기", chinese: "演技", example: "연기가 좋아요.", exampleChinese: "演技好。", category: "表达" },
+                                { korean: "인기", chinese: "人气", example: "인기가 많아요.", exampleChinese: "人气很高。", category: "表达" }
+                            ]
+                        },
+                        {
+                            lesson: "第19课",
+                            title: "지방 같이 사러 가요",
+                            words: [
+                                // 장소 (地点)
+                                { korean: "빵집", chinese: "面包店", example: "빵집에서 빵을 사요.", exampleChinese: "在面包店买面包。", category: "地点" },
+                                { korean: "은행", chinese: "银行", example: "은행에서 돈을 찾아요.", exampleChinese: "在银行取钱。", category: "地点" },
+                                { korean: "지하철역", chinese: "地铁站", example: "지하철역이 어디예요?", exampleChinese: "地铁站在哪里？", category: "地点" },
+                                { korean: "출구", chinese: "出口", example: "1번 출구로 나가세요.", exampleChinese: "请从1号出口出去。", category: "地点" },
+                                { korean: "횡단보도", chinese: "人行横道", example: "횡단보도를 건너세요.", exampleChinese: "请走人行横道。", category: "地点" },
+                                // 방향 (方向)
+                                { korean: "오른쪽", chinese: "右边", example: "오른쪽에 있어요.", exampleChinese: "在右边。", category: "方向" },
+                                { korean: "왼쪽", chinese: "左边", example: "왼쪽으로 가세요.", exampleChinese: "请往左边走。", category: "方向" },
+                                // 이동 (移动)
+                                { korean: "내리다", chinese: "下车", example: "여기에서 내리세요.", exampleChinese: "请在这里下车。", category: "动词" },
+                                { korean: "나오다", chinese: "出来", example: "1번 출구로 나오세요.", exampleChinese: "请从1号出口出来。", category: "动词" },
+                                { korean: "건너다", chinese: "穿过", example: "길을 건넙시다.", exampleChinese: "我们过马路吧。", category: "动词" },
+                                // 표현 (表达)
+                                { korean: "근처", chinese: "附近", example: "근처에 빵집이 있어요?", exampleChinese: "附近有面包店吗？", category: "表达" }
+                            ]
+                        },
+                        {
+                            lesson: "第20课",
+                            title: "어머니께서 꽃을 좋아하셔요",
+                            words: [
+                                // 정중 표현 (敬语表达)
+                                { korean: "처음 뵙겠습니다", chinese: "初次见面", example: "안녕하세요, 처음 뵙겠습니다.", exampleChinese: "你好，初次见面。", category: "敬语" },
+                                { korean: "성함", chinese: "姓名(敬语)", example: "성함이 어떻게 되세요?", exampleChinese: "您叫什么名字？", category: "敬语" },
+                                { korean: "어떻게 되세요", chinese: "是...(敬语)", example: "나이가 어떻게 되세요?", exampleChinese: "您多大年纪？", category: "敬语" },
+                                { korean: "무슨 일을 하세요", chinese: "做什么工作", example: "무슨 일을 하세요?", exampleChinese: "您做什么工作？", category: "敬语" },
+                                // 가족 호칭 (家庭称呼)
+                                { korean: "어머니", chinese: "母亲(敬语)", example: "어머니께서 요리하세요.", exampleChinese: "母亲做饭。", category: "家庭" },
+                                { korean: "아버지", chinese: "父亲(敬语)", example: "아버지께서 회사에 가세요.", exampleChinese: "父亲去公司。", category: "家庭" },
+                                { korean: "선생님", chinese: "老师", example: "선생님이 가르치세요.", exampleChinese: "老师教书。", category: "职业" },
+                                // 직업 (职业)
+                                { korean: "고등학교", chinese: "高中", example: "고등학교 선생님이세요.", exampleChinese: "是高中老师。", category: "职业" },
+                                { korean: "수학", chinese: "数学", example: "수학을 가르치세요.", exampleChinese: "教数学。", category: "学科" }
+                            ]
                         }
                     ]
                 },
@@ -1417,33 +1488,7 @@
                     id: 'sejong2',
                     name: '世宗韩国语 第2册',
                     icon: '📖',
-                    lessons: [
-                        {
-                            lesson: "第1课",
-                            title: "안부 (问候)",
-                            words: [
-                                { korean: "힘들어요", chinese: "累/辛苦", example: "한국어 공부하고 여행도 했어요.", exampleChinese: "学了韩语还去旅行了。", category: "状态" },
-                                { korean: "바빠요", chinese: "忙", example: "요즘 일이 많아요.", exampleChinese: "最近事情很多。", category: "状态" },
-                                { korean: "즐거워요", chinese: "愉快", example: "요즘 일이 재미있어요.", exampleChinese: "最近工作很有趣。", category: "状态" },
-                                { korean: "피곤해요", chinese: "疲惫", example: "어제 아르바이트를 했어요.", exampleChinese: "昨天打工了。", category: "状态" },
-                                { korean: "재미있어요", chinese: "有趣", example: "한국어 공부도 하고 여행도 했어요.", exampleChinese: "学了韩语还去旅行了。", category: "状态" },
-                                { korean: "정신이 없어요", chinese: "忙得团团转", example: "회사 일이 많아요.", exampleChinese: "公司事情很多。", category: "状态" },
-                                { korean: "그저 그래요", chinese: "一般/就那样", example: "저는 그저 그래요.", exampleChinese: "我就那样。", category: "状态" }
-                            ]
-                        },
-                        {
-                            lesson: "第2课",
-                            title: "취미 활동 (兴趣爱好)",
-                            words: [
-                                { korean: "배드민턴", chinese: "羽毛球", example: "배드민턴을 쳐요.", exampleChinese: "打羽毛球。", category: "运动" },
-                                { korean: "자전거", chinese: "自行车", example: "자전거를 타요.", exampleChinese: "骑自行车。", category: "运动" },
-                                { korean: "등산", chinese: "登山", example: "등산을 해요.", exampleChinese: "去登山。", category: "运动" },
-                                { korean: "낚시", chinese: "钓鱼", example: "낚시를 해요.", exampleChinese: "去钓鱼。", category: "运动" },
-                                { korean: "피아노", chinese: "钢琴", example: "피아노를 쳐요.", exampleChinese: "弹钢琴。", category: "音乐" },
-                                { korean: "게임", chinese: "游戏", example: "게임을 해요.", exampleChinese: "玩游戏。", category: "娱乐" }
-                            ]
-                        }
-                    ]
+                    lessons: []
                 }
             ],
             extension: [
@@ -1893,7 +1938,7 @@
                 </div>
                 <div class="nav-buttons">
                     <button class="nav-btn secondary" onclick="markAsLearned(); nextWord();">✓ 记住了</button>
-                    <button class="nav-btn primary" onclick="nextWord()">下一个 →</button>
+                    <button class="nav-btn primary" onclick="markAsLearned(); nextWord();">下一个 →</button>
                 </div>
             `;
             // 自动播放发音
@@ -2034,7 +2079,7 @@
             } else {
                 // 答错
                 btn.classList.add('wrong');
-                feedback.innerHTML = `<div class="feedback wrong">❌ 错误！正确答案是：${correct}</div>`;
+                feedback.innerHTML = `<div class="feedback wrong">❌ 错误！正确答案是：${correct}<div class="feedback-hint">💡 请选择正确答案后继续</div></div>`;
                 const word = studyWords[currentIndex];
                 addToWrongList(word, selected, 'choice');
                 // 0.8秒后重置按钮状态，让用户重选
@@ -2280,7 +2325,7 @@
                         <div class="empty-state-text">本轮学习完成！</div>
                         <div class="nav-buttons" style="margin-top: 30px;">
                             <button class="nav-btn secondary" onclick="startStudy(currentMode)">再学一遍</button>
-                            <button class="nav-btn primary" onclick="showPage('detail')">返回</button>
+                            <button class="nav-btn primary" onclick="goBackToDetail()">返回</button>
                         </div>
                     </div>
                 `;
@@ -2410,10 +2455,35 @@
             }
         }
 
+        // 更新课程统计数据
+        function updateLessonStats() {
+            if (currentLesson && currentVocab) {
+                const total = currentLesson.words.length;
+                const learned = currentLesson.words.filter(w => learnedWords.has(`${w.korean}-${currentVocab.id}-${currentLesson.lesson}`)).length;
+                const wrong = wrongWords.filter(w => w.vocabId === currentVocab.id && w.lesson === currentLesson.lesson).length;
+                
+                document.getElementById('stat-total').textContent = total;
+                document.getElementById('stat-learned').textContent = learned;
+                document.getElementById('stat-wrong').textContent = wrong;
+            }
+        }
+
+        // 返回课程详情页
+        function goBackToDetail() {
+            updateLessonStats();
+            showPage('detail');
+        }
+
+        // 返回词库列表页
+        function goBackToVocab() {
+            renderLessonList();
+            showPage('vocab');
+        }
+
         // 确认退出
         function confirmExit() {
             if (confirm('确定要退出学习吗？')) {
-                showPage('detail');
+                goBackToDetail();
             }
         }
 
