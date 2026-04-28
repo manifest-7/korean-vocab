@@ -340,6 +340,73 @@
             text-align: center;
         }
 
+        /* 新版闪卡样式 */
+        .flashcard-simple {
+            background: linear-gradient(135deg, #5B4B8A 0%, #7B6BA8 100%);
+            border-radius: 20px;
+            padding: 40px 30px;
+            text-align: center;
+            box-shadow: 0 8px 24px rgba(91, 75, 138, 0.3);
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .flashcard-simple:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 32px rgba(91, 75, 138, 0.4);
+        }
+
+        .flashcard-main {
+            color: white;
+        }
+
+        .flashcard-detail-card {
+            background: white;
+            border-radius: 16px;
+            padding: 30px;
+            margin-top: 20px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            animation: slideDown 0.3s ease;
+        }
+
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .example-section {
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid #eee;
+        }
+
+        /* 例句填空样式 */
+        .sentence-blank {
+            display: inline-block;
+            min-width: 100px;
+            border-bottom: 2px dashed #5B4B8A;
+            color: #5B4B8A;
+            font-weight: 700;
+            padding: 0 5px;
+            margin: 0 2px;
+        }
+
+        .sentence-display {
+            font-size: 1.4rem;
+            line-height: 2;
+            color: #333;
+            margin: 20px 0;
+        }
+
+        .sentence-hint {
+            font-size: 1rem;
+            color: #666;
+            margin-bottom: 20px;
+            padding: 10px 15px;
+            background: #f5f5f5;
+            border-radius: 8px;
+        }
+
         /* 音频按钮 */
         .audio-btn {
             background: #5B4B8A;
@@ -983,6 +1050,366 @@
                                 { korean: "이름이 뭐예요?", chinese: "你叫什么名字？", example: "이름이 뭐예요?", exampleChinese: "你叫什么名字？", category: "表达" },
                                 { korean: "직업이 뭐예요?", chinese: "你的工作是什么？", example: "직업이 뭐예요?", exampleChinese: "你的工作是什么？", category: "表达" }
                             ]
+                        },
+                        {
+                            lesson: "第3课",
+                            title: "저도 드라마를 좋아합니다",
+                            words: [
+                                // 日常生活
+                                { korean: "노래", chinese: "歌、歌曲", example: "케이팝은 노래입니다.", exampleChinese: "K-pop是歌曲。", category: "日常生活" },
+                                { korean: "드라마", chinese: "电视剧", example: "한국 드라마를 좋아합니다.", exampleChinese: "我喜欢韩剧。", category: "日常生活" },
+                                { korean: "음식", chinese: "食物", example: "김치, 비빔밥은 한국 음식입니다.", exampleChinese: "泡菜、拌饭是韩国食物。", category: "日常生活" },
+                                { korean: "전화", chinese: "电话", example: "전화를 합니다.", exampleChinese: "我在打电话。", category: "日常生活" },
+                                // 动词①
+                                { korean: "하다", chinese: "做", example: "노래를 합니다.", exampleChinese: "我唱歌。", category: "动词" },
+                                { korean: "좋아하다", chinese: "喜欢", example: "한국 드라마를 좋아합니다.", exampleChinese: "我喜欢韩剧。", category: "动词" },
+                                { korean: "가다", chinese: "去", example: "여행을 갑니다.", exampleChinese: "我去旅行。", category: "动词" },
+                                { korean: "먹다", chinese: "吃", example: "한국 음식을 먹습니다.", exampleChinese: "我吃韩国食物。", category: "动词" },
+                                { korean: "듣다", chinese: "听", example: "한국 노래를 듣습니다.", exampleChinese: "我听韩语歌。", category: "动词" },
+                                // 形容词①
+                                { korean: "크다", chinese: "大", example: "개가 큽니다.", exampleChinese: "狗很大。", category: "形容词" },
+                                { korean: "작다", chinese: "小", example: "개가 작습니다.", exampleChinese: "狗很小。", category: "形容词" },
+                                { korean: "예쁘다", chinese: "漂亮", example: "꽃이 예쁩니다.", exampleChinese: "花很漂亮。", category: "形容词" },
+                                { korean: "좋다", chinese: "好", example: "한국 음식이 좋습니다.", exampleChinese: "韩国食物很好。", category: "形容词" }
+                            ]
+                        },
+                        {
+                            lesson: "第4课",
+                            title: "여기가 지문 씨의 학교입니까?",
+                            words: [
+                                // 动词②
+                                { korean: "공부하다", chinese: "学习", example: "한국어를 공부합니다.", exampleChinese: "我学习韩语。", category: "动词" },
+                                { korean: "만나다", chinese: "见面", example: "리사 씨를 만납니다.", exampleChinese: "我见Lisa。", category: "动词" },
+                                // 地点①
+                                { korean: "학교", chinese: "学校", example: "학교입니다.", exampleChinese: "这是学校。", category: "地点" },
+                                { korean: "교실", chinese: "教室", example: "교실입니다.", exampleChinese: "这是教室。", category: "地点" },
+                                { korean: "도서관", chinese: "图书馆", example: "도서관입니다.", exampleChinese: "这是图书馆。", category: "地点" },
+                                { korean: "건물", chinese: "建筑物", example: "학교, 식당, 도서관은 건물입니다.", exampleChinese: "学校、餐厅、图书馆是建筑物。", category: "地点" },
+                                { korean: "식당", chinese: "餐厅", example: "식당입니다.", exampleChinese: "这是餐厅。", category: "地点" },
+                                // 形容词②
+                                { korean: "있다", chinese: "有、存在", example: "학생이 있습니다.", exampleChinese: "有学生。", category: "形容词" },
+                                { korean: "없다", chinese: "没有", example: "학생이 없습니다.", exampleChinese: "没有学生。", category: "形容词" },
+                                { korean: "많다", chinese: "多", example: "학생이 많습니다.", exampleChinese: "学生很多。", category: "形容词" },
+                                // 课堂用语
+                                { korean: "따라하세요", chinese: "请跟我读", example: "여러분, 따라 하세요.", exampleChinese: "大家，请跟我读。", category: "课堂用语" },
+                                { korean: "질문이 있어요", chinese: "有问题", example: "선생님, 질문이 있어요.", exampleChinese: "老师，我有问题。", category: "课堂用语" },
+                                { korean: "잘 모르겠어요", chinese: "不太懂", example: "선생님, 잘 모르겠어요.", exampleChinese: "老师，我不太懂。", category: "课堂用语" },
+                                { korean: "질문", chinese: "问题", example: "질문이 있어요.", exampleChinese: "有问题。", category: "课堂用语" },
+                                { korean: "모르다", chinese: "不知道", example: "잘 모르겠어요.", exampleChinese: "不太清楚。", category: "课堂用语" }
+                            ]
+                        },
+                        {
+                            lesson: "第5课",
+                            title: "날씨가 좋지 않아요",
+                            words: [
+                                // 天气
+                                { korean: "날씨", chinese: "天气", example: "날씨가 어렵습니까?", exampleChinese: "天气怎么样？", category: "天气" },
+                                { korean: "하늘", chinese: "天空", example: "하늘이 맑아요.", exampleChinese: "天空很晴朗。", category: "天气" },
+                                { korean: "맑다", chinese: "晴朗", example: "날씨가 맑아요.", exampleChinese: "天气晴朗。", category: "天气" },
+                                { korean: "흐리다", chinese: "阴天", example: "하늘이 흐려요.", exampleChinese: "天空阴沉。", category: "天气" },
+                                { korean: "비", chinese: "雨", example: "비가 내립니다.", exampleChinese: "下雨了。", category: "天气" },
+                                { korean: "눈", chinese: "雪", example: "눈이 내립니까?", exampleChinese: "下雪吗？", category: "天气" },
+                                { korean: "덥다", chinese: "热", example: "날씨가 더워요.", exampleChinese: "天气很热。", category: "天气" },
+                                { korean: "춥다", chinese: "冷", example: "날씨가 추워요.", exampleChinese: "天气很冷。", category: "天气" },
+                                { korean: "따뜻하다", chinese: "温暖", example: "봄에는 날씨가 따뜻해요.", exampleChinese: "春天天气温暖。", category: "天气" },
+                                { korean: "시원하다", chinese: "凉爽", example: "가을에는 날씨가 시원해요.", exampleChinese: "秋天天气凉爽。", category: "天气" },
+                                // 季节
+                                { korean: "봄", chinese: "春天", example: "봄이에요. 날씨가 따뜻해요.", exampleChinese: "是春天。天气温暖。", category: "季节" },
+                                { korean: "여름", chinese: "夏天", example: "여름이에요. 날씨가 더워요.", exampleChinese: "是夏天。天气很热。", category: "季节" },
+                                { korean: "가을", chinese: "秋天", example: "가을이에요. 날씨가 시원해요.", exampleChinese: "是秋天。天气凉爽。", category: "季节" },
+                                { korean: "겨울", chinese: "冬天", example: "겨울이에요. 날씨가 추워요.", exampleChinese: "是冬天。天气很冷。", category: "季节" }
+                            ]
+                        },
+                        {
+                            lesson: "第6课",
+                            title: "선물을 주세요",
+                            words: [
+                                // 礼物相关
+                                { korean: "선물", chinese: "礼物", example: "생일 선물이에요.", exampleChinese: "这是生日礼物。", category: "礼物" },
+                                { korean: "카드", chinese: "卡片", example: "카드를 줘요.", exampleChinese: "我给卡片。", category: "礼物" },
+                                { korean: "편지", chinese: "信", example: "편지를 씁니다.", exampleChinese: "我写信。", category: "礼物" },
+                                // 动词
+                                { korean: "주다", chinese: "给", example: "선물을 줘요.", exampleChinese: "我给礼物。", category: "动词" },
+                                { korean: "보내다", chinese: "寄、发送", example: "카드를 보내요.", exampleChinese: "我寄卡片。", category: "动词" },
+                                { korean: "쓰다", chinese: "写", example: "편지를 써요.", exampleChinese: "我写信。", category: "动词" },
+                                // 问候表达
+                                { korean: "반갑다", chinese: "高兴", example: "만나서 반갑습니다.", exampleChinese: "很高兴见到你。", category: "问候" },
+                                { korean: "실례하다", chinese: "打扰、劳驾", example: "실례합니다.", exampleChinese: "打扰了。", category: "问候" },
+                                { korean: "고맙다", chinese: "谢谢(口语)", example: "고마워요.", exampleChinese: "谢谢。", category: "问候" },
+                                { korean: "감사하다", chinese: "感谢(正式)", example: "감사합니다.", exampleChinese: "谢谢。", category: "问候" },
+                                { korean: "미안하다", chinese: "对不起", example: "미안해요.", exampleChinese: "对不起。", category: "问候" },
+                                { korean: "괜찮다", chinese: "没关系", example: "괜찮아요.", exampleChinese: "没关系。", category: "问候" },
+                                { korean: "안녕히 가세요", chinese: "再见(留步)", example: "안녕히 가세요.", exampleChinese: "再见。(对离开的人说)", category: "问候" },
+                                { korean: "안녕히 계세요", chinese: "再见(慢走)", example: "안녕히 계세요.", exampleChinese: "再见。(对留下的人说)", category: "问候" },
+                                { korean: "천만에요", chinese: "不客气", example: "천만에요.", exampleChinese: "不客气。", category: "问候" }
+                            ]
+                        },
+                        {
+                            lesson: "第7课",
+                            title: "지금 어디에 있어요?",
+                            words: [
+                                // 地点
+                                { korean: "어디", chinese: "哪里", example: "트럼 씨는 어디에 살아요?", exampleChinese: "Trung住在哪里？", category: "地点" },
+                                { korean: "기숙사", chinese: "宿舍", example: "기숙사가 어디입니까?", exampleChinese: "宿舍在哪里？", category: "地点" },
+                                { korean: "서점", chinese: "书店", example: "서점에 책이 많아요.", exampleChinese: "书店里有很多书。", category: "地点" },
+                                // 物品
+                                { korean: "책", chinese: "书", example: "나타샤 씨가 책을 읽어요.", exampleChinese: "Natasha在读书。", category: "物品" },
+                                { korean: "공책", chinese: "笔记本", example: "트럼 씨에게 공책이 있습니다.", exampleChinese: "Trung有笔记本。", category: "物品" },
+                                { korean: "연필", chinese: "铅笔", example: "저한테 연필이 없어요.", exampleChinese: "我没有铅笔。", category: "物品" },
+                                { korean: "책상", chinese: "书桌", example: "교실에 책상이 많아요.", exampleChinese: "教室里有很多书桌。", category: "物品" },
+                                { korean: "의자", chinese: "椅子", example: "책상하고 의자가 있습니다.", exampleChinese: "有书桌和椅子。", category: "物品" },
+                                // 方位
+                                { korean: "앞", chinese: "前面", example: "나무 앞에 있어요.", exampleChinese: "在树前面。", category: "方位" },
+                                { korean: "뒤", chinese: "后面", example: "나무 뒤에 있어요.", exampleChinese: "在树后面。", category: "方位" },
+                                { korean: "옆", chinese: "旁边", example: "나무 옆에 있어요.", exampleChinese: "在树旁边。", category: "方位" },
+                                { korean: "아래", chinese: "下面", example: "책상 아래에 있어요.", exampleChinese: "在书桌下面。", category: "方位" },
+                                { korean: "위", chinese: "上面", example: "책상 위에 있어요.", exampleChinese: "在书桌上面。", category: "方位" },
+                                { korean: "사이", chinese: "之间", example: "책하고 연필 사이에 있어요.", exampleChinese: "在书和铅笔之间。", category: "方位" },
+                                { korean: "가운데", chinese: "中间", example: "가운데 있어요.", exampleChinese: "在中间。", category: "方位" }
+                            ]
+                        },
+                        {
+                            lesson: "第8课",
+                            title: "토요일에 친구를 만났어요",
+                            words: [
+                                // 汉字数词
+                                { korean: "일", chinese: "一", example: "일월이에요.", exampleChinese: "是一月。", category: "汉字数词" },
+                                { korean: "이", chinese: "二", example: "이월이에요.", exampleChinese: "是二月。", category: "汉字数词" },
+                                { korean: "삼", chinese: "三", example: "삼월이에요.", exampleChinese: "是三月。", category: "汉字数词" },
+                                { korean: "사", chinese: "四", example: "사월이에요.", exampleChinese: "是四月。", category: "汉字数词" },
+                                { korean: "오", chinese: "五", example: "오월이에요.", exampleChinese: "是五月。", category: "汉字数词" },
+                                { korean: "육", chinese: "六", example: "육월이에요.", exampleChinese: "是六月。", category: "汉字数词" },
+                                { korean: "칠", chinese: "七", example: "칠월이에요.", exampleChinese: "是七月。", category: "汉字数词" },
+                                { korean: "팔", chinese: "八", example: "팔월이에요.", exampleChinese: "是八月。", category: "汉字数词" },
+                                { korean: "구", chinese: "九", example: "구월이에요.", exampleChinese: "是九月。", category: "汉字数词" },
+                                { korean: "십", chinese: "十", example: "십월이에요.", exampleChinese: "是十月。", category: "汉字数词" },
+                                // 日期相关
+                                { korean: "언제", chinese: "什么时候", example: "생일이 언제예요?", exampleChinese: "生日是什么时候？", category: "日期" },
+                                { korean: "월", chinese: "月", example: "일월이에요.", exampleChinese: "是一月。", category: "日期" },
+                                { korean: "일", chinese: "日", example: "스무칠 일이에요.", exampleChinese: "是二十七号。", category: "日期" },
+                                { korean: "오전", chinese: "上午", example: "오전 11시예요.", exampleChinese: "是上午11点。", category: "日期" },
+                                { korean: "오후", chinese: "下午", example: "오후 5시예요.", exampleChinese: "是下午5点。", category: "日期" },
+                                { korean: "주말", chinese: "周末", example: "주말은 학교에 안 가요.", exampleChinese: "周末不去学校。", category: "日期" },
+                                // 星期
+                                { korean: "월요일", chinese: "星期一", example: "월요일이에요.", exampleChinese: "是星期一。", category: "星期" },
+                                { korean: "화요일", chinese: "星期二", example: "화요일이에요.", exampleChinese: "是星期二。", category: "星期" },
+                                { korean: "수요일", chinese: "星期三", example: "수요일이에요.", exampleChinese: "是星期三。", category: "星期" },
+                                { korean: "목요일", chinese: "星期四", example: "목요일이에요.", exampleChinese: "是星期四。", category: "星期" },
+                                { korean: "금요일", chinese: "星期五", example: "금요일이에요.", exampleChinese: "是星期五。", category: "星期" },
+                                { korean: "토요일", chinese: "星期六", example: "토요일이에요.", exampleChinese: "是星期六。", category: "星期" },
+                                { korean: "일요일", chinese: "星期日", example: "일요일이에요.", exampleChinese: "是星期日。", category: "星期" }
+                            ]
+                        },
+                        {
+                            lesson: "第9课",
+                            title: "저는 수영을 못해요",
+                            words: [
+                                // 运动
+                                { korean: "운동", chinese: "运动", example: "저는 운동을 좋아해요.", exampleChinese: "我喜欢运动。", category: "运动" },
+                                { korean: "수영", chinese: "游泳", example: "나타샤 씨가 수영을 해요.", exampleChinese: "Natasha在游泳。", category: "运动" },
+                                { korean: "축구", chinese: "足球", example: "축구를 해요.", exampleChinese: "踢足球。", category: "运动" },
+                                { korean: "농구", chinese: "篮球", example: "농구를 해요.", exampleChinese: "打篮球。", category: "运动" },
+                                { korean: "야구", chinese: "棒球", example: "야구를 해요.", exampleChinese: "打棒球。", category: "运动" },
+                                // 动词
+                                { korean: "잘하다", chinese: "擅长", example: "수영을 잘해요.", exampleChinese: "擅长游泳。", category: "动词" },
+                                { korean: "못하다", chinese: "不会、不擅长", example: "수영을 못해요.", exampleChinese: "不会游泳。", category: "动词" },
+                                { korean: "연습", chinese: "练习", example: "축구 연습을 해요.", exampleChinese: "练习足球。", category: "动词" },
+                                { korean: "시작하다", chinese: "开始", example: "운동을 시작했어요.", exampleChinese: "开始运动了。", category: "动词" },
+                                // 副词
+                                { korean: "자주", chinese: "经常", example: "운동을 자주 해요?", exampleChinese: "经常运动吗？", category: "副词" },
+                                { korean: "매일", chinese: "每天", example: "매일 농구를 해요.", exampleChinese: "每天打篮球。", category: "副词" },
+                                { korean: "가끔", chinese: "偶尔", example: "가끔 운동을 해요.", exampleChinese: "偶尔运动。", category: "副词" }
+                            ]
+                        },
+                        {
+                            lesson: "第10课",
+                            title: "같이 점심을 먹을까요?",
+                            words: [
+                                // 固有数词
+                                { korean: "하나", chinese: "一", example: "하나, 둘, 셋!", exampleChinese: "一、二、三！", category: "固有数词" },
+                                { korean: "둘", chinese: "二", example: "둘이에요.", exampleChinese: "是两个。", category: "固有数词" },
+                                { korean: "셋", chinese: "三", example: "셋이에요.", exampleChinese: "是三个。", category: "固有数词" },
+                                { korean: "넷", chinese: "四", example: "넷이에요.", exampleChinese: "是四个。", category: "固有数词" },
+                                { korean: "다섯", chinese: "五", example: "다섯 시예요.", exampleChinese: "是五点。", category: "固有数词" },
+                                { korean: "여섯", chinese: "六", example: "여섯 시예요.", exampleChinese: "是六点。", category: "固有数词" },
+                                { korean: "일곱", chinese: "七", example: "일곱 시예요.", exampleChinese: "是七点。", category: "固有数词" },
+                                { korean: "여덟", chinese: "八", example: "여덟 시예요.", exampleChinese: "是八点。", category: "固有数词" },
+                                { korean: "아홉", chinese: "九", example: "아홉 시예요.", exampleChinese: "是九点。", category: "固有数词" },
+                                { korean: "열", chinese: "十", example: "열 시예요.", exampleChinese: "是十点。", category: "固有数词" },
+                                // 时间
+                                { korean: "시", chinese: "点(时间)", example: "다섯 시예요.", exampleChinese: "是五点。", category: "时间" },
+                                { korean: "분", chinese: "分", example: "다섯 시 삼십 분이에요.", exampleChinese: "是五点三十分。", category: "时间" },
+                                { korean: "몇 시", chinese: "几点", example: "지금 몇 시예요?", exampleChinese: "现在几点？", category: "时间" },
+                                // 时段
+                                { korean: "아침", chinese: "早上", example: "아침에 학교에 가요.", exampleChinese: "早上去学校。", category: "时段" },
+                                { korean: "점심", chinese: "中午", example: "점심에 밥을 먹어요.", exampleChinese: "中午吃饭。", category: "时段" },
+                                { korean: "저녁", chinese: "晚上", example: "저녁에 집에서 쉬어요.", exampleChinese: "晚上在家休息。", category: "时段" },
+                                // 表达
+                                { korean: "시간", chinese: "时间", example: "시간이 있어요.", exampleChinese: "有时间。", category: "表达" },
+                                { korean: "한가하다", chinese: "空闲", example: "이번 주말에 한가해요.", exampleChinese: "这个周末有空。", category: "表达" }
+                            ]
+                        },
+                        {
+                            lesson: "第11课",
+                            title: "떡볶이는 매워서 잘 못 먹어요",
+                            words: [
+                                // 食物
+                                { korean: "떡볶이", chinese: "炒年糕", example: "떡볶이는 매워요.", exampleChinese: "炒年糕很辣。", category: "食物" },
+                                { korean: "김밥", chinese: "紫菜包饭", example: "김밥을 좋아해요.", exampleChinese: "喜欢紫菜包饭。", category: "食物" },
+                                { korean: "비빔밥", chinese: "拌饭", example: "비빔밥이 맛있어요.", exampleChinese: "拌饭很好吃。", category: "食物" },
+                                { korean: "음료수", chinese: "饮料", example: "음료수를 마셔요.", exampleChinese: "喝饮料。", category: "食物" },
+                                { korean: "메뉴", chinese: "菜单", example: "메뉴를 봐요.", exampleChinese: "看菜单。", category: "食物" },
+                                // 点餐
+                                { korean: "인분", chinese: "份", example: "비빔밥 두 인분 주세요.", exampleChinese: "请给我两份拌饭。", category: "点餐" },
+                                { korean: "주세요", chinese: "请给我", example: "김밥 한 인분 주세요.", exampleChinese: "请给我一份紫菜包饭。", category: "点餐" },
+                                // 味道
+                                { korean: "맛있다", chinese: "好吃", example: "이 음식은 맛있어요.", exampleChinese: "这个食物很好吃。", category: "味道" },
+                                { korean: "맛없다", chinese: "不好吃", example: "이 음식은 맛없어요.", exampleChinese: "这个食物不好吃。", category: "味道" },
+                                { korean: "맵다", chinese: "辣", example: "떡볶이는 매워요.", exampleChinese: "炒年糕很辣。", category: "味道" },
+                                { korean: "달다", chinese: "甜", example: "이 케이크는 달아요.", exampleChinese: "这个蛋糕很甜。", category: "味道" },
+                                { korean: "짜다", chinese: "咸", example: "이 찌개는 짜요.", exampleChinese: "这个汤很咸。", category: "味道" },
+                                { korean: "쓰다", chinese: "苦", example: "이 약은 써요.", exampleChinese: "这个药很苦。", category: "味道" },
+                                { korean: "싱겁다", chinese: "淡", example: "국이 싱거워요.", exampleChinese: "汤很淡。", category: "味道" }
+                            ]
+                        },
+                        {
+                            lesson: "第12课",
+                            title: "운동화를 좀 보고 싶어요",
+                            words: [
+                                // 物品
+                                { korean: "선물", chinese: "礼物", example: "친구에게 선물을 받았어요.", exampleChinese: "收到了朋友的礼物。", category: "物品" },
+                                { korean: "가방", chinese: "包", example: "가방 안에 책이 있어요.", exampleChinese: "包里有书。", category: "物品" },
+                                { korean: "모자", chinese: "帽子", example: "모자를 써요.", exampleChinese: "戴帽子。", category: "物品" },
+                                { korean: "옷", chinese: "衣服", example: "새 옷을 입었어요.", exampleChinese: "穿了新衣服。", category: "物品" },
+                                { korean: "신발", chinese: "鞋", example: "신발을 벗으세요.", exampleChinese: "请脱鞋。", category: "物品" },
+                                { korean: "화장품", chinese: "化妆品", example: "화장품을 샀어요.", exampleChinese: "买了化妆品。", category: "物品" },
+                                // 购物
+                                { korean: "가게", chinese: "店", example: "가게에 손님이 많아요.", exampleChinese: "店里客人很多。", category: "购物" },
+                                { korean: "원", chinese: "韩元", example: "오만 원이에요.", exampleChinese: "是五万韩元。", category: "购物" },
+                                { korean: "가격", chinese: "价格", example: "가격이 비싸요.", exampleChinese: "价格很贵。", category: "购物" },
+                                { korean: "점원", chinese: "店员", example: "점원이 친절해요.", exampleChinese: "店员很亲切。", category: "购物" },
+                                // 动词/形容词
+                                { korean: "사다", chinese: "买", example: "옷을 샀어요.", exampleChinese: "买了衣服。", category: "动词" },
+                                { korean: "비싸다", chinese: "贵", example: "이 옷은 비싸요.", exampleChinese: "这件衣服很贵。", category: "形容词" },
+                                { korean: "싸다", chinese: "便宜", example: "이 신발은 싸요.", exampleChinese: "这双鞋很便宜。", category: "形容词" },
+                                { korean: "할인하다", chinese: "打折", example: "할인해서 쌌어요.", exampleChinese: "打折后很便宜。", category: "动词" },
+                                { korean: "얼마예요?", chinese: "多少钱?", example: "이 옷은 얼마예요?", exampleChinese: "这件衣服多少钱？", category: "表达" },
+                                { korean: "고르다", chinese: "挑选", example: "주스를 골랐어요.", exampleChinese: "挑选了果汁。", category: "动词" }
+                            ]
+                        },
+                        {
+                            lesson: "第13课",
+                            title: "케이팝(K-pop) 댄스를 좋아해요?",
+                            words: [
+                                // 兴趣爱好
+                                { korean: "취미", chinese: "兴趣、爱好", example: "취미가 뭐예요?", exampleChinese: "你的爱好是什么？", category: "兴趣" },
+                                { korean: "케이팝 댄스", chinese: "K-pop舞蹈", example: "케이팝 댄스를 좋아해요.", exampleChinese: "我喜欢K-pop舞蹈。", category: "兴趣" },
+                                { korean: "그림", chinese: "画、绘画", example: "그림을 그려요.", exampleChinese: "画画。", category: "兴趣" },
+                                { korean: "요리", chinese: "料理、烹饪", example: "한국 요리를 먹을까요?", exampleChinese: "吃韩餐怎么样？", category: "兴趣" },
+                                { korean: "악기", chinese: "乐器", example: "이 악기 이름이 뭐예요?", exampleChinese: "这个乐器叫什么？", category: "兴趣" },
+                                { korean: "사진", chinese: "照片", example: "사진을 찍어요.", exampleChinese: "拍照。", category: "兴趣" },
+                                // 动词
+                                { korean: "추다", chinese: "跳舞", example: "케이팝 댄스를 춰요.", exampleChinese: "跳K-pop舞蹈。", category: "动词" },
+                                { korean: "그리다", chinese: "画", example: "그림을 그려요.", exampleChinese: "画画。", category: "动词" },
+                                { korean: "만들다", chinese: "做、制作", example: "한국 음식을 만들어요.", exampleChinese: "做韩国食物。", category: "动词" },
+                                { korean: "연주하다", chinese: "演奏", example: "피아노를 연주해요.", exampleChinese: "演奏钢琴。", category: "动词" },
+                                { korean: "찍다", chinese: "拍照", example: "사진을 찍어요.", exampleChinese: "拍照。", category: "动词" },
+                                { korean: "배우다", chinese: "学习", example: "학교에서 외국어를 배워요.", exampleChinese: "在学校学外语。", category: "动词" }
+                            ]
+                        },
+                        {
+                            lesson: "第14课",
+                            title: "고향에 가기 전에 여행을 할 거예요",
+                            words: [
+                                // 旅行地点
+                                { korean: "여행", chinese: "旅行", example: "여행을 가요.", exampleChinese: "去旅行。", category: "旅行" },
+                                { korean: "산", chinese: "山", example: "산에 가요.", exampleChinese: "去爬山。", category: "旅行" },
+                                { korean: "바다", chinese: "海", example: "바다가 예뻐요.", exampleChinese: "海很漂亮。", category: "旅行" },
+                                { korean: "서울", chinese: "首尔", example: "서울에 가요.", exampleChinese: "去首尔。", category: "旅行" },
+                                { korean: "부산", chinese: "釜山", example: "부산에 갔어요.", exampleChinese: "去了釜山。", category: "旅行" },
+                                { korean: "외국", chinese: "外国", example: "외국에 가요.", exampleChinese: "去国外。", category: "旅行" },
+                                // 旅行相关
+                                { korean: "여권", chinese: "护照", example: "여권을 가져왔어요.", exampleChinese: "带了护照。", category: "旅行" },
+                                { korean: "여행사", chinese: "旅行社", example: "여행사에서 예약했어요.", exampleChinese: "在旅行社预订了。", category: "旅行" },
+                                { korean: "호텔", chinese: "酒店", example: "호텔에서 자요.", exampleChinese: "在酒店睡觉。", category: "旅行" },
+                                { korean: "숙소", chinese: "住宿", example: "숙소를 예약했어요.", exampleChinese: "预订了住宿。", category: "旅行" },
+                                // 动词
+                                { korean: "예약하다", chinese: "预约", example: "숙소를 예약했어요.", exampleChinese: "预订了住宿。", category: "动词" },
+                                { korean: "예매하다", chinese: "预订(票)", example: "비행기 표를 예매할 거예요.", exampleChinese: "要预订机票。", category: "动词" },
+                                { korean: "고향", chinese: "故乡", example: "고향에 가요.", exampleChinese: "回故乡。", category: "旅行" }
+                            ]
+                        },
+                        {
+                            lesson: "第15课",
+                            title: "약을 먹은 후에 쭉 쉬세요",
+                            words: [
+                                // 身体部位
+                                { korean: "머리", chinese: "头", example: "머리가 아파요.", exampleChinese: "头疼。", category: "身体" },
+                                { korean: "목", chinese: "喉咙、脖子", example: "목이 아파요.", exampleChinese: "喉咙疼。", category: "身体" },
+                                { korean: "배", chinese: "肚子", example: "배가 아파요.", exampleChinese: "肚子疼。", category: "身体" },
+                                { korean: "팔", chinese: "手臂", example: "팔이 아파요.", exampleChinese: "手臂疼。", category: "身体" },
+                                { korean: "손", chinese: "手", example: "손이 아파요.", exampleChinese: "手疼。", category: "身体" },
+                                { korean: "다리", chinese: "腿", example: "다리가 아파요.", exampleChinese: "腿疼。", category: "身体" },
+                                { korean: "발", chinese: "脚", example: "발이 아파요.", exampleChinese: "脚疼。", category: "身体" },
+                                // 治疗
+                                { korean: "병원", chinese: "医院", example: "병원에 가요.", exampleChinese: "去医院。", category: "治疗" },
+                                { korean: "약", chinese: "药", example: "약을 먹었어요.", exampleChinese: "吃了药。", category: "治疗" },
+                                { korean: "약국", chinese: "药店", example: "약국에서 약을 사요.", exampleChinese: "在药店买药。", category: "治疗" },
+                                // 症状
+                                { korean: "아프다", chinese: "疼、生病", example: "머리가 아파요.", exampleChinese: "头疼。", category: "症状" },
+                                { korean: "피곤하다", chinese: "疲惫", example: "피곤해요.", exampleChinese: "很累。", category: "症状" },
+                                { korean: "스트레스", chinese: "压力", example: "스트레스를 받아요.", exampleChinese: "受到压力。", category: "症状" },
+                                { korean: "감기", chinese: "感冒", example: "감기에 걸렸어요.", exampleChinese: "感冒了。", category: "症状" },
+                                // 表达
+                                { korean: "쉬다", chinese: "休息", example: "쭉 쉬세요.", exampleChinese: "好好休息。", category: "表达" },
+                                { korean: "어디가 아프세요?", chinese: "哪里不舒服?", example: "어디가 아프세요?", exampleChinese: "哪里不舒服？", category: "表达" }
+                            ]
+                        },
+                        {
+                            lesson: "第16课",
+                            title: "교통수단을 이용해요",
+                            words: [
+                                // 交通工具
+                                { korean: "버스", chinese: "公交车", example: "버스를 타고 학교에 가요.", exampleChinese: "坐公交去学校。", category: "交通" },
+                                { korean: "지하철", chinese: "地铁", example: "지하철을 타요.", exampleChinese: "坐地铁。", category: "交通" },
+                                { korean: "기차", chinese: "火车", example: "기차를 타고 부산에 가요.", exampleChinese: "坐火车去釜山。", category: "交通" },
+                                { korean: "비행기", chinese: "飞机", example: "비행기를 타요.", exampleChinese: "坐飞机。", category: "交通" },
+                                { korean: "배", chinese: "船", example: "배를 타요.", exampleChinese: "坐船。", category: "交通" },
+                                // 交通设施
+                                { korean: "역", chinese: "车站", example: "역에서 기차표를 샀어요.", exampleChinese: "在车站买了火车票。", category: "交通" },
+                                { korean: "정류장", chinese: "公交站", example: "버스 정류장에서 기다려요.", exampleChinese: "在公交站等。", category: "交通" },
+                                { korean: "터미널", chinese: "航站楼", example: "터미널에서 버스를 타요.", exampleChinese: "在航站楼坐公交。", category: "交通" },
+                                // 动词
+                                { korean: "타다", chinese: "乘坐", example: "버스를 타요.", exampleChinese: "坐公交。", category: "动词" },
+                                { korean: "걸어가다", chinese: "走路去", example: "학교에 걸어가요.", exampleChinese: "走路去学校。", category: "动词" },
+                                // 距离相关
+                                { korean: "거리", chinese: "距离", example: "거리가 얼마나 돼요?", exampleChinese: "距离有多远？", category: "距离" },
+                                { korean: "가깝다", chinese: "近", example: "학교가 가까워요.", exampleChinese: "学校很近。", category: "距离" },
+                                { korean: "멀다", chinese: "远", example: "회사가 멀어요.", exampleChinese: "公司很远。", category: "距离" },
+                                { korean: "얼마나", chinese: "多少(时间/程度)", example: "얼마나 걸려요?", exampleChinese: "需要多久？", category: "距离" },
+                                // 表达
+                                { korean: "길이 막히다", chinese: "堵车", example: "길이 많이 막혀요.", exampleChinese: "很堵车。", category: "表达" },
+                                { korean: "걸리다", chinese: "花费(时间)", example: "한 시간 걸려요.", exampleChinese: "需要一小时。", category: "表达" }
+                            ]
+                        },
+                        {
+                            lesson: "第17课",
+                            title: "집들이에 뭘 사 가야 해요?",
+                            words: [
+                                // 乔迁聚会
+                                { korean: "집들이", chinese: "乔迁聚会", example: "집들이에 초대받았어요.", exampleChinese: "被邀请参加乔迁聚会。", category: "聚会" },
+                                { korean: "초대장", chinese: "请柬", example: "초대장을 받았어요.", exampleChinese: "收到了请柬。", category: "聚会" },
+                                { korean: "휴지", chinese: "纸巾", example: "휴지를 사 갔어요.", exampleChinese: "买了纸巾带去。", category: "物品" },
+                                { korean: "세제", chinese: "洗涤剂", example: "세제를 샀어요.", exampleChinese: "买了洗涤剂。", category: "物品" },
+                                // 动词
+                                { korean: "이사하다", chinese: "搬家", example: "이사했어요.", exampleChinese: "搬家了。", category: "动词" },
+                                { korean: "도와주다", chinese: "帮助", example: "도와줄 수 있어요?", exampleChinese: "能帮我吗？", category: "动词" },
+                                { korean: "초대하다", chinese: "邀请", example: "친구를 초대했어요.", exampleChinese: "邀请了朋友。", category: "动词" },
+                                { korean: "준비하다", chinese: "准备", example: "음식을 준비했어요.", exampleChinese: "准备了食物。", category: "动词" },
+                                // 表达
+                                { korean: "뭘", chinese: "什么(做什么)", example: "뭘 사 갈까요?", exampleChinese: "买什么去呢？", category: "表达" },
+                                { korean: "가야 하다", chinese: "必须去", example: "가야 해요.", exampleChinese: "必须去。", category: "表达" }
+                            ]
                         }
                     ]
                 },
@@ -1071,10 +1498,11 @@
 
         // 学习模式
         const modes = [
-            { id: 'flashcard', name: '闪卡记忆', icon: '📇', desc: '翻转卡片记忆单词' },
+            { id: 'flashcard', name: '闪卡记忆', icon: '📇', desc: '点击显示中文和例句' },
             { id: 'typing', name: '打字练习', icon: '⌨️', desc: '看中文打韩文' },
             { id: 'choice', name: '选择测试', icon: '📋', desc: '四选一选择题' },
-            { id: 'listen', name: '听写练习', icon: '🎧', desc: '听发音写单词' }
+            { id: 'listen', name: '听写练习', icon: '🎧', desc: '听发音写单词' },
+            { id: 'sentence', name: '例句填空', icon: '✏️', desc: '在语境中填空' }
         ];
 
         // 状态管理
@@ -1423,6 +1851,9 @@
                 case 'listen':
                     renderListen(container);
                     break;
+                case 'sentence':
+                    renderSentence(container);
+                    break;
             }
         }
 
@@ -1436,20 +1867,23 @@
         }
 
         // 闪卡
+        let flashcardRevealed = false;
+        
         function renderFlashcard(container) {
             const word = studyWords[currentIndex];
+            flashcardRevealed = false;
             container.innerHTML = `
-                <p class="flip-hint">👆 点击卡片翻转</p>
-                <div class="flashcard-container">
-                    <div class="flashcard" onclick="this.classList.toggle('flipped')">
-                        <div class="flashcard-front">
-                            <span class="category-tag">${word.category}</span>
-                            <div class="korean-text">${word.korean}</div>
-                        </div>
-                        <div class="flashcard-back">
-                            <span class="category-tag">${word.category}</span>
-                            <div class="chinese-text">${word.chinese}</div>
-                            <div class="example-text">${word.example}</div>
+                <div class="flashcard-simple" onclick="revealFlashcard()">
+                    <div class="flashcard-main">
+                        <span class="category-tag">${word.category || ''}</span>
+                        <div class="korean-text">${word.korean}</div>
+                    </div>
+                </div>
+                <div id="flashcard-detail" style="display: none;">
+                    <div class="flashcard-detail-card">
+                        <div class="chinese-text">${word.chinese}</div>
+                        <div class="example-section">
+                            <div class="example-text">${word.example || ''}</div>
                             <div class="example-chinese">${word.exampleChinese || ''}</div>
                         </div>
                     </div>
@@ -1464,6 +1898,17 @@
             `;
             // 自动播放发音
             setTimeout(() => speak(word.korean), 300);
+        }
+        
+        function revealFlashcard() {
+            const detail = document.getElementById('flashcard-detail');
+            if (detail.style.display === 'none') {
+                detail.style.display = 'block';
+                flashcardRevealed = true;
+            } else {
+                detail.style.display = 'none';
+                flashcardRevealed = false;
+            }
         }
 
         // 打字练习
@@ -1661,6 +2106,110 @@
                 `;
                 addToWrongList(word, userAnswer, 'listen');
                 // 清空输入框让用户重试
+                setTimeout(() => {
+                    input.value = '';
+                    input.classList.remove('wrong');
+                    input.focus();
+                }, 800);
+            }
+        }
+
+        // 例句填空模式
+        let sentenceMode = 1; // 1: 中文→填韩文, 2: 韩文→填中文
+        
+        function renderSentence(container) {
+            const word = studyWords[currentIndex];
+            
+            // 生成带空白的句子
+            let blankSentence = '';
+            let answer = '';
+            let hint = '';
+            
+            if (word.example) {
+                // 从例句中生成空白
+                if (word.example.includes(word.korean)) {
+                    blankSentence = word.example.replace(word.korean, '<span class="sentence-blank">____</span>');
+                    answer = word.korean;
+                } else {
+                    // 如果例句不包含该单词，直接显示例句，让用户填单词
+                    blankSentence = word.example + ' <span class="sentence-blank">____</span>';
+                    answer = word.korean;
+                }
+            } else {
+                // 没有例句，直接显示中文让用户填韩文
+                blankSentence = '<span class="sentence-blank">____</span>';
+                answer = word.korean;
+            }
+            
+            // 随机选择模式
+            sentenceMode = Math.random() > 0.5 ? 1 : 2;
+            
+            container.innerHTML = `
+                <div class="typing-container">
+                    <p class="typing-hint">例句填空 - ${sentenceMode === 1 ? '填韩文' : '填中文'}</p>
+                    <div class="sentence-hint">
+                        💡 提示：${sentenceMode === 1 ? word.chinese : word.korean}
+                    </div>
+                    <div class="sentence-display">${blankSentence}</div>
+                    ${word.exampleChinese ? `<div style="color: #888; font-size: 0.95rem; margin-bottom: 20px;">${word.exampleChinese}</div>` : ''}
+                    <input type="text" class="typing-input" id="sentence-input" 
+                           placeholder="请输入答案..." 
+                           onkeyup="checkSentence(event)"
+                           autocomplete="off" autofocus>
+                    <div style="margin-top: 20px;">
+                        <button class="audio-btn" onclick="speak('${word.example || word.korean}')">🔊 播放例句</button>
+                    </div>
+                </div>
+                <div id="sentence-feedback"></div>
+                <div class="nav-buttons">
+                    <button class="check-btn" onclick="submitSentence()">✓ 检验</button>
+                    <button class="nav-btn secondary" onclick="nextWord()">跳过 →</button>
+                </div>
+            `;
+            setTimeout(() => document.getElementById('sentence-input').focus(), 100);
+        }
+        
+        function submitSentence() {
+            const input = document.getElementById('sentence-input');
+            checkSentenceAnswer(input.value.trim());
+        }
+        
+        function checkSentence(event) {
+            if (event.key === 'Enter') {
+                const input = document.getElementById('sentence-input');
+                checkSentenceAnswer(input.value.trim());
+            }
+        }
+        
+        function checkSentenceAnswer(userAnswer) {
+            const word = studyWords[currentIndex];
+            const input = document.getElementById('sentence-input');
+            const feedback = document.getElementById('sentence-feedback');
+            
+            const correctAnswer = sentenceMode === 1 ? word.korean : word.chinese;
+            
+            if (userAnswer === correctAnswer) {
+                input.classList.add('correct');
+                input.classList.remove('wrong');
+                feedback.innerHTML = `
+                    <div class="feedback correct">
+                        ✅ 正确！
+                        <div class="feedback-info">完整句子：${word.example || word.korean}</div>
+                    </div>
+                `;
+                learnedWords.add(`${word.korean}-${currentVocab.id}-${currentLesson.lesson}`);
+                saveData();
+                setTimeout(() => nextWord(), 2000);
+            } else {
+                input.classList.add('wrong');
+                input.classList.remove('correct');
+                feedback.innerHTML = `
+                    <div class="feedback wrong">
+                        ❌ 错误！
+                        <div class="feedback-info">正确答案：${correctAnswer}</div>
+                    </div>
+                `;
+                addToWrongList(word, userAnswer, 'sentence');
                 setTimeout(() => {
                     input.value = '';
                     input.classList.remove('wrong');
