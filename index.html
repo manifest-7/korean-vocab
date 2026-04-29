@@ -1745,7 +1745,12 @@
                             words: [
                                 { korean: "사랑", chinese: "爱", example: "사랑해요.", exampleChinese: "我爱你。", category: "情感" },
                                 { korean: "운명", chinese: "命运", example: "이건 운명이에요.", exampleChinese: "这是命运。", category: "名词" },
-                                { korean: "기억", chinese: "记忆", example: "기억이 안 나요.", exampleChinese: "想不起来了。", category: "名词" }
+                                { korean: "기억", chinese: "记忆", example: "기억이 안 나요.", exampleChinese: "想不起来了。", category: "名词" },
+                                { korean: "제작비", chinese: "制作费", example: "제작비가 많이 들었어요.", exampleChinese: "制作费花了很多。", category: "影视" },
+                                { korean: "OTT", chinese: "流媒体平台", example: "OTT에서 드라마를 봐요.", exampleChinese: "在流媒体平台看剧。", category: "影视" },
+                                { korean: "시즌", chinese: "季度", example: "시즌 2가 나왔어요.", exampleChinese: "第二季出了。", category: "影视" },
+                                { korean: "제작사", chinese: "制作公司", example: "제작사에서 발표했어요.", exampleChinese: "制作公司公布了。", category: "影视" },
+                                { korean: "연예계", chinese: "演艺圈", example: "연예계에 입문했어요.", exampleChinese: "进入演艺圈了。", category: "影视" }
                             ]
                         }
                     ]
@@ -2366,6 +2371,9 @@
         
         // 判断是否可以作为收音
         function canBeFinal(char) {
+            // 紧音（ㅃ, ㅉ, ㄸ, ㄲ）不作为收音使用，应该开始新字
+            const tenseConsonants = ['ㅃ', 'ㅉ', 'ㄸ', 'ㄲ'];
+            if (tenseConsonants.includes(char)) return false;
             return JAMO.finals.includes(char);
         }
         
