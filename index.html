@@ -2544,9 +2544,70 @@
             }
         }
         
+        // 分解韩文字并删除一部分
+        function decomposeAndDelete(text) {
+            if (!text) return '';
+            
+            const lastChar = text.slice(-1);
+            const charCode = lastChar.charCodeAt(0);
+            
+            // 如果是完整的韩文字（AC00-D7A3范围）
+            if (charCode >= 0xAC00 && charCode <= 0xD7A3) {
+                const syllableIndex = charCode - 0xAC00;
+                const initialIndex = Math.floor(syllableIndex / 588);
+                const medialIndex = Math.floor((syllableIndex % 588) / 28);
+                const finalIndex = syllableIndex % 28;
+                
+                // 有收音：去掉收音
+                if (finalIndex > 0) {
+                    const newCode = 0xAC00 + initialIndex * 588 + medialIndex * 28;
+                    return text.slice(0, -1) + String.fromCharCode(newCode);
+                }
+                
+                // 无收音但有元音：去掉元音，保留初声
+                const initial = JAMO.initials[initialIndex];
+                return text.slice(0, -1) + initial;
+            }
+            
+            // 如果是单独的韩文字母，直接删除
+            if (canBeInitial(lastChar) || isMedial(lastChar) || canBeFinal(lastChar)) {
+                return text.slice(0, -1);
+            }
+            
+            // 其他情况直接删除
+            return text.slice(0, -1);
+        }
+        
         // 处理键盘按下
         function handleKeyDown(event) {
             const key = event.key.toLowerCase();
+            
+            // Backspace键：分解删除
+            if (event.key === 'Backspace') {
+                const input = document.getElementById('typing-input') || document.getElementById('sentence-input');
+                if (input) {
+                    const cursorPos = input.selectionStart || 0;
+                    const value = input.value;
+                    
+                    // 如果有选中内容，正常删除
+                    if (input.selectionStart !== input.selectionEnd) {
+                        return; // 使用默认行为
+                    }
+                    
+                    // 光标在开头，不做处理
+                    if (cursorPos === 0) {
+                        return; // 使用默认行为
+                    }
+                    
+                    event.preventDefault();
+                    const before = value.substring(0, cursorPos);
+                    const after = value.substring(cursorPos);
+                    const newBefore = decomposeAndDelete(before);
+                    input.value = newBefore + after;
+                    input.setSelectionRange(newBefore.length, newBefore.length);
+                }
+                return;
+            }
             
             // Enter键检验答案
             if (event.key === 'Enter') {
@@ -2579,7 +2640,7 @@
                 highlightKey(key);
                 typeKorean(KEY_CODE_MAP[key]);
             }
-            // 其他键（Backspace、方向键等）正常处理
+            // 其他键（方向键等）正常处理
         }
         
         // 提交打字答案（点击检验按钮）
