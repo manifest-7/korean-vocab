@@ -719,6 +719,16 @@
             color: #999;
         }
 
+        .wrong-category-card.disabled {
+            opacity: 0.5;
+            cursor: default;
+        }
+
+        .wrong-category-card.disabled:hover {
+            transform: none;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        }
+
         .wrong-detail-list {
             margin-top: 20px;
         }
@@ -1794,6 +1804,7 @@
         // 初始化
         function init() {
             loadData();
+            migrateWrongData(); // 迁移旧数据格式
             renderVocabList();
             renderWrongList();
         }
@@ -1806,9 +1817,69 @@
                 learnedWords = new Set(data.learnedWords || []);
                 wrongWords = data.wrongWords || [];
                 wrongWords.forEach(item => {
-                    if (!item.count) item.count = 1;
+                    if (!item.count && !item.totalCount) item.totalCount = 1;
                 });
             }
+        }
+        
+        // 迁移旧数据格式（按模式分开的合并为按单词）
+        function migrateWrongData() {
+            // 检查是否需要迁移（有旧格式数据）
+            const needMigrateOld = wrongWords.some(w => w.mode && !w.modeCounts);
+            // 检查是否有重复记录（同一个单词多条记录）
+            const hasDuplicates = (() => {
+                const seen = new Set();
+                for (const w of wrongWords) {
+                    const key = `${w.korean}-${w.chinese}`;
+                    if (seen.has(key)) return true;
+                    seen.add(key);
+                }
+                return false;
+            })();
+            
+            if (!needMigrateOld && !hasDuplicates) return;
+            
+            // 按单词+中文分组（忽略来源）
+            const grouped = {};
+            wrongWords.forEach(item => {
+                const key = `${item.korean}-${item.chinese}`;
+                if (!grouped[key]) {
+                    // 初始化或合并
+                    const existing = item.modeCounts || { typing: 0, choice: 0, listen: 0, sentence: 0 };
+                    grouped[key] = {
+                        korean: item.korean,
+                        chinese: item.chinese,
+                        example: item.example,
+                        exampleChinese: item.exampleChinese,
+                        vocabId: item.vocabId,
+                        vocabName: item.vocabName,
+                        lesson: item.lesson,
+                        modeCounts: existing,
+                        totalCount: item.totalCount || item.count || 1,
+                        lastUserAnswer: item.lastUserAnswer || item.userAnswer,
+                        lastWrongMode: item.lastWrongMode || item.mode,
+                        lastWrongTime: item.lastWrongTime || Date.now(),
+                        status: item.status || 0,
+                        correctCount: item.correctCount || 0
+                    };
+                } else {
+                    // 合并到已有记录
+                    const g = grouped[key];
+                    // 累加各模式次数
+                    if (item.modeCounts) {
+                        Object.keys(item.modeCounts).forEach(m => {
+                            g.modeCounts[m] += item.modeCounts[m];
+                        });
+                    } else if (item.mode && g.modeCounts.hasOwnProperty(item.mode)) {
+                        g.modeCounts[item.mode] += (item.count || 1);
+                    }
+                    g.totalCount += (item.totalCount || item.count || 1);
+                }
+            });
+            
+            // 转换为数组
+            wrongWords = Object.values(grouped);
+            saveData();
         }
 
         function saveData() {
@@ -2694,6 +2765,10 @@
                 input.classList.remove('wrong');
                 feedback.innerHTML = '<div class="feedback correct">✅ 正确！</div>';
                 learnedWords.add(`${word.korean}-${currentVocab.id}-${currentLesson.lesson}`);
+                // 如果是错题练习，更新错题状态
+                if (currentVocab && currentVocab.id === 'wrong') {
+                    handleWrongCorrect(word);
+                }
                 saveData();
                 // 1.5秒后自动进入下一个
                 setTimeout(() => nextWord(), 1500);
@@ -2773,6 +2848,10 @@
                 btn.classList.add('correct');
                 feedback.innerHTML = '<div class="feedback correct">✅ 正确！</div>';
                 learnedWords.add(`${correct}-${currentVocab.id}-${currentLesson.lesson}`);
+                // 如果是错题练习，更新错题状态
+                if (currentVocab && currentVocab.id === 'wrong') {
+                    handleWrongCorrect(studyWords[currentIndex]);
+                }
                 saveData();
                 // 1.5秒后自动进入下一个
                 setTimeout(() => nextWord(), 1500);
@@ -2840,6 +2919,10 @@
                 input.classList.remove('wrong');
                 feedback.innerHTML = '<div class="feedback correct">✅ 正确！</div>';
                 learnedWords.add(`${word.korean}-${currentVocab.id}-${currentLesson.lesson}`);
+                // 如果是错题练习，更新错题状态
+                if (currentVocab && currentVocab.id === 'wrong') {
+                    handleWrongCorrect(word);
+                }
                 saveData();
                 // 1.5秒后自动进入下一个
                 setTimeout(() => nextWord(), 1500);
@@ -2938,6 +3021,10 @@
                     </div>
                 `;
                 learnedWords.add(`${word.korean}-${currentVocab.id}-${currentLesson.lesson}`);
+                // 如果是错题练习，更新错题状态
+                if (currentVocab && currentVocab.id === 'wrong') {
+                    handleWrongCorrect(word);
+                }
                 saveData();
                 setTimeout(() => nextWord(), 2000);
             } else {
@@ -3039,72 +3126,112 @@
             }
         }
 
-        // 错题本 - 按单词+类型分别记录
+        // 错题本 - 按单词合并记录，支持状态系统
         let currentWrongType = null; // 当前查看的错题类型
         
+        // 状态常量：0=新错题🔴, 1=复习中🟡, 2=已掌握🟢
+        const WRONG_STATUS = { NEW: 0, REVIEWING: 1, MASTERED: 2 };
+        const STATUS_INFO = {
+            0: { text: '新错题', color: '#e74c3c', icon: '🔴' },
+            1: { text: '复习中', color: '#f39c12', icon: '🟡' },
+            2: { text: '已掌握', color: '#27ae60', icon: '🟢' }
+        };
+        
         function addToWrongList(word, userAnswer, mode) {
-            // 使用单词+类型作为唯一标识
-            const uniqueKey = `${word.korean}-${currentVocab.id}-${currentLesson.lesson}-${mode}`;
+            // 只用单词+中文作为唯一标识（合并各模式和各来源）
             const existingIndex = wrongWords.findIndex(w => 
                 w.korean === word.korean && 
-                w.vocabId === currentVocab.id && 
-                w.lesson === currentLesson.lesson &&
-                w.mode === mode
+                w.chinese === word.chinese
             );
             
             if (existingIndex >= 0) {
-                wrongWords[existingIndex].count++;
-                wrongWords[existingIndex].userAnswer = userAnswer;
+                // 已存在，更新对应模式的错误次数
+                const item = wrongWords[existingIndex];
+                if (!item.modeCounts) item.modeCounts = { typing: 0, choice: 0, listen: 0, sentence: 0 };
+                item.modeCounts[mode]++;
+                item.totalCount++;
+                item.lastUserAnswer = userAnswer;
+                item.lastWrongMode = mode;
+                item.lastWrongTime = Date.now();
+                // 答错重置状态
+                if (item.status === WRONG_STATUS.MASTERED) {
+                    item.status = WRONG_STATUS.NEW;
+                    item.correctCount = 0;
+                } else {
+                    item.correctCount = 0;
+                }
+                // 保留原始来源信息（如果原来没有）
+                if (!item.vocabId || item.vocabId === 'wrong') {
+                    item.vocabId = currentVocab.id;
+                    item.vocabName = currentVocab.name;
+                    item.lesson = currentLesson.lesson;
+                }
             } else {
+                // 新错题
+                const modeCounts = { typing: 0, choice: 0, listen: 0, sentence: 0 };
+                modeCounts[mode] = 1;
                 wrongWords.push({
                     korean: word.korean,
                     chinese: word.chinese,
                     example: word.example,
                     exampleChinese: word.exampleChinese,
-                    userAnswer: userAnswer,
                     vocabId: currentVocab.id,
                     vocabName: currentVocab.name,
                     lesson: currentLesson.lesson,
-                    mode: mode, // typing, choice, listen, sentence
-                    count: 1
+                    modeCounts: modeCounts,
+                    totalCount: 1,
+                    lastUserAnswer: userAnswer,
+                    lastWrongMode: mode,
+                    lastWrongTime: Date.now(),
+                    status: WRONG_STATUS.NEW,
+                    correctCount: 0
                 });
             }
             saveData();
         }
-
+        
         // 错题类型映射
         const wrongTypeNames = {
             'typing': { name: '打字错题', icon: '⌨️', desc: '打字练习中的错误' },
             'choice': { name: '选择错题', icon: '📋', desc: '选择测试中的错误' },
             'listen': { name: '听写错题', icon: '🎧', desc: '听写练习中的错误' },
-            'sentence': { name: '填空错题', icon: '✏️', desc: '例句填空中的错误' }
+            'sentence': { name: '填空错题', icon: '✏️', desc: '例句填空中的错误' },
+            'all': { name: '全部错题', icon: '📝', desc: '所有类型的错误' }
         };
 
         function renderWrongList() {
-            // 计算各类型错题数量
+            // 计算各状态数量
+            const statusCounts = {
+                new: wrongWords.filter(w => w.status === WRONG_STATUS.NEW).length,
+                reviewing: wrongWords.filter(w => w.status === WRONG_STATUS.REVIEWING).length,
+                mastered: wrongWords.filter(w => w.status === WRONG_STATUS.MASTERED).length
+            };
+            
+            // 计算各模式错题数量（有该模式错误的单词数）
             const typeCounts = {
-                'typing': wrongWords.filter(w => w.mode === 'typing').length,
-                'choice': wrongWords.filter(w => w.mode === 'choice').length,
-                'listen': wrongWords.filter(w => w.mode === 'listen').length,
-                'sentence': wrongWords.filter(w => w.mode === 'sentence').length
+                'typing': wrongWords.filter(w => w.modeCounts && w.modeCounts.typing > 0).length,
+                'choice': wrongWords.filter(w => w.modeCounts && w.modeCounts.choice > 0).length,
+                'listen': wrongWords.filter(w => w.modeCounts && w.modeCounts.listen > 0).length,
+                'sentence': wrongWords.filter(w => w.modeCounts && w.modeCounts.sentence > 0).length
             };
             
             const total = wrongWords.length;
+            const activeTotal = wrongWords.filter(w => w.status !== WRONG_STATUS.MASTERED).length;
             
             // 渲染统计
             const statsContainer = document.getElementById('wrong-stats');
             statsContainer.innerHTML = `
                 <div class="wrong-stat-card">
-                    <div class="wrong-stat-value">${total}</div>
-                    <div class="wrong-stat-label">总错题</div>
+                    <div class="wrong-stat-value">${activeTotal}</div>
+                    <div class="wrong-stat-label">待复习</div>
                 </div>
                 <div class="wrong-stat-card">
-                    <div class="wrong-stat-value">${wrongWords.filter(w => w.vocabId === 'sejong1').length}</div>
-                    <div class="wrong-stat-label">第1册</div>
+                    <div class="wrong-stat-value" style="color: #e74c3c">${statusCounts.new}</div>
+                    <div class="wrong-stat-label">🔴 新错题</div>
                 </div>
                 <div class="wrong-stat-card">
-                    <div class="wrong-stat-value">${wrongWords.filter(w => w.vocabId === 'sejong2').length}</div>
-                    <div class="wrong-stat-label">其他词库</div>
+                    <div class="wrong-stat-value" style="color: #27ae60">${statusCounts.mastered}</div>
+                    <div class="wrong-stat-label">🟢 已掌握</div>
                 </div>
             `;
             
@@ -3120,10 +3247,22 @@
                 return;
             }
             
-            categoryContainer.innerHTML = Object.entries(wrongTypeNames).map(([type, info]) => {
+            // 先显示"全部错题"入口
+            let cards = `
+                <div class="wrong-category-card" onclick="showWrongByType('all')" style="background: linear-gradient(135deg, #5B4B8A 0%, #7B6BA8 100%); color: white;">
+                    <div class="wrong-category-info">
+                        <h3 style="color: white">📝 全部错题</h3>
+                        <p style="color: rgba(255,255,255,0.8)">所有待复习的错题</p>
+                    </div>
+                    <div class="wrong-category-count" style="background: rgba(255,255,255,0.2); color: white">${activeTotal}</div>
+                </div>
+            `;
+            
+            // 各模式入口
+            cards += Object.entries(wrongTypeNames).filter(([type]) => type !== 'all').map(([type, info]) => {
                 const count = typeCounts[type];
                 return `
-                    <div class="wrong-category-card" onclick="showWrongByType('${type}')">
+                    <div class="wrong-category-card ${count === 0 ? 'disabled' : ''}" onclick="showWrongByType('${type}')">
                         <div class="wrong-category-info">
                             <h3>${info.icon} ${info.name}</h3>
                             <p>${info.desc}</p>
@@ -3132,13 +3271,28 @@
                     </div>
                 `;
             }).join('');
+            
+            categoryContainer.innerHTML = cards;
         }
 
         // 显示某类型的错题详情
         function showWrongByType(type) {
             currentWrongType = type;
             const typeInfo = wrongTypeNames[type];
-            const typeWrongWords = wrongWords.filter(w => w.mode === type);
+            
+            // 过滤：只显示未掌握的错题
+            let typeWrongWords = wrongWords.filter(w => w.status !== WRONG_STATUS.MASTERED);
+            
+            if (type !== 'all') {
+                // 按模式过滤
+                typeWrongWords = typeWrongWords.filter(w => w.modeCounts && w.modeCounts[type] > 0);
+            }
+            
+            // 智能排序：新错题优先，错误次数多的优先
+            typeWrongWords.sort((a, b) => {
+                if (a.status !== b.status) return a.status - b.status;
+                return b.totalCount - a.totalCount;
+            });
             
             document.getElementById('wrong-detail-title').textContent = `${typeInfo.icon} ${typeInfo.name}`;
             
@@ -3149,27 +3303,34 @@
                 container.innerHTML = `
                     <div class="empty-state">
                         <div class="empty-state-icon">✨</div>
-                        <div class="empty-state-text">该类型暂无错题</div>
+                        <div class="empty-state-text">${type === 'all' ? '太棒了！所有错题都已掌握' : '该类型暂无待复习错题'}</div>
                     </div>
                 `;
                 actionsDiv.style.display = 'none';
             } else {
                 actionsDiv.style.display = 'flex';
-                container.innerHTML = typeWrongWords.map((item, index) => {
+                container.innerHTML = typeWrongWords.map((item) => {
                     const globalIndex = wrongWords.indexOf(item);
+                    const statusInfo = STATUS_INFO[item.status] || STATUS_INFO[0];
+                    // 显示各模式错误次数
+                    const modeBadges = Object.entries(item.modeCounts || {})
+                        .filter(([m, c]) => c > 0)
+                        .map(([m, c]) => `${wrongTypeNames[m].icon}${c}`)
+                        .join(' ');
+                    
                     return `
-                        <div class="wrong-item">
+                        <div class="wrong-item" data-status="${item.status}">
                             <div class="wrong-item-header">
-                                <span class="wrong-item-word">${item.korean}</span>
+                                <span class="wrong-item-word">${item.korean} ${statusInfo.icon}</span>
                                 <span class="wrong-item-lesson">${item.vocabName || ''} · ${item.lesson}</span>
                             </div>
                             <div class="wrong-item-answer">
                                 中文：${item.chinese}<br>
-                                你的答案：<span>${item.userAnswer || '未作答'}</span>
-                                <span class="wrong-item-count">错${item.count}次</span>
+                                <span style="color: #888; font-size: 0.85rem;">${modeBadges} | 共错${item.totalCount}次</span>
                             </div>
                             <div class="wrong-item-actions">
                                 <button class="wrong-item-btn" onclick="speak('${item.korean}')">🔊 发音</button>
+                                <button class="wrong-item-btn" onclick="markWrongMastered(${globalIndex})">✓ 已掌握</button>
                                 <button class="wrong-item-btn" onclick="removeWrongWord(${globalIndex})">✕ 移除</button>
                             </div>
                         </div>
@@ -3182,19 +3343,30 @@
 
         // 练习当前类型的错题
         function practiceWrongByType() {
-            const typeWrongWords = wrongWords.filter(w => w.mode === currentWrongType);
+            let typeWrongWords = wrongWords.filter(w => w.status !== WRONG_STATUS.MASTERED);
+            
+            if (currentWrongType !== 'all') {
+                typeWrongWords = typeWrongWords.filter(w => w.modeCounts && w.modeCounts[currentWrongType] > 0);
+            }
             
             if (typeWrongWords.length === 0) {
-                alert('该类型暂无错题');
+                alert('该类型暂无待复习错题');
                 return;
             }
+            
+            // 智能排序：新错题优先
+            typeWrongWords.sort((a, b) => {
+                if (a.status !== b.status) return a.status - b.status;
+                return b.totalCount - a.totalCount;
+            });
             
             studyWords = typeWrongWords.map(item => ({
                 korean: item.korean,
                 chinese: item.chinese,
                 example: item.example || '',
                 exampleChinese: item.exampleChinese || '',
-                category: '错题'
+                category: '错题',
+                _wrongIndex: wrongWords.indexOf(item) // 保存索引用于更新状态
             }));
             
             // 根据错题类型选择练习模式
@@ -3202,7 +3374,8 @@
                 'typing': 'typing',
                 'choice': 'choice',
                 'listen': 'listen',
-                'sentence': 'sentence'
+                'sentence': 'sentence',
+                'all': 'typing' // 全部错题默认用打字模式
             };
             
             currentVocab = { id: 'wrong', name: '错题本' };
@@ -3215,15 +3388,45 @@
             renderStudyContent();
         }
 
+        // 练习答对时更新错题状态
+        function handleWrongCorrect(word) {
+            const index = wrongWords.findIndex(w => 
+                w.korean === word.korean && 
+                w.chinese === word.chinese
+            );
+            
+            if (index >= 0) {
+                const item = wrongWords[index];
+                item.correctCount = (item.correctCount || 0) + 1;
+                
+                // 连续答对2次，升级状态
+                if (item.correctCount >= 2) {
+                    if (item.status === WRONG_STATUS.NEW) {
+                        item.status = WRONG_STATUS.REVIEWING;
+                        item.correctCount = 0; // 重置计数
+                    } else if (item.status === WRONG_STATUS.REVIEWING) {
+                        item.status = WRONG_STATUS.MASTERED;
+                    }
+                }
+                saveData();
+            }
+        }
+
+        // 标记为已掌握
+        function markWrongMastered(index) {
+            if (wrongWords[index]) {
+                wrongWords[index].status = WRONG_STATUS.MASTERED;
+                saveData();
+                showWrongByType(currentWrongType);
+            }
+        }
+
         // 移除单个错题
         function removeWrongWord(index) {
             wrongWords.splice(index, 1);
             saveData();
+            showWrongByType(currentWrongType);
             renderWrongList();
-            // 如果在详情页，重新渲染
-            if (currentWrongType) {
-                showWrongByType(currentWrongType);
-            }
         }
 
         // 更新课程统计数据
