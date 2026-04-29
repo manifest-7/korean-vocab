@@ -1101,10 +1101,10 @@
         <div id="page-wrong-detail" class="page">
             <button class="back-btn" onclick="showPage('wrong')">← 返回</button>
             <h2 class="page-title" id="wrong-detail-title">📝 错题详情</h2>
-            <div class="wrong-detail-list" id="wrong-detail-list"></div>
-            <div class="wrong-actions" id="wrong-detail-actions" style="display: none;">
+            <div class="wrong-actions" id="wrong-detail-actions" style="display: none; margin-bottom: 20px;">
                 <button class="nav-btn primary" onclick="practiceWrongByType()">📝 练习这些错题</button>
             </div>
+            <div class="wrong-detail-list" id="wrong-detail-list"></div>
         </div>
     </div>
 
@@ -1119,7 +1119,7 @@
                     lessons: [
                         {
                             lesson: "第1课",
-                            title: "안녕? Hello?",
+                            title: "저는 한국 사람이에요",
                             words: [
                                 { korean: "한국", chinese: "韩国", example: "선생님은 한국 사람이에요.", exampleChinese: "我的老师是韩国人。", category: "国家" },
                                 { korean: "미국", chinese: "美国", example: "저는 미국 사람이에요.", exampleChinese: "我是美国人。", category: "国家" },
@@ -1139,7 +1139,7 @@
                         },
                         {
                             lesson: "第2课",
-                            title: "가족 Family",
+                            title: "회사원이 아니에요",
                             words: [
                                 { korean: "아버지", chinese: "父亲", example: "아버지예요.", exampleChinese: "这是我父亲。", category: "家庭" },
                                 { korean: "어머니", chinese: "母亲", example: "어머니예요.", exampleChinese: "这是我母亲。", category: "家庭" },
@@ -2169,17 +2169,13 @@
                 input.classList.remove('correct');
                 feedback.innerHTML = `
                     <div class="feedback wrong">
-                        ❌ 错误！请重新输入
+                        ❌ 错误！请修改后重试
                         <div class="feedback-info">正确答案：${word.korean}</div>
                     </div>
                 `;
                 addToWrongList(word, userAnswer, 'typing');
-                // 清空输入框让用户重试
-                setTimeout(() => {
-                    input.value = '';
-                    input.classList.remove('wrong');
-                    input.focus();
-                }, 800);
+                // 不清空输入框，让用户继续修改
+                input.focus();
             }
         }
 
@@ -2316,22 +2312,18 @@
                 input.classList.remove('correct');
                 feedback.innerHTML = `
                     <div class="feedback wrong">
-                        ❌ 错误！请重新输入
+                        ❌ 错误！请修改后重试
                         <div class="feedback-info">正确答案：${word.korean}</div>
                     </div>
                 `;
                 addToWrongList(word, userAnswer, 'listen');
-                // 清空输入框让用户重试
-                setTimeout(() => {
-                    input.value = '';
-                    input.classList.remove('wrong');
-                    input.focus();
-                }, 800);
+                // 不清空输入框，让用户继续修改
+                input.focus();
             }
         }
 
-        // 例句填空模式
-        let sentenceMode = 1; // 1: 中文→填韩文, 2: 韩文→填中文
+        // 例句填空模式 - 只保留填韩文模式
+        let sentenceMode = 1; // 1: 中文→填韩文
         
         function renderSentence(container) {
             const word = studyWords[currentIndex];
@@ -2339,7 +2331,6 @@
             // 生成带空白的句子
             let blankSentence = '';
             let answer = '';
-            let hint = '';
             
             if (word.example) {
                 // 从例句中生成空白
@@ -2357,19 +2348,15 @@
                 answer = word.korean;
             }
             
-            // 随机选择模式
-            sentenceMode = Math.random() > 0.5 ? 1 : 2;
-            
             container.innerHTML = `
                 <div class="typing-container">
-                    <p class="typing-hint">例句填空 - ${sentenceMode === 1 ? '填韩文' : '填中文'}</p>
+                    <p class="typing-hint">例句填空 - 填韩文</p>
                     <div class="sentence-hint">
-                        💡 提示：${sentenceMode === 1 ? word.chinese : word.korean}
+                        💡 提示：${word.chinese}
                     </div>
                     <div class="sentence-display">${blankSentence}</div>
-                    ${word.exampleChinese ? `<div style="color: #888; font-size: 0.95rem; margin-bottom: 20px;">${word.exampleChinese}</div>` : ''}
                     <input type="text" class="typing-input" id="sentence-input" 
-                           placeholder="请输入答案..." 
+                           placeholder="请输入韩文答案..." 
                            onkeyup="checkSentence(event)"
                            autocomplete="off" autofocus>
                     <div style="margin-top: 20px;">
@@ -2402,7 +2389,7 @@
             const input = document.getElementById('sentence-input');
             const feedback = document.getElementById('sentence-feedback');
             
-            const correctAnswer = sentenceMode === 1 ? word.korean : word.chinese;
+            const correctAnswer = word.korean;
             
             if (userAnswer === correctAnswer) {
                 input.classList.add('correct');
@@ -2421,21 +2408,31 @@
                 input.classList.remove('correct');
                 feedback.innerHTML = `
                     <div class="feedback wrong">
-                        ❌ 错误！
+                        ❌ 错误！请重新输入
                         <div class="feedback-info">正确答案：${correctAnswer}</div>
                     </div>
                 `;
                 addToWrongList(word, userAnswer, 'sentence');
-                setTimeout(() => {
-                    input.value = '';
-                    input.classList.remove('wrong');
-                    input.focus();
-                }, 800);
+                // 不清空输入框，让用户继续修改
+                input.focus();
             }
         }
 
-        // TTS发音 - 优先选择女声
+        // TTS发音 - 优先使用 Google TTS，备选本地语音
         function speak(text) {
+            // 方法1: 使用 Google TTS (更标准)
+            const googleTTSUrl = `https://translate.google.com/translate_tts?ie=UTF-8&tl=ko&client=tw-ob&q=${encodeURIComponent(text)}`;
+            
+            // 尝试使用 Audio 播放 Google TTS
+            const audio = new Audio(googleTTSUrl);
+            audio.play().catch(() => {
+                // Google TTS 失败时，回退到本地语音
+                speakLocal(text);
+            });
+        }
+        
+        // 本地语音合成（备选方案）
+        function speakLocal(text) {
             if ('speechSynthesis' in window) {
                 speechSynthesis.cancel();
                 
@@ -2707,6 +2704,11 @@
 
         // 返回课程详情页
         function goBackToDetail() {
+            // 如果是错题练习，返回错题本页面
+            if (currentVocab && currentVocab.id === 'wrong') {
+                showPage('wrong');
+                return;
+            }
             // 如果是整册练习，返回词库列表页
             if (!currentLesson || !currentLesson.words) {
                 goBackToVocab();
