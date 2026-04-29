@@ -1009,6 +1009,114 @@
         .check-btn:hover {
             background: #45a049;
         }
+
+        /* 韩语虚拟键盘样式 */
+        .korean-keyboard {
+            margin-top: 20px;
+            background: #f8f8f8;
+            border-radius: 12px;
+            padding: 15px;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .keyboard-row {
+            display: flex;
+            justify-content: center;
+            gap: 4px;
+            margin-bottom: 4px;
+        }
+
+        .key-btn {
+            width: 40px;
+            height: 45px;
+            border: 1px solid #ddd;
+            background: white;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.15s;
+            user-select: none;
+        }
+
+        .key-btn:hover {
+            background: #e8e8e8;
+        }
+
+        .key-btn:active, .key-btn.active {
+            background: #5B4B8A;
+            transform: scale(0.95);
+        }
+
+        .key-btn:active .korean, .key-btn.active .korean {
+            color: white;
+        }
+
+        .key-btn:active .hint, .key-btn.active .hint {
+            color: rgba(255,255,255,0.7);
+        }
+
+        .key-btn .korean {
+            font-size: 18px;
+            color: #333;
+        }
+
+        .key-btn .hint {
+            font-size: 9px;
+            color: #999;
+            margin-top: 2px;
+        }
+
+        .key-btn.shift-active {
+            background: #5B4B8A;
+            border-color: #5B4B8A;
+        }
+
+        .key-btn.shift-active .korean {
+            color: white;
+        }
+
+        .key-btn.shift-active .hint {
+            color: rgba(255,255,255,0.7);
+        }
+
+        .key-btn.shift-key {
+            width: 60px;
+            background: #e0e0e0;
+        }
+
+        .key-btn.shift-key.active {
+            background: #5B4B8A;
+            color: white;
+        }
+
+        .key-btn.space-key {
+            width: 200px;
+        }
+
+        @media (max-width: 600px) {
+            .key-btn {
+                width: 28px;
+                height: 38px;
+                font-size: 12px;
+            }
+            .key-btn .korean {
+                font-size: 14px;
+            }
+            .key-btn .hint {
+                font-size: 7px;
+            }
+            .key-btn.shift-key {
+                width: 42px;
+            }
+            .key-btn.space-key {
+                width: 100px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -2123,8 +2231,9 @@
                     <div class="typing-prompt">${word.chinese}</div>
                     <input type="text" class="typing-input" id="typing-input" 
                            placeholder="请输入韩文..." 
-                           onkeyup="checkTyping(event)"
+                           onkeydown="handleKeyDown(event)"
                            autocomplete="off" autofocus>
+                    ${renderKoreanKeyboard()}
                     <div style="margin-top: 20px;">
                         <button class="audio-btn" onclick="speak('${word.korean}')">🔊 播放发音</button>
                     </div>
@@ -2136,6 +2245,341 @@
                 </div>
             `;
             setTimeout(() => document.getElementById('typing-input').focus(), 100);
+        }
+        
+        // Shift状态
+        let shiftActive = false;
+        
+        // 韩文字母数据
+        const JAMO = {
+            // 初声（辅音）
+            initials: ['ㄱ', 'ㄲ', 'ㄴ', 'ㄷ', 'ㄸ', 'ㄹ', 'ㅁ', 'ㅂ', 'ㅃ', 'ㅅ', 'ㅆ', 'ㅇ', 'ㅈ', 'ㅉ', 'ㅊ', 'ㅋ', 'ㅌ', 'ㅍ', 'ㅎ'],
+            // 中声（元音）
+            medials: ['ㅏ', 'ㅐ', 'ㅑ', 'ㅒ', 'ㅓ', 'ㅔ', 'ㅕ', 'ㅖ', 'ㅗ', 'ㅘ', 'ㅙ', 'ㅚ', 'ㅛ', 'ㅜ', 'ㅝ', 'ㅞ', 'ㅟ', 'ㅠ', 'ㅡ', 'ㅢ', 'ㅣ'],
+            // 终声（收音）- 注意：索引0是空字符串，表示无收音
+            finals: ['', 'ㄱ', 'ㄲ', 'ㄳ', 'ㄴ', 'ㄵ', 'ㄶ', 'ㄷ', 'ㄹ', 'ㄺ', 'ㄻ', 'ㄼ', 'ㄽ', 'ㄾ', 'ㄿ', 'ㅀ', 'ㅁ', 'ㅂ', 'ㅄ', 'ㅅ', 'ㅆ', 'ㅇ', 'ㅈ', 'ㅊ', 'ㅋ', 'ㅌ', 'ㅍ', 'ㅎ']
+        };
+        
+        // 判断是否是元音
+        function isMedial(char) {
+            return JAMO.medials.includes(char);
+        }
+        
+        // 判断是否可以作为收音
+        function canBeFinal(char) {
+            return JAMO.finals.includes(char);
+        }
+        
+        // 判断是否可以作为初声
+        function canBeInitial(char) {
+            return JAMO.initials.includes(char);
+        }
+        
+        // 组合韩文字母成音节
+        function combineKorean(currentText, newChar) {
+            if (!currentText) return newChar;
+            
+            const lastChar = currentText.slice(-1);
+            const charCode = lastChar.charCodeAt(0);
+            
+            // 空格直接追加
+            if (newChar === ' ') {
+                return currentText + ' ';
+            }
+            
+            // 检查最后一个字符是否是完整的韩文字（AC00-D7A3范围）
+            if (charCode >= 0xAC00 && charCode <= 0xD7A3) {
+                // 分解最后一个字
+                const syllableIndex = charCode - 0xAC00;
+                const initialIndex = Math.floor(syllableIndex / 588);
+                const medialIndex = Math.floor((syllableIndex % 588) / 28);
+                const finalIndex = syllableIndex % 28;
+                
+                // 如果新字符是元音
+                if (isMedial(newChar)) {
+                    // 当前字没有收音，尝试组合复合元音
+                    if (finalIndex === 0) {
+                        const currentMedial = JAMO.medials[medialIndex];
+                        const combinedMedial = combineMedials(currentMedial, newChar);
+                        if (combinedMedial) {
+                            const newMedialIndex = JAMO.medials.indexOf(combinedMedial);
+                            if (newMedialIndex !== -1) {
+                                const newCode = 0xAC00 + initialIndex * 588 + newMedialIndex * 28;
+                                return currentText.slice(0, -1) + String.fromCharCode(newCode);
+                            }
+                        }
+                    }
+                    // 当前字有收音，需要把收音移到新字作为初声
+                    if (finalIndex > 0) {
+                        const currentFinal = JAMO.finals[finalIndex];
+                        const splitResult = splitFinal(currentFinal);
+                        
+                        if (splitResult) {
+                            // 双收音：前字保留第一个收音，第二个收音作为新字初声
+                            const firstFinalIndex = JAMO.finals.indexOf(splitResult.first);
+                            const prevCharCode = 0xAC00 + initialIndex * 588 + medialIndex * 28 + firstFinalIndex;
+                            const newInitialIndex = JAMO.initials.indexOf(splitResult.second);
+                            const newMedialIndex = JAMO.medials.indexOf(newChar);
+                            if (newInitialIndex !== -1 && newMedialIndex !== -1) {
+                                const newCharCode = 0xAC00 + newInitialIndex * 588 + newMedialIndex * 28;
+                                return currentText.slice(0, -1) + String.fromCharCode(prevCharCode) + String.fromCharCode(newCharCode);
+                            }
+                        } else {
+                            // 单收音：直接作为新字初声
+                            const newInitialIndex = JAMO.initials.indexOf(currentFinal);
+                            const newMedialIndex = JAMO.medials.indexOf(newChar);
+                            if (newInitialIndex !== -1 && newMedialIndex !== -1) {
+                                const prevCharCode = 0xAC00 + initialIndex * 588 + medialIndex * 28; // 去掉收音
+                                const newCharCode = 0xAC00 + newInitialIndex * 588 + newMedialIndex * 28;
+                                return currentText.slice(0, -1) + String.fromCharCode(prevCharCode) + String.fromCharCode(newCharCode);
+                            }
+                        }
+                    }
+                    // 无法组合，开始新字
+                    return currentText + newChar;
+                }
+                
+                // 如果新字符可以作为收音，且当前字没有收音，添加收音
+                if (canBeFinal(newChar) && finalIndex === 0) {
+                    const newFinalIndex = JAMO.finals.indexOf(newChar);
+                    if (newFinalIndex !== -1 && newFinalIndex !== 0) {
+                        const newCode = 0xAC00 + initialIndex * 588 + medialIndex * 28 + newFinalIndex;
+                        return currentText.slice(0, -1) + String.fromCharCode(newCode);
+                    }
+                }
+                
+                // 新字符是辅音但当前字已有收音，或者不能作为收音，开始新字
+                if (canBeInitial(newChar)) {
+                    return currentText + newChar;
+                }
+                
+                return currentText + newChar;
+            }
+            
+            // 最后一个字符是单独的辅音（初声）
+            if (canBeInitial(lastChar) && !isMedial(lastChar)) {
+                // 新字符是元音，组合成字
+                if (isMedial(newChar)) {
+                    const initialIndex = JAMO.initials.indexOf(lastChar);
+                    const medialIndex = JAMO.medials.indexOf(newChar);
+                    if (initialIndex !== -1 && medialIndex !== -1) {
+                        const code = 0xAC00 + initialIndex * 588 + medialIndex * 28;
+                        return currentText.slice(0, -1) + String.fromCharCode(code);
+                    }
+                }
+                // 新字符也是辅音，直接追加
+                return currentText + newChar;
+            }
+            
+            // 最后一个字符是单独的元音
+            if (isMedial(lastChar)) {
+                // 新字符可以作为收音
+                if (canBeFinal(newChar) && canBeInitial(newChar)) {
+                    // 这种情况比较复杂，通常元音后面接辅音应该开始新字
+                    return currentText + newChar;
+                }
+            }
+            
+            // 默认直接追加
+            return currentText + newChar;
+        }
+        
+        // 组合复合元音
+        function combineMedials(m1, m2) {
+            const combinations = {
+                'ㅗㅏ': 'ㅘ', 'ㅗㅐ': 'ㅙ', 'ㅗㅣ': 'ㅚ',
+                'ㅜㅓ': 'ㅝ', 'ㅜㅔ': 'ㅞ', 'ㅜㅣ': 'ㅟ',
+                'ㅡㅣ': 'ㅢ', 'ㅗㅜ': 'ㅘ', 'ㅜㅗ': 'ㅝ'
+            };
+            return combinations[m1 + m2] || null;
+        }
+        
+        // 分拆双收音
+        function splitFinal(final) {
+            const splits = {
+                'ㄳ': { first: 'ㄱ', second: 'ㅅ' },
+                'ㄵ': { first: 'ㄴ', second: 'ㅈ' },
+                'ㄶ': { first: 'ㄴ', second: 'ㅎ' },
+                'ㄺ': { first: 'ㄹ', second: 'ㄱ' },
+                'ㄻ': { first: 'ㄹ', second: 'ㅁ' },
+                'ㄼ': { first: 'ㄹ', second: 'ㅂ' },
+                'ㄽ': { first: 'ㄹ', second: 'ㅅ' },
+                'ㄾ': { first: 'ㄹ', second: 'ㅌ' },
+                'ㄿ': { first: 'ㄹ', second: 'ㅍ' },
+                'ㅀ': { first: 'ㄹ', second: 'ㅎ' },
+                'ㅄ': { first: 'ㅂ', second: 'ㅅ' },
+                'ㄲ': { first: 'ㄱ', second: 'ㄱ' },
+                'ㄸ': { first: 'ㄷ', second: 'ㄷ' },
+                'ㅃ': { first: 'ㅂ', second: 'ㅂ' },
+                'ㅆ': { first: 'ㅅ', second: 'ㅅ' },
+                'ㅉ': { first: 'ㅈ', second: 'ㅈ' }
+            };
+            return splits[final] || null;
+        }
+        
+        // 渲染韩语虚拟键盘
+        function renderKoreanKeyboard() {
+            const row1 = [
+                { key: 'q', normal: 'ㅂ', shift: 'ㅃ' },
+                { key: 'w', normal: 'ㅈ', shift: 'ㅉ' },
+                { key: 'e', normal: 'ㄷ', shift: 'ㄸ' },
+                { key: 'r', normal: 'ㄱ', shift: 'ㄲ' },
+                { key: 't', normal: 'ㅅ', shift: 'ㅆ' },
+                { key: 'y', normal: 'ㅛ' },
+                { key: 'u', normal: 'ㅕ' },
+                { key: 'i', normal: 'ㅑ' },
+                { key: 'o', normal: 'ㅐ', shift: 'ㅒ' },
+                { key: 'p', normal: 'ㅔ', shift: 'ㅖ' }
+            ];
+            const row2 = [
+                { key: 'a', normal: 'ㅁ' },
+                { key: 's', normal: 'ㄴ' },
+                { key: 'd', normal: 'ㅇ' },
+                { key: 'f', normal: 'ㄹ' },
+                { key: 'g', normal: 'ㅎ' },
+                { key: 'h', normal: 'ㅗ' },
+                { key: 'j', normal: 'ㅓ' },
+                { key: 'k', normal: 'ㅏ' },
+                { key: 'l', normal: 'ㅣ' }
+            ];
+            const row3 = [
+                { key: 'z', normal: 'ㅋ' },
+                { key: 'x', normal: 'ㅌ' },
+                { key: 'c', normal: 'ㅊ' },
+                { key: 'v', normal: 'ㅍ' },
+                { key: 'b', normal: 'ㅠ' },
+                { key: 'n', normal: 'ㅜ' },
+                { key: 'm', normal: 'ㅡ' }
+            ];
+            
+            function renderKey(item) {
+                const char = item.shift ? (shiftActive ? item.shift : item.normal) : item.normal;
+                const highlightClass = item.shift && shiftActive ? 'shift-active' : '';
+                return `<button class="key-btn ${highlightClass}" onclick="typeKorean('${char}')" data-key="${item.key}">
+                    <span class="korean">${char}</span>
+                    <span class="hint">${item.key.toUpperCase()}</span>
+                </button>`;
+            }
+            
+            return `
+                <div class="korean-keyboard" id="korean-keyboard">
+                    <div class="keyboard-row">${row1.map(renderKey).join('')}</div>
+                    <div class="keyboard-row">${row2.map(renderKey).join('')}</div>
+                    <div class="keyboard-row">
+                        <button class="key-btn shift-key ${shiftActive ? 'active' : ''}" onclick="toggleShift()">
+                            <span class="korean">⇧</span>
+                        </button>
+                        ${row3.map(renderKey).join('')}
+                    </div>
+                    <div class="keyboard-row">
+                        <button class="key-btn space-key" onclick="typeKorean(' ')">
+                            <span class="korean">空格</span>
+                        </button>
+                    </div>
+                </div>
+            `;
+        }
+        
+        // 切换Shift
+        function toggleShift() {
+            shiftActive = !shiftActive;
+            const keyboard = document.getElementById('korean-keyboard');
+            if (keyboard) {
+                keyboard.outerHTML = renderKoreanKeyboard();
+            }
+        }
+        
+        // 虚拟键盘输入
+        function typeKorean(char) {
+            const input = document.getElementById('typing-input') || document.getElementById('sentence-input');
+            if (input) {
+                const cursorPos = input.selectionStart || 0;
+                const value = input.value;
+                const before = value.substring(0, cursorPos);
+                const after = value.substring(cursorPos);
+                
+                // 空格直接插入到光标位置
+                if (char === ' ') {
+                    input.value = before + ' ' + after;
+                    input.focus();
+                    input.setSelectionRange(cursorPos + 1, cursorPos + 1);
+                } else {
+                    // 使用组合函数处理光标前的内容
+                    const newBefore = combineKorean(before, char);
+                    input.value = newBefore + after;
+                    input.focus();
+                    // 光标移到新内容末尾
+                    input.setSelectionRange(newBefore.length, newBefore.length);
+                }
+                
+                if (shiftActive && char !== ' ') {
+                    shiftActive = false;
+                    const keyboard = document.getElementById('korean-keyboard');
+                    if (keyboard) keyboard.outerHTML = renderKoreanKeyboard();
+                }
+            }
+        }
+        
+        // 实体键盘映射
+        const KEY_CODE_MAP = {
+            'q': 'ㅂ', 'w': 'ㅈ', 'e': 'ㄷ', 'r': 'ㄱ', 't': 'ㅅ', 'y': 'ㅛ', 'u': 'ㅕ', 'i': 'ㅑ', 'o': 'ㅐ', 'p': 'ㅔ',
+            'a': 'ㅁ', 's': 'ㄴ', 'd': 'ㅇ', 'f': 'ㄹ', 'g': 'ㅎ', 'h': 'ㅗ', 'j': 'ㅓ', 'k': 'ㅏ', 'l': 'ㅣ',
+            'z': 'ㅋ', 'x': 'ㅌ', 'c': 'ㅊ', 'v': 'ㅍ', 'b': 'ㅠ', 'n': 'ㅜ', 'm': 'ㅡ'
+        };
+        const KEY_CODE_SHIFT_MAP = {
+            'q': 'ㅃ', 'w': 'ㅉ', 'e': 'ㄸ', 'r': 'ㄲ', 't': 'ㅆ', 'o': 'ㅒ', 'p': 'ㅖ'
+        };
+        
+        // 高亮虚拟键盘按钮
+        function highlightKey(keyChar) {
+            const keyboard = document.getElementById('korean-keyboard');
+            if (!keyboard) return;
+            
+            // 找到对应的按钮
+            const btn = keyboard.querySelector(`[data-key="${keyChar.toLowerCase()}"]`);
+            if (btn) {
+                btn.classList.add('active');
+                // 短暂高亮后自动取消
+                setTimeout(() => btn.classList.remove('active'), 150);
+            }
+        }
+        
+        // 处理键盘按下
+        function handleKeyDown(event) {
+            const key = event.key.toLowerCase();
+            
+            // Enter键检验答案
+            if (event.key === 'Enter') {
+                const typingInput = document.getElementById('typing-input');
+                const sentenceInput = document.getElementById('sentence-input');
+                if (typingInput) {
+                    // 判断是在听写还是打字练习
+                    if (document.getElementById('listen-feedback')) {
+                        checkListenAnswer(typingInput.value.trim());
+                    } else {
+                        checkTypingAnswer(typingInput.value.trim());
+                    }
+                } else if (sentenceInput) {
+                    checkSentenceAnswer(sentenceInput.value.trim());
+                }
+                return;
+            }
+            
+            // Shift+字母键输入紧音
+            if (event.shiftKey && KEY_CODE_SHIFT_MAP[key]) {
+                event.preventDefault();
+                highlightKey(key);
+                typeKorean(KEY_CODE_SHIFT_MAP[key]);
+                return;
+            }
+            
+            // 字母键映射
+            if (KEY_CODE_MAP[key] && !event.ctrlKey && !event.altKey && !event.metaKey) {
+                event.preventDefault();
+                highlightKey(key);
+                typeKorean(KEY_CODE_MAP[key]);
+            }
+            // 其他键（Backspace、方向键等）正常处理
         }
         
         // 提交打字答案（点击检验按钮）
@@ -2266,8 +2710,9 @@
                     <button class="audio-btn" onclick="speak('${word.korean}')" style="font-size: 2rem; padding: 20px 40px;">🔊</button>
                     <input type="text" class="typing-input" id="typing-input" 
                            placeholder="请输入听到的韩文..." 
-                           onkeyup="checkListen(event)"
+                           onkeydown="handleKeyDown(event)"
                            autocomplete="off" autofocus style="margin-top: 30px;">
+                    ${renderKoreanKeyboard()}
                 </div>
                 <div id="listen-feedback"></div>
                 <div class="nav-buttons" id="listen-nav">
@@ -2357,8 +2802,9 @@
                     <div class="sentence-display">${blankSentence}</div>
                     <input type="text" class="typing-input" id="sentence-input" 
                            placeholder="请输入韩文答案..." 
-                           onkeyup="checkSentence(event)"
+                           onkeydown="handleKeyDown(event)"
                            autocomplete="off" autofocus>
+                    ${renderKoreanKeyboard()}
                     <div style="margin-top: 20px;">
                         <button class="audio-btn" onclick="speak('${word.example || word.korean}')">🔊 播放例句</button>
                     </div>
