@@ -2455,6 +2455,29 @@
                     }
                 }
                 
+                // 当前字已有收音，尝试组合双收音（如 ㅂ+ㅅ=ㅄ）
+                if (canBeFinal(newChar) && finalIndex > 0) {
+                    const currentFinal = JAMO.finals[finalIndex];
+                    // 先尝试双收音组合（겹받침）
+                    const combinedFinal = combineFinals(currentFinal, newChar);
+                    if (combinedFinal) {
+                        const newFinalIndex = JAMO.finals.indexOf(combinedFinal);
+                        if (newFinalIndex !== -1) {
+                            const newCode = 0xAC00 + initialIndex * 588 + medialIndex * 28 + newFinalIndex;
+                            return currentText.slice(0, -1) + String.fromCharCode(newCode);
+                        }
+                    }
+                    // 尝试双辅音收音升级（如 ㅅ+ㅅ=ㅆ, ㄱ+ㄱ=ㄲ）
+                    const doubled = doubleFinal(currentFinal, newChar);
+                    if (doubled) {
+                        const newFinalIndex = JAMO.finals.indexOf(doubled);
+                        if (newFinalIndex !== -1) {
+                            const newCode = 0xAC00 + initialIndex * 588 + medialIndex * 28 + newFinalIndex;
+                            return currentText.slice(0, -1) + String.fromCharCode(newCode);
+                        }
+                    }
+                }
+                
                 // 新字符是辅音但当前字已有收音，或者不能作为收音，开始新字
                 if (canBeInitial(newChar)) {
                     return currentText + newChar;
@@ -2489,6 +2512,26 @@
             
             // 默认直接追加
             return currentText + newChar;
+        }
+        
+        // 组合双收音（겹받침）：如 ㅂ+ㅅ=ㅄ, ㄹ+ㄱ=ㄺ
+        function combineFinals(first, second) {
+            const combinations = {
+                'ㄱㅅ': 'ㄳ', 'ㄴㅈ': 'ㄵ', 'ㄴㅎ': 'ㄶ',
+                'ㄹㄱ': 'ㄺ', 'ㄹㅁ': 'ㄻ', 'ㄹㅂ': 'ㄼ',
+                'ㄹㅅ': 'ㄽ', 'ㄹㅌ': 'ㄾ', 'ㄹㅍ': 'ㄿ',
+                'ㄹㅎ': 'ㅀ', 'ㅂㅅ': 'ㅄ'
+            };
+            return combinations[first + second] || null;
+        }
+        
+        // 双辅音收音升级：如 ㅅ+ㅅ=ㅆ, ㄱ+ㄱ=ㄲ
+        function doubleFinal(first, second) {
+            const doubles = {
+                'ㅅㅅ': 'ㅆ',
+                'ㄱㄱ': 'ㄲ'
+            };
+            return doubles[first + second] || null;
         }
         
         // 组合复合元音
@@ -2665,8 +2708,19 @@
                 const medialIndex = Math.floor((syllableIndex % 588) / 28);
                 const finalIndex = syllableIndex % 28;
                 
-                // 有收音：去掉收音
+                // 有收音：逐步分解
                 if (finalIndex > 0) {
+                    const currentFinal = JAMO.finals[finalIndex];
+                    const splitResult = splitFinal(currentFinal);
+                    // 双收音：先去掉后半部分，保留前半部分（如 없→업）
+                    if (splitResult) {
+                        const firstFinalIndex = JAMO.finals.indexOf(splitResult.first);
+                        if (firstFinalIndex !== -1) {
+                            const newCode = 0xAC00 + initialIndex * 588 + medialIndex * 28 + firstFinalIndex;
+                            return text.slice(0, -1) + String.fromCharCode(newCode);
+                        }
+                    }
+                    // 单收音：直接去掉（如 업→어）
                     const newCode = 0xAC00 + initialIndex * 588 + medialIndex * 28;
                     return text.slice(0, -1) + String.fromCharCode(newCode);
                 }
