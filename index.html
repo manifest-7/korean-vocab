@@ -343,6 +343,18 @@
             color: #5B4B8A;
         }
 
+        .pos-tag {
+            display: inline-block;
+            background: #e8e0f5;
+            color: #5B4B8A;
+            padding: 1px 6px;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            margin-right: 4px;
+            vertical-align: middle;
+        }
+
         .flip-hint {
             color: #888;
             font-size: 0.85rem;
@@ -1322,37 +1334,37 @@
                             lesson: "第1课",
                             title: "저는 한국 사람이에요",
                             words: [
-                                { korean: "한국", chinese: "韩国", example: "선생님은 한국 사람이에요.", exampleChinese: "我的老师是韩国人。", category: "国家" },
-                                { korean: "미국", chinese: "美国", example: "저는 미국 사람이에요.", exampleChinese: "我是美国人。", category: "国家" },
-                                { korean: "멕시코", chinese: "墨西哥", example: "저는 멕시코 사람이에요.", exampleChinese: "我是墨西哥人。", category: "国家" },
-                                { korean: "러시아", chinese: "俄罗斯", example: "저는 러시아 사람이에요.", exampleChinese: "我是俄罗斯人。", category: "国家" },
-                                { korean: "베트남", chinese: "越南", example: "저는 베트남 사람이에요.", exampleChinese: "我是越南人。", category: "国家" },
-                                { korean: "중국", chinese: "中国", example: "저는 중국 사람이에요.", exampleChinese: "我是中国人。", category: "国家" },
-                                { korean: "선생님", chinese: "老师", example: "저는 선생님이에요.", exampleChinese: "我是老师。", category: "职业" },
-                                { korean: "학생", chinese: "学生", example: "여러분은 학생이에요.", exampleChinese: "你们是学生。", category: "职业" },
-                                { korean: "어느", chinese: "哪个", example: "어느 나라 사람이에요?", exampleChinese: "你是哪个国家的人？", category: "疑问词" },
-                                { korean: "사람", chinese: "人", example: "저는 한국 사람이에요.", exampleChinese: "我是韩国人。", category: "名词" },
-                                { korean: "나라", chinese: "国家", example: "한국, 러시아, 베트남, 멕시코, 모두 나라예요.", exampleChinese: "韩国、俄罗斯、越南、墨西哥都是国家。", category: "名词" },
-                                { korean: "안녕?", chinese: "你好", example: "안녕? 반가워.", exampleChinese: "你好，很高兴见到你。", category: "问候" },
-                                { korean: "안녕하세요?", chinese: "您好", example: "안녕하세요? 만나서 반갑습니다.", exampleChinese: "您好，很高兴见到您。", category: "问候" },
-                                { korean: "안녕하십니까?", chinese: "您好（正式）", example: "안녕하십니까? 처음 뵙겠습니다.", exampleChinese: "您好，初次见面。", category: "问候" }
+                                { korean: "한국", chinese: "韩国", example: "선생님은 한국 사람이에요.", exampleChinese: "我的老师是韩国人。", category: "国家", pos: "n." },
+                                { korean: "미국", chinese: "美国", example: "저는 미국 사람이에요.", exampleChinese: "我是美国人。", category: "国家", pos: "n." },
+                                { korean: "멕시코", chinese: "墨西哥", example: "저는 멕시코 사람이에요.", exampleChinese: "我是墨西哥人。", category: "国家", pos: "n." },
+                                { korean: "러시아", chinese: "俄罗斯", example: "저는 러시아 사람이에요.", exampleChinese: "我是俄罗斯人。", category: "国家", pos: "n." },
+                                { korean: "베트남", chinese: "越南", example: "저는 베트남 사람이에요.", exampleChinese: "我是越南人。", category: "国家", pos: "n." },
+                                { korean: "중국", chinese: "中国", example: "저는 중국 사람이에요.", exampleChinese: "我是中国人。", category: "国家", pos: "n." },
+                                { korean: "선생님", chinese: "老师", example: "저는 선생님이에요.", exampleChinese: "我是老师。", category: "职业", pos: "n." },
+                                { korean: "학생", chinese: "学生", example: "여러분은 학생이에요.", exampleChinese: "你们是学生。", category: "职业", pos: "n." },
+                                { korean: "어느", chinese: "哪个", example: "어느 나라 사람이에요?", exampleChinese: "你是哪个国家的人？", category: "疑问词", pos: "pron." },
+                                { korean: "사람", chinese: "人", example: "저는 한국 사람이에요.", exampleChinese: "我是韩国人。", category: "名词", pos: "n." },
+                                { korean: "나라", chinese: "国家", example: "한국, 러시아, 베트남, 멕시코는 모두 나라예요.", exampleChinese: "韩国、俄罗斯、越南、墨西哥都是国家。", category: "名词", pos: "n." },
+                                { korean: "안녕?", chinese: "你好", example: "안녕? 반가워.", exampleChinese: "你好，很高兴见到你。", category: "问候", pos: "n." },
+                                { korean: "안녕하세요?", chinese: "您好", example: "안녕하세요? 만나서 반갑습니다.", exampleChinese: "您好，很高兴见到您。", category: "问候", pos: "n." },
+                                { korean: "안녕하십니까?", chinese: "您好（正式）", example: "안녕하십니까? 처음 뵙겠습니다.", exampleChinese: "您好，初次见面。", category: "问候", pos: "n." }
                             ]
                         },
                         {
                             lesson: "第2课",
                             title: "회사원이 아니에요",
                             words: [
-                                { korean: "아버지", chinese: "父亲", example: "아버지예요.", exampleChinese: "这是我父亲。", category: "家庭" },
-                                { korean: "어머니", chinese: "母亲", example: "어머니예요.", exampleChinese: "这是我母亲。", category: "家庭" },
-                                { korean: "동생", chinese: "弟弟/妹妹", example: "동생이에요.", exampleChinese: "这是我弟弟/妹妹。", category: "家庭" },
-                                { korean: "언니", chinese: "姐姐（女称）", example: "언니예요. (나는 여자예요.)", exampleChinese: "这是我姐姐。（我是女生）", category: "家庭" },
-                                { korean: "누나", chinese: "姐姐（男称）", example: "누나예요. (나는 남자예요.)", exampleChinese: "这是我姐姐。（我是男生）", category: "家庭" },
-                                { korean: "오빠", chinese: "哥哥（女称）", example: "오빠예요. (나는 여자예요.)", exampleChinese: "这是我哥哥。（我是女生）", category: "家庭" },
-                                { korean: "형", chinese: "哥哥（男称）", example: "형이에요. (나는 남자예요.)", exampleChinese: "这是我哥哥。（我是男生）", category: "家庭" },
-                                { korean: "회사원", chinese: "公司职员", example: "저는 회사원이에요.", exampleChinese: "我是公司职员。", category: "职业" },
-                                { korean: "우리 가족이에요.", chinese: "这是我家人。", example: "여기는 우리 가족이에요.", exampleChinese: "这是我的家人。", category: "表达" },
-                                { korean: "이름이 뭐예요?", chinese: "你叫什么名字？", example: "이름이 뭐예요?", exampleChinese: "你叫什么名字？", category: "表达" },
-                                { korean: "직업이 뭐예요?", chinese: "你的工作是什么？", example: "직업이 뭐예요?", exampleChinese: "你的工作是什么？", category: "表达" }
+                                { korean: "아버지", chinese: "父亲", example: "아버지예요.", exampleChinese: "这是我父亲。", category: "家庭", pos: "n." },
+                                { korean: "어머니", chinese: "母亲", example: "어머니예요.", exampleChinese: "这是我母亲。", category: "家庭", pos: "n." },
+                                { korean: "동생", chinese: "弟弟/妹妹", example: "동생이에요.", exampleChinese: "这是我弟弟/妹妹。", category: "家庭", pos: "n." },
+                                { korean: "언니", chinese: "姐姐（女称）", example: "언니예요. (나는 여자예요.)", exampleChinese: "这是我姐姐。（我是女生）", category: "家庭", pos: "n." },
+                                { korean: "누나", chinese: "姐姐（男称）", example: "누나예요. (나는 남자예요.)", exampleChinese: "这是我姐姐。（我是男生）", category: "家庭", pos: "n." },
+                                { korean: "오빠", chinese: "哥哥（女称）", example: "오빠예요. (나는 여자예요.)", exampleChinese: "这是我哥哥。（我是女生）", category: "家庭", pos: "n." },
+                                { korean: "형", chinese: "哥哥（男称）", example: "형이에요. (나는 남자예요.)", exampleChinese: "这是我哥哥。（我是男生）", category: "家庭", pos: "n." },
+                                { korean: "회사원", chinese: "公司职员", example: "저는 회사원이에요.", exampleChinese: "我是公司职员。", category: "职业", pos: "n." },
+                                { korean: "가족", chinese: "家人，家庭", example: "여기는 우리 가족이에요.", exampleChinese: "这是我的家人。", category: "表达", pos: "n." },
+                                { korean: "이름이 뭐예요?", chinese: "你叫什么名字？", example: "이름이 뭐예요?", exampleChinese: "你叫什么名字？", category: "表达", pos: "n." },
+                                { korean: "직업이 뭐예요?", chinese: "你的工作是什么？", example: "직업이 뭐예요?", exampleChinese: "你的工作是什么？", category: "表达", pos: "n." }
                             ]
                         },
                         {
@@ -1360,21 +1372,21 @@
                             title: "저도 드라마를 좋아합니다",
                             words: [
                                 // 日常生活
-                                { korean: "노래", chinese: "歌、歌曲", example: "케이팝은 노래입니다.", exampleChinese: "K-pop是歌曲。", category: "日常生活" },
-                                { korean: "드라마", chinese: "电视剧", example: "한국 드라마를 좋아합니다.", exampleChinese: "我喜欢韩剧。", category: "日常生活" },
-                                { korean: "음식", chinese: "食物", example: "김치, 비빔밥은 한국 음식입니다.", exampleChinese: "泡菜、拌饭是韩国食物。", category: "日常生活" },
-                                { korean: "전화", chinese: "电话", example: "전화를 합니다.", exampleChinese: "我在打电话。", category: "日常生活" },
+                                { korean: "노래", chinese: "歌、歌曲", example: "케이팝은 노래입니다.", exampleChinese: "K-pop是歌曲。", category: "日常生活", pos: "n." },
+                                { korean: "드라마", chinese: "电视剧", example: "한국 드라마를 좋아합니다.", exampleChinese: "我喜欢韩剧。", category: "日常生活", pos: "n." },
+                                { korean: "음식", chinese: "食物", example: "김치, 비빔밥은 한국 음식입니다.", exampleChinese: "泡菜、拌饭是韩国食物。", category: "日常生活", pos: "n." },
+                                { korean: "전화", chinese: "电话", example: "전화를 합니다.", exampleChinese: "我在打电话。", category: "日常生活", pos: "n." },
                                 // 动词①
-                                { korean: "하다", chinese: "做", example: "노래를 합니다.", exampleChinese: "我唱歌。", category: "动词" },
-                                { korean: "좋아하다", chinese: "喜欢", example: "한국 드라마를 좋아합니다.", exampleChinese: "我喜欢韩剧。", category: "动词" },
-                                { korean: "가다", chinese: "去", example: "여행을 갑니다.", exampleChinese: "我去旅行。", category: "动词" },
-                                { korean: "먹다", chinese: "吃", example: "한국 음식을 먹습니다.", exampleChinese: "我吃韩国食物。", category: "动词" },
-                                { korean: "듣다", chinese: "听", example: "한국 노래를 듣습니다.", exampleChinese: "我听韩语歌。", category: "动词" },
+                                { korean: "하다", chinese: "做", example: "노래를 합니다.", exampleChinese: "我唱歌。", category: "动词", pos: "v." },
+                                { korean: "좋아하다", chinese: "喜欢", example: "한국 드라마를 좋아합니다.", exampleChinese: "我喜欢韩剧。", category: "动词", pos: "v." },
+                                { korean: "가다", chinese: "去", example: "여행을 갑니다.", exampleChinese: "我去旅行。", category: "动词", pos: "v." },
+                                { korean: "먹다", chinese: "吃", example: "한국 음식을 먹습니다.", exampleChinese: "我吃韩国食物。", category: "动词", pos: "v." },
+                                { korean: "듣다", chinese: "听", example: "한국 노래를 듣습니다.", exampleChinese: "我听韩语歌。", category: "动词", pos: "v." },
                                 // 形容词①
-                                { korean: "크다", chinese: "大", example: "개가 큽니다.", exampleChinese: "狗很大。", category: "形容词" },
-                                { korean: "작다", chinese: "小", example: "개가 작습니다.", exampleChinese: "狗很小。", category: "形容词" },
-                                { korean: "예쁘다", chinese: "漂亮", example: "꽃이 예쁩니다.", exampleChinese: "花很漂亮。", category: "形容词" },
-                                { korean: "좋다", chinese: "好", example: "한국 음식이 좋습니다.", exampleChinese: "韩国食物很好。", category: "形容词" }
+                                { korean: "크다", chinese: "大", example: "개가 큽니다.", exampleChinese: "狗很大。", category: "形容词", pos: "adj." },
+                                { korean: "작다", chinese: "小", example: "개가 작습니다.", exampleChinese: "狗很小。", category: "形容词", pos: "adj." },
+                                { korean: "예쁘다", chinese: "漂亮", example: "꽃이 예쁩니다.", exampleChinese: "花很漂亮。", category: "形容词", pos: "adj." },
+                                { korean: "좋다", chinese: "好", example: "한국 음식이 좋습니다.", exampleChinese: "韩国食物很好。", category: "形容词", pos: "adj." }
                             ]
                         },
                         {
@@ -1382,24 +1394,24 @@
                             title: "여기가 지문 씨의 학교입니까?",
                             words: [
                                 // 动词②
-                                { korean: "공부하다", chinese: "学习", example: "한국어를 공부합니다.", exampleChinese: "我学习韩语。", category: "动词" },
-                                { korean: "만나다", chinese: "见面", example: "리사 씨를 만납니다.", exampleChinese: "我见Lisa。", category: "动词" },
+                                { korean: "공부하다", chinese: "学习", example: "한국어를 공부합니다.", exampleChinese: "我学习韩语。", category: "动词", pos: "v." },
+                                { korean: "만나다", chinese: "见面", example: "리사 씨를 만납니다.", exampleChinese: "我见Lisa。", category: "动词", pos: "v." },
                                 // 地点①
-                                { korean: "학교", chinese: "学校", example: "학교입니다.", exampleChinese: "这是学校。", category: "地点" },
-                                { korean: "교실", chinese: "教室", example: "교실입니다.", exampleChinese: "这是教室。", category: "地点" },
-                                { korean: "도서관", chinese: "图书馆", example: "도서관입니다.", exampleChinese: "这是图书馆。", category: "地点" },
-                                { korean: "건물", chinese: "建筑物", example: "학교, 식당, 도서관은 건물입니다.", exampleChinese: "学校、餐厅、图书馆是建筑物。", category: "地点" },
-                                { korean: "식당", chinese: "餐厅", example: "식당입니다.", exampleChinese: "这是餐厅。", category: "地点" },
+                                { korean: "학교", chinese: "学校", example: "학교입니다.", exampleChinese: "这是学校。", category: "地点", pos: "n." },
+                                { korean: "교실", chinese: "教室", example: "교실입니다.", exampleChinese: "这是教室。", category: "地点", pos: "n." },
+                                { korean: "도서관", chinese: "图书馆", example: "도서관입니다.", exampleChinese: "这是图书馆。", category: "地点", pos: "n." },
+                                { korean: "건물", chinese: "建筑物", example: "학교, 식당, 도서관은 건물입니다.", exampleChinese: "学校、餐厅、图书馆是建筑物。", category: "地点", pos: "n." },
+                                { korean: "식당", chinese: "餐厅", example: "식당입니다.", exampleChinese: "这是餐厅。", category: "地点", pos: "n." },
                                 // 形容词②
-                                { korean: "있다", chinese: "有、存在", example: "학생이 있습니다.", exampleChinese: "有学生。", category: "形容词" },
-                                { korean: "없다", chinese: "没有", example: "학생이 없습니다.", exampleChinese: "没有学生。", category: "形容词" },
-                                { korean: "많다", chinese: "多", example: "학생이 많습니다.", exampleChinese: "学生很多。", category: "形容词" },
+                                { korean: "있다", chinese: "有、存在", example: "학생이 있습니다.", exampleChinese: "有学生。", category: "形容词", pos: "adj." },
+                                { korean: "없다", chinese: "没有", example: "학생이 없습니다.", exampleChinese: "没有学生。", category: "形容词", pos: "adj." },
+                                { korean: "많다", chinese: "多", example: "학생이 많습니다.", exampleChinese: "学生很多。", category: "形容词", pos: "adj." },
                                 // 课堂用语
-                                { korean: "따라하세요", chinese: "请跟我读", example: "여러분, 따라 하세요.", exampleChinese: "大家，请跟我读。", category: "课堂用语" },
-                                { korean: "질문이 있어요", chinese: "有问题", example: "선생님, 질문이 있어요.", exampleChinese: "老师，我有问题。", category: "课堂用语" },
-                                { korean: "잘 모르겠어요", chinese: "不太懂", example: "선생님, 잘 모르겠어요.", exampleChinese: "老师，我不太懂。", category: "课堂用语" },
-                                { korean: "질문", chinese: "问题", example: "질문이 있어요.", exampleChinese: "有问题。", category: "课堂用语" },
-                                { korean: "모르다", chinese: "不知道", example: "잘 모르겠어요.", exampleChinese: "不太清楚。", category: "课堂用语" }
+                                { korean: "따라하세요", chinese: "请跟我读", example: "여러분, 따라 하세요.", exampleChinese: "大家，请跟我读。", category: "课堂用语", pos: "n." },
+                                { korean: "질문이 있어요", chinese: "有问题", example: "선생님, 질문이 있어요.", exampleChinese: "老师，我有问题。", category: "课堂用语", pos: "adj." },
+                                { korean: "잘 모르겠어요", chinese: "不太懂", example: "선생님, 잘 모르겠어요.", exampleChinese: "老师，我不太懂。", category: "课堂用语", pos: "n." },
+                                { korean: "질문", chinese: "问题", example: "질문이 있어요.", exampleChinese: "有问题。", category: "课堂用语", pos: "n." },
+                                { korean: "모르다", chinese: "不知道", example: "잘 모르겠어요.", exampleChinese: "不太懂。", category: "课堂用语", pos: "v." }
                             ]
                         },
                         {
@@ -1407,21 +1419,21 @@
                             title: "날씨가 좋지 않아요",
                             words: [
                                 // 天气
-                                { korean: "날씨", chinese: "天气", example: "오늘 날씨가 좋습니다.", exampleChinese: "今天天气好。", category: "天气" },
-                                { korean: "하늘", chinese: "天空", example: "하늘이 맑아요.", exampleChinese: "天空很晴朗。", category: "天气" },
-                                { korean: "맑다", chinese: "晴朗", example: "하늘이 맑습니다.", exampleChinese: "天空晴朗。", category: "天气" },
-                                { korean: "흐리다", chinese: "多云", example: "하늘이 흐립니다.", exampleChinese: "天空多云。", category: "天气" },
-                                { korean: "비", chinese: "雨", example: "비가 옵니다.", exampleChinese: "下雨。", category: "天气" },
-                                { korean: "눈", chinese: "雪", example: "눈이 옵니다.", exampleChinese: "下雪。", category: "天气" },
-                                { korean: "덥다", chinese: "热", example: "날씨가 덥습니다.", exampleChinese: "天气热。", category: "天气" },
-                                { korean: "춥다", chinese: "冷", example: "날씨가 춥습니다.", exampleChinese: "天气冷。", category: "天气" },
-                                { korean: "따뜻하다", chinese: "温暖", example: "날씨가 따뜻합니다.", exampleChinese: "天气暖和。", category: "天气" },
-                                { korean: "시원하다", chinese: "凉爽", example: "날씨가 시원합니다.", exampleChinese: "天气凉爽。", category: "天气" },
+                                { korean: "날씨", chinese: "天气", example: "오늘 날씨가 좋습니다.", exampleChinese: "今天天气好。", category: "天气", pos: "n." },
+                                { korean: "하늘", chinese: "天空", example: "하늘이 맑아요.", exampleChinese: "天空很晴朗。", category: "天气", pos: "n." },
+                                { korean: "맑다", chinese: "晴朗", example: "하늘이 맑습니다.", exampleChinese: "天空晴朗。", category: "天气", pos: "adj." },
+                                { korean: "흐리다", chinese: "阴天的，阴沉的", example: "하늘이 흐립니다.", exampleChinese: "天空阴沉。", category: "天气", pos: "adj." },
+                                { korean: "비", chinese: "雨", example: "비가 옵니다.", exampleChinese: "下雨。", category: "天气", pos: "n." },
+                                { korean: "눈", chinese: "雪", example: "눈이 옵니다.", exampleChinese: "下雪。", category: "天气", pos: "n." },
+                                { korean: "덥다", chinese: "热", example: "날씨가 덥습니다.", exampleChinese: "天气热。", category: "天气", pos: "adj." },
+                                { korean: "춥다", chinese: "冷", example: "날씨가 춥습니다.", exampleChinese: "天气冷。", category: "天气", pos: "adj." },
+                                { korean: "따뜻하다", chinese: "温暖", example: "날씨가 따뜻합니다.", exampleChinese: "天气暖和。", category: "天气", pos: "v." },
+                                { korean: "시원하다", chinese: "凉爽", example: "날씨가 시원합니다.", exampleChinese: "天气凉爽。", category: "天气", pos: "v." },
                                 // 季节
-                                { korean: "봄", chinese: "春天", example: "봄이에요. 날씨가 따뜻해요.", exampleChinese: "是春天。天气温暖。", category: "季节" },
-                                { korean: "여름", chinese: "夏天", example: "여름이에요. 날씨가 더워요.", exampleChinese: "是夏天。天气很热。", category: "季节" },
-                                { korean: "가을", chinese: "秋天", example: "가을이에요. 날씨가 시원해요.", exampleChinese: "是秋天。天气凉爽。", category: "季节" },
-                                { korean: "겨울", chinese: "冬天", example: "겨울이에요. 날씨가 춥습니다.", exampleChinese: "是冬天。天气冷。", category: "季节" }
+                                { korean: "봄", chinese: "春天", example: "봄이에요. 날씨가 따뜻해요.", exampleChinese: "是春天。天气温暖。", category: "季节", pos: "n." },
+                                { korean: "여름", chinese: "夏天", example: "여름이에요. 날씨가 더워요.", exampleChinese: "是夏天。天气很热。", category: "季节", pos: "n." },
+                                { korean: "가을", chinese: "秋天", example: "가을이에요. 날씨가 시원해요.", exampleChinese: "是秋天。天气凉爽。", category: "季节", pos: "n." },
+                                { korean: "겨울", chinese: "冬天", example: "겨울이에요. 날씨가 춥습니다.", exampleChinese: "是冬天。天气冷。", category: "季节", pos: "n." }
                             ]
                         },
                         {
@@ -1429,23 +1441,23 @@
                             title: "선물을 주세요",
                             words: [
                                 // 礼物相关
-                                { korean: "선물", chinese: "礼物", example: "생일 선물이에요.", exampleChinese: "这是生日礼物。", category: "礼物" },
-                                { korean: "카드", chinese: "卡片", example: "카드를 줘요.", exampleChinese: "我给卡片。", category: "礼物" },
-                                { korean: "편지", chinese: "信", example: "편지를 씁니다.", exampleChinese: "我写信。", category: "礼物" },
+                                { korean: "선물", chinese: "礼物", example: "생일 선물이에요.", exampleChinese: "这是生日礼物。", category: "礼物", pos: "n." },
+                                { korean: "카드", chinese: "卡片", example: "카드를 줘요.", exampleChinese: "给你卡片。", category: "礼物", pos: "n." },
+                                { korean: "편지", chinese: "信", example: "편지를 씁니다.", exampleChinese: "我写信。", category: "礼物", pos: "n." },
                                 // 动词
-                                { korean: "주다", chinese: "给", example: "선물을 줘요.", exampleChinese: "我给礼物。", category: "动词" },
-                                { korean: "보내다", chinese: "寄、发送", example: "카드를 보내요.", exampleChinese: "我寄卡片。", category: "动词" },
-                                { korean: "쓰다", chinese: "写", example: "편지를 써요.", exampleChinese: "我写信。", category: "动词" },
+                                { korean: "주다", chinese: "给", example: "선물을 줘요.", exampleChinese: "给你礼物。", category: "动词", pos: "v." },
+                                { korean: "보내다", chinese: "寄、发送", example: "카드를 보내요.", exampleChinese: "我寄卡片。", category: "动词", pos: "v." },
+                                { korean: "쓰다", chinese: "写", example: "편지를 써요.", exampleChinese: "我写信。", category: "动词", pos: "v." },
                                 // 问候表达
-                                { korean: "반갑습니다", chinese: "高兴(敬语)", example: "만나서 반갑습니다.", exampleChinese: "很高兴见到你。", category: "问候" },
-                                { korean: "실례합니다", chinese: "打扰、劳驾(敬语)", example: "실례합니다.", exampleChinese: "打扰了。", category: "问候" },
-                                { korean: "고마워요", chinese: "谢谢(口语)", example: "고마워요.", exampleChinese: "谢谢。", category: "问候" },
-                                { korean: "감사합니다", chinese: "感谢(正式)", example: "감사합니다.", exampleChinese: "谢谢。", category: "问候" },
-                                { korean: "미안해요", chinese: "对不起(口语)", example: "미안해요.", exampleChinese: "对不起。", category: "问候" },
-                                { korean: "괜찮아요", chinese: "没关系", example: "괜찮아요.", exampleChinese: "没关系。", category: "问候" },
-                                { korean: "안녕히 가세요", chinese: "再见(留步)", example: "안녕히 가세요.", exampleChinese: "再见。(对离开的人说)", category: "问候" },
-                                { korean: "안녕히 계세요", chinese: "再见(慢走)", example: "안녕히 계세요.", exampleChinese: "再见。(对留下的人说)", category: "问候" },
-                                { korean: "천만에요", chinese: "不客气", example: "천만에요.", exampleChinese: "不客气。", category: "问候" }
+                                { korean: "반갑습니다", chinese: "高兴(敬语)", example: "만나서 반갑습니다.", exampleChinese: "很高兴见到你。", category: "问候", pos: "n." },
+                                { korean: "실례합니다", chinese: "打扰、劳驾(敬语)", example: "실례합니다.", exampleChinese: "打扰了。", category: "问候", pos: "n." },
+                                { korean: "고마워요", chinese: "谢谢(口语)", example: "고마워요.", exampleChinese: "谢谢。", category: "问候", pos: "n." },
+                                { korean: "감사합니다", chinese: "感谢(正式)", example: "감사합니다.", exampleChinese: "谢谢。", category: "问候", pos: "n." },
+                                { korean: "미안해요", chinese: "对不起(口语)", example: "미안해요.", exampleChinese: "对不起。", category: "问候", pos: "n." },
+                                { korean: "괜찮아요", chinese: "没关系", example: "괜찮아요.", exampleChinese: "没关系。", category: "问候", pos: "adj." },
+                                { korean: "안녕히 가세요", chinese: "再见(留步)", example: "안녕히 가세요.", exampleChinese: "再见。(对离开的人说)", category: "问候", pos: "n." },
+                                { korean: "안녕히 계세요", chinese: "再见(慢走)", example: "안녕히 계세요.", exampleChinese: "再见。(对留下的人说)", category: "问候", pos: "n." },
+                                { korean: "천만에요", chinese: "不客气", example: "천만에요.", exampleChinese: "不客气。", category: "问候", pos: "n." }
                             ]
                         },
                         {
@@ -1453,23 +1465,23 @@
                             title: "지금 어디에 있어요?",
                             words: [
                                 // 地点
-                                { korean: "어디", chinese: "哪里", example: "트럼 씨는 어디에 살아요?", exampleChinese: "Trung住在哪里？", category: "地点" },
-                                { korean: "기숙사", chinese: "宿舍", example: "기숙사가 어디입니까?", exampleChinese: "宿舍在哪里？", category: "地点" },
-                                { korean: "서점", chinese: "书店", example: "서점에 책이 많아요.", exampleChinese: "书店里有很多书。", category: "地点" },
+                                { korean: "어디", chinese: "哪里", example: "트럼 씨는 어디에 살아요?", exampleChinese: "Trung住在哪里？", category: "地点", pos: "n." },
+                                { korean: "기숙사", chinese: "宿舍", example: "기숙사가 어디입니까?", exampleChinese: "宿舍在哪里？", category: "地点", pos: "n." },
+                                { korean: "서점", chinese: "书店", example: "서점에 책이 많아요.", exampleChinese: "书店里有很多书。", category: "地点", pos: "n." },
                                 // 物品
-                                { korean: "책", chinese: "书", example: "나타샤 씨가 책을 읽어요.", exampleChinese: "Natasha在读书。", category: "物品" },
-                                { korean: "공책", chinese: "笔记本", example: "트럼 씨에게 공책이 있습니다.", exampleChinese: "Trung有笔记本。", category: "物品" },
-                                { korean: "연필", chinese: "铅笔", example: "저한테 연필이 없어요.", exampleChinese: "我没有铅笔。", category: "物品" },
-                                { korean: "책상", chinese: "书桌", example: "교실에 책상이 많아요.", exampleChinese: "教室里有很多书桌。", category: "物品" },
-                                { korean: "의자", chinese: "椅子", example: "책상하고 의자가 있습니다.", exampleChinese: "有书桌和椅子。", category: "物品" },
+                                { korean: "책", chinese: "书", example: "나타샤 씨가 책을 읽어요.", exampleChinese: "Natasha在读书。", category: "物品", pos: "n." },
+                                { korean: "공책", chinese: "笔记本", example: "트럼 씨에게 공책이 있습니다.", exampleChinese: "Trung有笔记本。", category: "物品", pos: "n." },
+                                { korean: "연필", chinese: "铅笔", example: "저한테 연필이 없어요.", exampleChinese: "我没有铅笔。", category: "物品", pos: "n." },
+                                { korean: "책상", chinese: "书桌", example: "교실에 책상이 많아요.", exampleChinese: "教室里有很多书桌。", category: "物品", pos: "n." },
+                                { korean: "의자", chinese: "椅子", example: "책상하고 의자가 있습니다.", exampleChinese: "有书桌和椅子。", category: "物品", pos: "n." },
                                 // 方位
-                                { korean: "앞", chinese: "前面", example: "나무 앞에 있어요.", exampleChinese: "在树前面。", category: "方位" },
-                                { korean: "뒤", chinese: "后面", example: "나무 뒤에 있어요.", exampleChinese: "在树后面。", category: "方位" },
-                                { korean: "옆", chinese: "旁边", example: "나무 옆에 있어요.", exampleChinese: "在树旁边。", category: "方位" },
-                                { korean: "아래", chinese: "下面", example: "책상 아래에 있어요.", exampleChinese: "在书桌下面。", category: "方位" },
-                                { korean: "위", chinese: "上面", example: "책상 위에 있어요.", exampleChinese: "在书桌上面。", category: "方位" },
-                                { korean: "사이", chinese: "之间", example: "책하고 연필 사이에 있어요.", exampleChinese: "在书和铅笔之间。", category: "方位" },
-                                { korean: "가운데", chinese: "中间", example: "가운데 있어요.", exampleChinese: "在中间。", category: "方位" }
+                                { korean: "앞", chinese: "前面", example: "나무 앞에 있어요.", exampleChinese: "在树前面。", category: "方位", pos: "n." },
+                                { korean: "뒤", chinese: "后面", example: "나무 뒤에 있어요.", exampleChinese: "在树后面。", category: "方位", pos: "n." },
+                                { korean: "옆", chinese: "旁边", example: "나무 옆에 있어요.", exampleChinese: "在树旁边。", category: "方位", pos: "n." },
+                                { korean: "아래", chinese: "下面", example: "책상 아래에 있어요.", exampleChinese: "在书桌下面。", category: "方位", pos: "n." },
+                                { korean: "위", chinese: "上面", example: "책상 위에 있어요.", exampleChinese: "在书桌上面。", category: "方位", pos: "n." },
+                                { korean: "사이", chinese: "之间", example: "책하고 연필 사이에 있어요.", exampleChinese: "在书和铅笔之间。", category: "方位", pos: "n." },
+                                { korean: "가운데", chinese: "中间", example: "가운데 있어요.", exampleChinese: "在中间。", category: "方位", pos: "n." }
                             ]
                         },
                         {
@@ -1477,31 +1489,31 @@
                             title: "토요일에 친구를 만났어요",
                             words: [
                                 // 汉字数词
-                                { korean: "일", chinese: "一", example: "일월이에요.", exampleChinese: "是一月。", category: "汉字数词" },
-                                { korean: "이", chinese: "二", example: "이월이에요.", exampleChinese: "是二月。", category: "汉字数词" },
-                                { korean: "삼", chinese: "三", example: "삼월이에요.", exampleChinese: "是三月。", category: "汉字数词" },
-                                { korean: "사", chinese: "四", example: "사월이에요.", exampleChinese: "是四月。", category: "汉字数词" },
-                                { korean: "오", chinese: "五", example: "오월이에요.", exampleChinese: "是五月。", category: "汉字数词" },
-                                { korean: "육", chinese: "六", example: "육월이에요.", exampleChinese: "是六月。", category: "汉字数词" },
-                                { korean: "칠", chinese: "七", example: "칠월이에요.", exampleChinese: "是七月。", category: "汉字数词" },
-                                { korean: "팔", chinese: "八", example: "팔월이에요.", exampleChinese: "是八月。", category: "汉字数词" },
-                                { korean: "구", chinese: "九", example: "구월이에요.", exampleChinese: "是九月。", category: "汉字数词" },
-                                { korean: "십", chinese: "十", example: "십월이에요.", exampleChinese: "是十月。", category: "汉字数词" },
+                                { korean: "일", chinese: "一", example: "일월이에요.", exampleChinese: "是一月。", category: "汉字数词", pos: "num." },
+                                { korean: "이", chinese: "二", example: "이월이에요.", exampleChinese: "是二月。", category: "汉字数词", pos: "num." },
+                                { korean: "삼", chinese: "三", example: "삼월이에요.", exampleChinese: "是三月。", category: "汉字数词", pos: "num." },
+                                { korean: "사", chinese: "四", example: "사월이에요.", exampleChinese: "是四月。", category: "汉字数词", pos: "num." },
+                                { korean: "오", chinese: "五", example: "오월이에요.", exampleChinese: "是五月。", category: "汉字数词", pos: "num." },
+                                { korean: "육", chinese: "六", example: "육월이에요.", exampleChinese: "是六月。", category: "汉字数词", pos: "num." },
+                                { korean: "칠", chinese: "七", example: "칠월이에요.", exampleChinese: "是七月。", category: "汉字数词", pos: "num." },
+                                { korean: "팔", chinese: "八", example: "팔월이에요.", exampleChinese: "是八月。", category: "汉字数词", pos: "num." },
+                                { korean: "구", chinese: "九", example: "구월이에요.", exampleChinese: "是九月。", category: "汉字数词", pos: "num." },
+                                { korean: "십", chinese: "十", example: "십월이에요.", exampleChinese: "是十月。", category: "汉字数词", pos: "num." },
                                 // 日期相关
-                                { korean: "언제", chinese: "什么时候", example: "생일이 언제예요?", exampleChinese: "生日是什么时候？", category: "日期" },
-                                { korean: "월", chinese: "月", example: "일월이에요.", exampleChinese: "是一月。", category: "日期" },
-                                { korean: "일", chinese: "日", example: "스무칠 일이에요.", exampleChinese: "是二十七号。", category: "日期" },
-                                { korean: "오전", chinese: "上午", example: "오전 11시예요.", exampleChinese: "是上午11点。", category: "日期" },
-                                { korean: "오후", chinese: "下午", example: "오후 5시예요.", exampleChinese: "是下午5点。", category: "日期" },
-                                { korean: "주말", chinese: "周末", example: "주말은 학교에 안 가요.", exampleChinese: "周末不去学校。", category: "日期" },
+                                { korean: "언제", chinese: "什么时候", example: "생일이 언제예요?", exampleChinese: "生日是什么时候？", category: "日期", pos: "num." },
+                                { korean: "월", chinese: "月", example: "일월이에요.", exampleChinese: "是一月。", category: "日期", pos: "num." },
+                                { korean: "일", chinese: "日", example: "스물일곱 일이에요.", exampleChinese: "是二十七号。", category: "日期", pos: "n." },
+                                { korean: "오전", chinese: "上午", example: "오전 11시예요.", exampleChinese: "是上午11点。", category: "日期", pos: "num." },
+                                { korean: "오후", chinese: "下午", example: "오후 5시예요.", exampleChinese: "是下午5点。", category: "日期", pos: "num." },
+                                { korean: "주말", chinese: "周末", example: "주말은 학교에 안 가요.", exampleChinese: "周末不去学校。", category: "日期", pos: "num." },
                                 // 星期
-                                { korean: "월요일", chinese: "星期一", example: "월요일이에요.", exampleChinese: "是星期一。", category: "星期" },
-                                { korean: "화요일", chinese: "星期二", example: "화요일이에요.", exampleChinese: "是星期二。", category: "星期" },
-                                { korean: "수요일", chinese: "星期三", example: "수요일이에요.", exampleChinese: "是星期三。", category: "星期" },
-                                { korean: "목요일", chinese: "星期四", example: "목요일이에요.", exampleChinese: "是星期四。", category: "星期" },
-                                { korean: "금요일", chinese: "星期五", example: "금요일이에요.", exampleChinese: "是星期五。", category: "星期" },
-                                { korean: "토요일", chinese: "星期六", example: "토요일이에요.", exampleChinese: "是星期六。", category: "星期" },
-                                { korean: "일요일", chinese: "星期日", example: "일요일이에요.", exampleChinese: "是星期日。", category: "星期" }
+                                { korean: "월요일", chinese: "星期一", example: "월요일이에요.", exampleChinese: "是星期一。", category: "星期", pos: "num." },
+                                { korean: "화요일", chinese: "星期二", example: "화요일이에요.", exampleChinese: "是星期二。", category: "星期", pos: "num." },
+                                { korean: "수요일", chinese: "星期三", example: "수요일이에요.", exampleChinese: "是星期三。", category: "星期", pos: "num." },
+                                { korean: "목요일", chinese: "星期四", example: "목요일이에요.", exampleChinese: "是星期四。", category: "星期", pos: "num." },
+                                { korean: "금요일", chinese: "星期五", example: "금요일이에요.", exampleChinese: "是星期五。", category: "星期", pos: "num." },
+                                { korean: "토요일", chinese: "星期六", example: "토요일이에요.", exampleChinese: "是星期六。", category: "星期", pos: "num." },
+                                { korean: "일요일", chinese: "星期日", example: "일요일이에요.", exampleChinese: "是星期日。", category: "星期", pos: "num." }
                             ]
                         },
                         {
@@ -1509,20 +1521,20 @@
                             title: "저는 수영을 못해요",
                             words: [
                                 // 运动
-                                { korean: "운동", chinese: "运动", example: "저는 운동을 좋아해요.", exampleChinese: "我喜欢运动。", category: "运动" },
-                                { korean: "수영", chinese: "游泳", example: "나타샤 씨가 수영을 해요.", exampleChinese: "Natasha在游泳。", category: "运动" },
-                                { korean: "축구", chinese: "足球", example: "축구를 해요.", exampleChinese: "踢足球。", category: "运动" },
-                                { korean: "농구", chinese: "篮球", example: "농구를 해요.", exampleChinese: "打篮球。", category: "运动" },
-                                { korean: "야구", chinese: "棒球", example: "야구를 해요.", exampleChinese: "打棒球。", category: "运动" },
+                                { korean: "운동", chinese: "运动", example: "저는 운동을 좋아해요.", exampleChinese: "我喜欢运动。", category: "运动", pos: "n." },
+                                { korean: "수영", chinese: "游泳", example: "나타샤 씨가 수영을 해요.", exampleChinese: "Natasha在游泳。", category: "运动", pos: "n." },
+                                { korean: "축구", chinese: "足球", example: "축구를 해요.", exampleChinese: "踢足球。", category: "运动", pos: "n." },
+                                { korean: "농구", chinese: "篮球", example: "농구를 해요.", exampleChinese: "打篮球。", category: "运动", pos: "n." },
+                                { korean: "야구", chinese: "棒球", example: "야구를 해요.", exampleChinese: "打棒球。", category: "运动", pos: "n." },
                                 // 动词
-                                { korean: "잘하다", chinese: "擅长", example: "수영을 잘해요.", exampleChinese: "擅长游泳。", category: "动词" },
-                                { korean: "못하다", chinese: "不会、不擅长", example: "수영을 못해요.", exampleChinese: "不会游泳。", category: "动词" },
-                                { korean: "연습", chinese: "练习", example: "축구 연습을 해요.", exampleChinese: "练习足球。", category: "动词" },
-                                { korean: "시작하다", chinese: "开始", example: "운동을 시작했어요.", exampleChinese: "开始运动了。", category: "动词" },
+                                { korean: "잘하다", chinese: "擅长", example: "수영을 잘해요.", exampleChinese: "擅长游泳。", category: "动词", pos: "v." },
+                                { korean: "못하다", chinese: "不会、不擅长", example: "수영을 못해요.", exampleChinese: "不会游泳。", category: "动词", pos: "v." },
+                                { korean: "연습하다", chinese: "练习", example: "축구를 연습해요.", exampleChinese: "练习足球。", category: "动词", pos: "v." },
+                                { korean: "시작하다", chinese: "开始", example: "운동을 시작했어요.", exampleChinese: "开始运动了。", category: "动词", pos: "v." },
                                 // 副词
-                                { korean: "자주", chinese: "经常", example: "운동을 자주 해요?", exampleChinese: "经常运动吗？", category: "副词" },
-                                { korean: "매일", chinese: "每天", example: "매일 농구를 해요.", exampleChinese: "每天打篮球。", category: "副词" },
-                                { korean: "가끔", chinese: "偶尔", example: "가끔 운동을 해요.", exampleChinese: "偶尔运动。", category: "副词" }
+                                { korean: "자주", chinese: "经常", example: "운동을 자주 해요?", exampleChinese: "经常运动吗？", category: "副词", pos: "adv." },
+                                { korean: "매일", chinese: "每天", example: "매일 농구를 해요.", exampleChinese: "每天打篮球。", category: "副词", pos: "adv." },
+                                { korean: "가끔", chinese: "偶尔", example: "가끔 운동을 해요.", exampleChinese: "偶尔运动。", category: "副词", pos: "adv." }
                             ]
                         },
                         {
@@ -1530,27 +1542,27 @@
                             title: "같이 점심을 먹을까요?",
                             words: [
                                 // 固有数词
-                                { korean: "하나", chinese: "一", example: "하나, 둘, 셋!", exampleChinese: "一、二、三！", category: "固有数词" },
-                                { korean: "둘", chinese: "二", example: "둘이에요.", exampleChinese: "是两个。", category: "固有数词" },
-                                { korean: "셋", chinese: "三", example: "셋이에요.", exampleChinese: "是三个。", category: "固有数词" },
-                                { korean: "넷", chinese: "四", example: "넷이에요.", exampleChinese: "是四个。", category: "固有数词" },
-                                { korean: "다섯", chinese: "五", example: "다섯 시예요.", exampleChinese: "是五点。", category: "固有数词" },
-                                { korean: "여섯", chinese: "六", example: "여섯 시예요.", exampleChinese: "是六点。", category: "固有数词" },
-                                { korean: "일곱", chinese: "七", example: "일곱 시예요.", exampleChinese: "是七点。", category: "固有数词" },
-                                { korean: "여덟", chinese: "八", example: "여덟 시예요.", exampleChinese: "是八点。", category: "固有数词" },
-                                { korean: "아홉", chinese: "九", example: "아홉 시예요.", exampleChinese: "是九点。", category: "固有数词" },
-                                { korean: "열", chinese: "十", example: "열 시예요.", exampleChinese: "是十点。", category: "固有数词" },
+                                { korean: "하나", chinese: "一", example: "하나, 둘, 셋!", exampleChinese: "一、二、三！", category: "固有数词", pos: "num." },
+                                { korean: "둘", chinese: "二", example: "둘이에요.", exampleChinese: "是两个。", category: "固有数词", pos: "num." },
+                                { korean: "셋", chinese: "三", example: "셋이에요.", exampleChinese: "是三个。", category: "固有数词", pos: "num." },
+                                { korean: "넷", chinese: "四", example: "넷이에요.", exampleChinese: "是四个。", category: "固有数词", pos: "num." },
+                                { korean: "다섯", chinese: "五", example: "다섯 시예요.", exampleChinese: "是五点。", category: "固有数词", pos: "num." },
+                                { korean: "여섯", chinese: "六", example: "여섯 시예요.", exampleChinese: "是六点。", category: "固有数词", pos: "num." },
+                                { korean: "일곱", chinese: "七", example: "일곱 시예요.", exampleChinese: "是七点。", category: "固有数词", pos: "num." },
+                                { korean: "여덟", chinese: "八", example: "여덟 시예요.", exampleChinese: "是八点。", category: "固有数词", pos: "num." },
+                                { korean: "아홉", chinese: "九", example: "아홉 시예요.", exampleChinese: "是九点。", category: "固有数词", pos: "num." },
+                                { korean: "열", chinese: "十", example: "열 시예요.", exampleChinese: "是十点。", category: "固有数词", pos: "num." },
                                 // 时间
-                                { korean: "시", chinese: "点(时间)", example: "다섯 시예요.", exampleChinese: "是五点。", category: "时间" },
-                                { korean: "분", chinese: "分", example: "다섯 시 삼십 분이에요.", exampleChinese: "是五点三十分。", category: "时间" },
-                                { korean: "몇 시", chinese: "几点", example: "지금 몇 시예요?", exampleChinese: "现在几点？", category: "时间" },
+                                { korean: "시", chinese: "点(时间)", example: "다섯 시예요.", exampleChinese: "是五点。", category: "时间", pos: "num." },
+                                { korean: "분", chinese: "分", example: "다섯 시 삼십 분이에요.", exampleChinese: "是五点三十分。", category: "时间", pos: "num." },
+                                { korean: "몇 시", chinese: "几点", example: "지금 몇 시예요?", exampleChinese: "现在几点？", category: "时间", pos: "num." },
                                 // 时段
-                                { korean: "아침", chinese: "早上", example: "아침에 학교에 가요.", exampleChinese: "早上去学校。", category: "时段" },
-                                { korean: "점심", chinese: "中午", example: "점심에 밥을 먹어요.", exampleChinese: "中午吃饭。", category: "时段" },
-                                { korean: "저녁", chinese: "晚上", example: "저녁에 집에서 쉬어요.", exampleChinese: "晚上在家休息。", category: "时段" },
+                                { korean: "아침", chinese: "早上", example: "아침에 학교에 가요.", exampleChinese: "早上去学校。", category: "时段", pos: "num." },
+                                { korean: "점심", chinese: "中午", example: "점심에 밥을 먹어요.", exampleChinese: "中午吃饭。", category: "时段", pos: "num." },
+                                { korean: "저녁", chinese: "晚上", example: "저녁에 집에서 쉬어요.", exampleChinese: "晚上在家休息。", category: "时段", pos: "num." },
                                 // 表达
-                                { korean: "시간", chinese: "时间", example: "시간이 있어요.", exampleChinese: "有时间。", category: "表达" },
-                                { korean: "한가하다", chinese: "空闲", example: "이번 주말에 한가해요.", exampleChinese: "这个周末有空。", category: "表达" }
+                                { korean: "시간", chinese: "时间", example: "시간이 있어요.", exampleChinese: "有时间。", category: "表达", pos: "n." },
+                                { korean: "한가하다", chinese: "空闲", example: "이번 주말에 한가해요.", exampleChinese: "这个周末有空。", category: "表达", pos: "v." }
                             ]
                         },
                         {
@@ -1558,22 +1570,22 @@
                             title: "떡볶이는 매워서 잘 못 먹어요",
                             words: [
                                 // 食物
-                                { korean: "떡볶이", chinese: "炒年糕", example: "떡볶이는 매워요.", exampleChinese: "炒年糕很辣。", category: "食物" },
-                                { korean: "김밥", chinese: "紫菜包饭", example: "김밥을 좋아해요.", exampleChinese: "喜欢紫菜包饭。", category: "食物" },
-                                { korean: "비빔밥", chinese: "拌饭", example: "비빔밥이 맛있어요.", exampleChinese: "拌饭很好吃。", category: "食物" },
-                                { korean: "음료수", chinese: "饮料", example: "음료수를 마셔요.", exampleChinese: "喝饮料。", category: "食物" },
-                                { korean: "메뉴", chinese: "菜单", example: "메뉴를 봐요.", exampleChinese: "看菜单。", category: "食物" },
+                                { korean: "떡볶이", chinese: "炒年糕", example: "떡볶이는 매워요.", exampleChinese: "炒年糕很辣。", category: "食物", pos: "n." },
+                                { korean: "김밥", chinese: "紫菜包饭", example: "김밥을 좋아해요.", exampleChinese: "喜欢紫菜包饭。", category: "食物", pos: "n." },
+                                { korean: "비빔밥", chinese: "拌饭", example: "비빔밥이 맛있어요.", exampleChinese: "拌饭很好吃。", category: "食物", pos: "n." },
+                                { korean: "음료수", chinese: "饮料", example: "음료수를 마셔요.", exampleChinese: "喝饮料。", category: "食物", pos: "n." },
+                                { korean: "메뉴", chinese: "菜单", example: "메뉴를 봐요.", exampleChinese: "看菜单。", category: "食物", pos: "n." },
                                 // 点餐
-                                { korean: "인분", chinese: "份", example: "비빔밥 두 인분 주세요.", exampleChinese: "请给我两份拌饭。", category: "点餐" },
-                                { korean: "주세요", chinese: "请给我", example: "김밥 한 인분 주세요.", exampleChinese: "请给我一份紫菜包饭。", category: "点餐" },
+                                { korean: "인분", chinese: "份", example: "비빔밥 두 인분 주세요.", exampleChinese: "请给我两份拌饭。", category: "点餐", pos: "v." },
+                                { korean: "주세요", chinese: "请给我", example: "김밥 한 인분 주세요.", exampleChinese: "请给我一份紫菜包饭。", category: "点餐", pos: "v." },
                                 // 味道
-                                { korean: "맛있다", chinese: "好吃", example: "이 음식은 맛있어요.", exampleChinese: "这个食物很好吃。", category: "味道" },
-                                { korean: "맛없다", chinese: "不好吃", example: "이 음식은 맛없어요.", exampleChinese: "这个食物不好吃。", category: "味道" },
-                                { korean: "맵다", chinese: "辣", example: "떡볶이는 매워요.", exampleChinese: "炒年糕很辣。", category: "味道" },
-                                { korean: "달다", chinese: "甜", example: "이 케이크는 달아요.", exampleChinese: "这个蛋糕很甜。", category: "味道" },
-                                { korean: "짜다", chinese: "咸", example: "이 찌개는 짜요.", exampleChinese: "这个汤很咸。", category: "味道" },
-                                { korean: "쓰다", chinese: "苦", example: "이 약은 써요.", exampleChinese: "这个药很苦。", category: "味道" },
-                                { korean: "싱겁다", chinese: "淡", example: "국이 싱거워요.", exampleChinese: "汤很淡。", category: "味道" }
+                                { korean: "맛있다", chinese: "好吃", example: "이 음식은 맛있어요.", exampleChinese: "这个食物很好吃。", category: "味道", pos: "adj." },
+                                { korean: "맛없다", chinese: "不好吃", example: "이 음식은 맛없어요.", exampleChinese: "这个食物不好吃。", category: "味道", pos: "adj." },
+                                { korean: "맵다", chinese: "辣", example: "떡볶이는 매워요.", exampleChinese: "炒年糕很辣。", category: "味道", pos: "adj." },
+                                { korean: "달다", chinese: "甜", example: "이 케이크는 달아요.", exampleChinese: "这个蛋糕很甜。", category: "味道", pos: "adj." },
+                                { korean: "짜다", chinese: "咸", example: "이 찌개는 짜요.", exampleChinese: "这个汤很咸。", category: "味道", pos: "adj." },
+                                { korean: "쓰다", chinese: "苦", example: "이 약은 써요.", exampleChinese: "这个药很苦。", category: "味道", pos: "v." },
+                                { korean: "싱겁다", chinese: "淡", example: "국이 싱거워요.", exampleChinese: "汤很淡。", category: "味道", pos: "adj." }
                             ]
                         },
                         {
@@ -1581,24 +1593,24 @@
                             title: "운동화를 좀 보고 싶어요",
                             words: [
                                 // 物品
-                                { korean: "선물", chinese: "礼物", example: "친구에게 선물을 받았어요.", exampleChinese: "收到了朋友的礼物。", category: "物品" },
-                                { korean: "가방", chinese: "包", example: "가방 안에 책이 있어요.", exampleChinese: "包里有书。", category: "物品" },
-                                { korean: "모자", chinese: "帽子", example: "모자를 써요.", exampleChinese: "戴帽子。", category: "物品" },
-                                { korean: "옷", chinese: "衣服", example: "새 옷을 입었어요.", exampleChinese: "穿了新衣服。", category: "物品" },
-                                { korean: "신발", chinese: "鞋", example: "신발을 벗으세요.", exampleChinese: "请脱鞋。", category: "物品" },
-                                { korean: "화장품", chinese: "化妆品", example: "화장품을 샀어요.", exampleChinese: "买了化妆品。", category: "物品" },
+                                { korean: "선물", chinese: "礼物", example: "친구에게 선물을 받았어요.", exampleChinese: "收到了朋友的礼物。", category: "物品", pos: "n." },
+                                { korean: "가방", chinese: "包", example: "가방 안에 책이 있어요.", exampleChinese: "包里有书。", category: "物品", pos: "n." },
+                                { korean: "모자", chinese: "帽子", example: "모자를 써요.", exampleChinese: "戴帽子。", category: "物品", pos: "n." },
+                                { korean: "옷", chinese: "衣服", example: "새 옷을 입었어요.", exampleChinese: "穿了新衣服。", category: "物品", pos: "n." },
+                                { korean: "신발", chinese: "鞋", example: "신발을 벗으세요.", exampleChinese: "请脱鞋。", category: "物品", pos: "n." },
+                                { korean: "화장품", chinese: "化妆品", example: "화장품을 샀어요.", exampleChinese: "买了化妆品。", category: "物品", pos: "n." },
                                 // 购物
-                                { korean: "가게", chinese: "店", example: "가게에 손님이 많아요.", exampleChinese: "店里客人很多。", category: "购物" },
-                                { korean: "원", chinese: "韩元", example: "오만 원이에요.", exampleChinese: "是五万韩元。", category: "购物" },
-                                { korean: "가격", chinese: "价格", example: "가격이 비싸요.", exampleChinese: "价格很贵。", category: "购物" },
-                                { korean: "점원", chinese: "店员", example: "점원이 친절해요.", exampleChinese: "店员很亲切。", category: "购物" },
+                                { korean: "가게", chinese: "店", example: "가게에 손님이 많아요.", exampleChinese: "店里客人很多。", category: "购物", pos: "n." },
+                                { korean: "원", chinese: "韩元", example: "오만 원이에요.", exampleChinese: "是五万韩元。", category: "购物", pos: "n." },
+                                { korean: "가격", chinese: "价格", example: "가격이 비싸요.", exampleChinese: "价格很贵。", category: "购物", pos: "n." },
+                                { korean: "점원", chinese: "店员", example: "점원이 친절해요.", exampleChinese: "店员很亲切。", category: "购物", pos: "n." },
                                 // 动词/形容词
-                                { korean: "사다", chinese: "买", example: "옷을 샀어요.", exampleChinese: "买了衣服。", category: "动词" },
-                                { korean: "비싸다", chinese: "贵", example: "이 옷은 비싸요.", exampleChinese: "这件衣服很贵。", category: "形容词" },
-                                { korean: "싸다", chinese: "便宜", example: "이 신발은 싸요.", exampleChinese: "这双鞋很便宜。", category: "形容词" },
-                                { korean: "할인하다", chinese: "打折", example: "할인해서 쌌어요.", exampleChinese: "打折后很便宜。", category: "动词" },
-                                { korean: "얼마예요?", chinese: "多少钱?", example: "이 옷은 얼마예요?", exampleChinese: "这件衣服多少钱？", category: "表达" },
-                                { korean: "고르다", chinese: "挑选", example: "주스를 골랐어요.", exampleChinese: "挑选了果汁。", category: "动词" }
+                                { korean: "사다", chinese: "买", example: "옷을 샀어요.", exampleChinese: "买了衣服。", category: "动词", pos: "v." },
+                                { korean: "비싸다", chinese: "贵", example: "이 옷은 비싸요.", exampleChinese: "这件衣服很贵。", category: "形容词", pos: "adj." },
+                                { korean: "싸다", chinese: "便宜", example: "이 신발은 싸요.", exampleChinese: "这双鞋很便宜。", category: "形容词", pos: "adj." },
+                                { korean: "할인하다", chinese: "打折", example: "할인해서 쌌어요.", exampleChinese: "打折后很便宜。", category: "动词", pos: "v." },
+                                { korean: "얼마예요?", chinese: "多少钱?", example: "이 옷은 얼마예요?", exampleChinese: "这件衣服多少钱？", category: "表达", pos: "n." },
+                                { korean: "고르다", chinese: "挑选", example: "주스를 골랐어요.", exampleChinese: "挑选了果汁。", category: "动词", pos: "v." }
                             ]
                         },
                         {
@@ -1606,19 +1618,19 @@
                             title: "케이팝(K-pop) 댄스를 좋아해요?",
                             words: [
                                 // 兴趣爱好
-                                { korean: "취미", chinese: "兴趣、爱好", example: "취미가 뭐예요?", exampleChinese: "你的爱好是什么？", category: "兴趣" },
-                                { korean: "케이팝 댄스", chinese: "K-pop舞蹈", example: "케이팝 댄스를 좋아해요.", exampleChinese: "我喜欢K-pop舞蹈。", category: "兴趣" },
-                                { korean: "그림", chinese: "画、绘画", example: "그림을 그려요.", exampleChinese: "画画。", category: "兴趣" },
-                                { korean: "요리", chinese: "料理、烹饪", example: "한국 요리를 먹을까요?", exampleChinese: "吃韩餐怎么样？", category: "兴趣" },
-                                { korean: "악기", chinese: "乐器", example: "이 악기 이름이 뭐예요?", exampleChinese: "这个乐器叫什么？", category: "兴趣" },
-                                { korean: "사진", chinese: "照片", example: "사진을 찍어요.", exampleChinese: "拍照。", category: "兴趣" },
+                                { korean: "취미", chinese: "兴趣、爱好", example: "취미가 뭐예요?", exampleChinese: "你的爱好是什么？", category: "兴趣", pos: "n." },
+                                { korean: "케이팝 댄스", chinese: "K-pop舞蹈", example: "케이팝 댄스를 좋아해요.", exampleChinese: "我喜欢K-pop舞蹈。", category: "兴趣", pos: "n." },
+                                { korean: "그림", chinese: "画、绘画", example: "그림을 그려요.", exampleChinese: "画画。", category: "兴趣", pos: "n." },
+                                { korean: "요리", chinese: "料理、烹饪", example: "한국 요리를 먹을까요?", exampleChinese: "吃韩餐怎么样？", category: "兴趣", pos: "n." },
+                                { korean: "악기", chinese: "乐器", example: "이 악기 이름이 뭐예요?", exampleChinese: "这个乐器叫什么？", category: "兴趣", pos: "n." },
+                                { korean: "사진", chinese: "照片", example: "사진을 찍어요.", exampleChinese: "拍照。", category: "兴趣", pos: "n." },
                                 // 动词
-                                { korean: "추다", chinese: "跳舞", example: "케이팝 댄스를 춰요.", exampleChinese: "跳K-pop舞蹈。", category: "动词" },
-                                { korean: "그리다", chinese: "画", example: "그림을 그려요.", exampleChinese: "画画。", category: "动词" },
-                                { korean: "만들다", chinese: "做、制作", example: "한국 음식을 만들어요.", exampleChinese: "做韩国食物。", category: "动词" },
-                                { korean: "연주하다", chinese: "演奏", example: "피아노를 연주해요.", exampleChinese: "演奏钢琴。", category: "动词" },
-                                { korean: "찍다", chinese: "拍照", example: "사진을 찍어요.", exampleChinese: "拍照。", category: "动词" },
-                                { korean: "배우다", chinese: "学习", example: "학교에서 외국어를 배워요.", exampleChinese: "在学校学外语。", category: "动词" }
+                                { korean: "추다", chinese: "跳舞", example: "케이팝 댄스를 춰요.", exampleChinese: "跳K-pop舞蹈。", category: "动词", pos: "v." },
+                                { korean: "그리다", chinese: "画", example: "그림을 그려요.", exampleChinese: "画画。", category: "动词", pos: "v." },
+                                { korean: "만들다", chinese: "做、制作", example: "한국 음식을 만들어요.", exampleChinese: "做韩国食物。", category: "动词", pos: "v." },
+                                { korean: "연주하다", chinese: "演奏", example: "피아노를 연주해요.", exampleChinese: "演奏钢琴。", category: "动词", pos: "v." },
+                                { korean: "찍다", chinese: "拍照", example: "사진을 찍어요.", exampleChinese: "拍照。", category: "动词", pos: "v." },
+                                { korean: "배우다", chinese: "学习", example: "학교에서 외국어를 배워요.", exampleChinese: "在学校学外语。", category: "动词", pos: "v." }
                             ]
                         },
                         {
@@ -1626,21 +1638,21 @@
                             title: "고향에 가기 전에 여행을 할 거예요",
                             words: [
                                 // 旅行地点
-                                { korean: "여행", chinese: "旅行", example: "여행을 가요.", exampleChinese: "去旅行。", category: "旅行" },
-                                { korean: "산", chinese: "山", example: "산에 가요.", exampleChinese: "去爬山。", category: "旅行" },
-                                { korean: "바다", chinese: "海", example: "바다가 예뻐요.", exampleChinese: "海很漂亮。", category: "旅行" },
-                                { korean: "서울", chinese: "首尔", example: "서울에 가요.", exampleChinese: "去首尔。", category: "旅行" },
-                                { korean: "부산", chinese: "釜山", example: "부산에 갔어요.", exampleChinese: "去了釜山。", category: "旅行" },
-                                { korean: "외국", chinese: "外国", example: "외국에 가요.", exampleChinese: "去国外。", category: "旅行" },
+                                { korean: "여행", chinese: "旅行", example: "여행을 가요.", exampleChinese: "去旅行。", category: "旅行", pos: "n." },
+                                { korean: "산", chinese: "山", example: "산에 가요.", exampleChinese: "去爬山。", category: "旅行", pos: "n." },
+                                { korean: "바다", chinese: "海", example: "바다가 예뻐요.", exampleChinese: "海很漂亮。", category: "旅行", pos: "n." },
+                                { korean: "서울", chinese: "首尔", example: "서울에 가요.", exampleChinese: "去首尔。", category: "旅行", pos: "n." },
+                                { korean: "부산", chinese: "釜山", example: "부산에 갔어요.", exampleChinese: "去了釜山。", category: "旅行", pos: "n." },
+                                { korean: "외국", chinese: "外国", example: "외국에 가요.", exampleChinese: "去国外。", category: "旅行", pos: "n." },
                                 // 旅行相关
-                                { korean: "여권", chinese: "护照", example: "여권을 가져왔어요.", exampleChinese: "带了护照。", category: "旅行" },
-                                { korean: "여행사", chinese: "旅行社", example: "여행사에서 예약했어요.", exampleChinese: "在旅行社预订了。", category: "旅行" },
-                                { korean: "호텔", chinese: "酒店", example: "호텔에서 자요.", exampleChinese: "在酒店睡觉。", category: "旅行" },
-                                { korean: "숙소", chinese: "住宿", example: "숙소를 예약했어요.", exampleChinese: "预订了住宿。", category: "旅行" },
+                                { korean: "여권", chinese: "护照", example: "여권을 가져왔어요.", exampleChinese: "带了护照。", category: "旅行", pos: "n." },
+                                { korean: "여행사", chinese: "旅行社", example: "여행사에서 예약했어요.", exampleChinese: "在旅行社预订了。", category: "旅行", pos: "n." },
+                                { korean: "호텔", chinese: "酒店", example: "호텔에서 자요.", exampleChinese: "在酒店睡觉。", category: "旅行", pos: "n." },
+                                { korean: "숙소", chinese: "住宿", example: "숙소를 예약했어요.", exampleChinese: "预订了住宿。", category: "旅行", pos: "n." },
                                 // 动词
-                                { korean: "예약하다", chinese: "预约", example: "숙소를 예약했어요.", exampleChinese: "预订了住宿。", category: "动词" },
-                                { korean: "예매하다", chinese: "预订(票)", example: "비행기 표를 예매할 거예요.", exampleChinese: "要预订机票。", category: "动词" },
-                                { korean: "고향", chinese: "故乡", example: "고향에 가요.", exampleChinese: "回故乡。", category: "旅行" }
+                                { korean: "예약하다", chinese: "预约", example: "숙소를 예약했어요.", exampleChinese: "预订了住宿。", category: "动词", pos: "v." },
+                                { korean: "예매하다", chinese: "预订(票)", example: "비행기 표를 예매할 거예요.", exampleChinese: "要预订机票。", category: "动词", pos: "v." },
+                                { korean: "고향", chinese: "故乡", example: "고향에 가요.", exampleChinese: "回故乡。", category: "旅行", pos: "n." }
                             ]
                         },
                         {
@@ -1648,25 +1660,25 @@
                             title: "약을 먹은 후에 쭉 쉬세요",
                             words: [
                                 // 身体部位
-                                { korean: "머리", chinese: "头", example: "머리가 아파요.", exampleChinese: "头疼。", category: "身体" },
-                                { korean: "목", chinese: "喉咙、脖子", example: "목이 아파요.", exampleChinese: "喉咙疼。", category: "身体" },
-                                { korean: "배", chinese: "肚子", example: "배가 아파요.", exampleChinese: "肚子疼。", category: "身体" },
-                                { korean: "팔", chinese: "手臂", example: "팔이 아파요.", exampleChinese: "手臂疼。", category: "身体" },
-                                { korean: "손", chinese: "手", example: "손이 아파요.", exampleChinese: "手疼。", category: "身体" },
-                                { korean: "다리", chinese: "腿", example: "다리가 아파요.", exampleChinese: "腿疼。", category: "身体" },
-                                { korean: "발", chinese: "脚", example: "발이 아파요.", exampleChinese: "脚疼。", category: "身体" },
+                                { korean: "머리", chinese: "头", example: "머리가 아파요.", exampleChinese: "头疼。", category: "身体", pos: "n." },
+                                { korean: "목", chinese: "喉咙、脖子", example: "목이 아파요.", exampleChinese: "喉咙疼。", category: "身体", pos: "n." },
+                                { korean: "배", chinese: "肚子", example: "배가 아파요.", exampleChinese: "肚子疼。", category: "身体", pos: "n." },
+                                { korean: "팔", chinese: "手臂", example: "팔이 아파요.", exampleChinese: "手臂疼。", category: "身体", pos: "n." },
+                                { korean: "손", chinese: "手", example: "손이 아파요.", exampleChinese: "手疼。", category: "身体", pos: "n." },
+                                { korean: "다리", chinese: "腿", example: "다리가 아파요.", exampleChinese: "腿疼。", category: "身体", pos: "n." },
+                                { korean: "발", chinese: "脚", example: "발이 아파요.", exampleChinese: "脚疼。", category: "身体", pos: "n." },
                                 // 治疗
-                                { korean: "병원", chinese: "医院", example: "병원에 가요.", exampleChinese: "去医院。", category: "治疗" },
-                                { korean: "약", chinese: "药", example: "약을 먹었어요.", exampleChinese: "吃了药。", category: "治疗" },
-                                { korean: "약국", chinese: "药店", example: "약국에서 약을 사요.", exampleChinese: "在药店买药。", category: "治疗" },
+                                { korean: "병원", chinese: "医院", example: "병원에 가요.", exampleChinese: "去医院。", category: "治疗", pos: "n." },
+                                { korean: "약", chinese: "药", example: "약을 먹었어요.", exampleChinese: "吃了药。", category: "治疗", pos: "n." },
+                                { korean: "약국", chinese: "药店", example: "약국에서 약을 사요.", exampleChinese: "在药店买药。", category: "治疗", pos: "n." },
                                 // 症状
-                                { korean: "아프다", chinese: "疼、生病", example: "머리가 아파요.", exampleChinese: "头疼。", category: "症状" },
-                                { korean: "피곤하다", chinese: "疲惫", example: "피곤해요.", exampleChinese: "很累。", category: "症状" },
-                                { korean: "스트레스", chinese: "压力", example: "스트레스를 받아요.", exampleChinese: "受到压力。", category: "症状" },
-                                { korean: "감기", chinese: "感冒", example: "감기에 걸렸어요.", exampleChinese: "感冒了。", category: "症状" },
+                                { korean: "아프다", chinese: "疼、生病", example: "머리가 아파요.", exampleChinese: "头疼。", category: "症状", pos: "adj." },
+                                { korean: "피곤하다", chinese: "疲惫", example: "피곤해요.", exampleChinese: "很累。", category: "症状", pos: "v." },
+                                { korean: "스트레스", chinese: "压力", example: "스트레스를 받아요.", exampleChinese: "有压力。", category: "症状", pos: "n." },
+                                { korean: "감기", chinese: "感冒", example: "감기에 걸렸어요.", exampleChinese: "感冒了。", category: "症状", pos: "adj." },
                                 // 表达
-                                { korean: "쉬다", chinese: "休息", example: "쭉 쉬세요.", exampleChinese: "好好休息。", category: "表达" },
-                                { korean: "어디가 아프세요?", chinese: "哪里不舒服?", example: "어디가 아프세요?", exampleChinese: "哪里不舒服？", category: "表达" }
+                                { korean: "쉬다", chinese: "休息", example: "쭉 쉬세요.", exampleChinese: "好好休息。", category: "表达", pos: "v." },
+                                { korean: "어디가 아프세요?", chinese: "哪里不舒服?", example: "어디가 아프세요?", exampleChinese: "哪里不舒服？", category: "表达", pos: "n." }
                             ]
                         },
                         {
@@ -1674,26 +1686,26 @@
                             title: "교통수단을 이용해요",
                             words: [
                                 // 交通工具
-                                { korean: "버스", chinese: "公交车", example: "버스를 타고 학교에 가요.", exampleChinese: "坐公交去学校。", category: "交通" },
-                                { korean: "지하철", chinese: "地铁", example: "지하철을 타요.", exampleChinese: "坐地铁。", category: "交通" },
-                                { korean: "기차", chinese: "火车", example: "기차를 타고 부산에 가요.", exampleChinese: "坐火车去釜山。", category: "交通" },
-                                { korean: "비행기", chinese: "飞机", example: "비행기를 타요.", exampleChinese: "坐飞机。", category: "交通" },
-                                { korean: "배", chinese: "船", example: "배를 타요.", exampleChinese: "坐船。", category: "交通" },
+                                { korean: "버스", chinese: "公交车", example: "버스를 타고 학교에 가요.", exampleChinese: "坐公交去学校。", category: "交通", pos: "n." },
+                                { korean: "지하철", chinese: "地铁", example: "지하철을 타요.", exampleChinese: "坐地铁。", category: "交通", pos: "n." },
+                                { korean: "기차", chinese: "火车", example: "기차를 타고 부산에 가요.", exampleChinese: "坐火车去釜山。", category: "交通", pos: "n." },
+                                { korean: "비행기", chinese: "飞机", example: "비행기를 타요.", exampleChinese: "坐飞机。", category: "交通", pos: "n." },
+                                { korean: "배", chinese: "船", example: "배를 타요.", exampleChinese: "坐船。", category: "交通", pos: "n." },
                                 // 交通设施
-                                { korean: "역", chinese: "车站", example: "역에서 기차표를 샀어요.", exampleChinese: "在车站买了火车票。", category: "交通" },
-                                { korean: "정류장", chinese: "公交站", example: "버스 정류장에서 기다려요.", exampleChinese: "在公交站等。", category: "交通" },
-                                { korean: "터미널", chinese: "航站楼", example: "터미널에서 버스를 타요.", exampleChinese: "在航站楼坐公交。", category: "交通" },
+                                { korean: "역", chinese: "车站", example: "역에서 기차표를 샀어요.", exampleChinese: "在车站买了火车票。", category: "交通", pos: "n." },
+                                { korean: "정류장", chinese: "公交站", example: "버스 정류장에서 기다려요.", exampleChinese: "在公交站等车。", category: "交通", pos: "n." },
+                                { korean: "터미널", chinese: "总站，客运站", example: "터미널에서 버스를 타요.", exampleChinese: "在总站坐巴士。", category: "交通", pos: "n." },
                                 // 动词
-                                { korean: "타다", chinese: "乘坐", example: "버스를 타요.", exampleChinese: "坐公交。", category: "动词" },
-                                { korean: "걸어가다", chinese: "走路去", example: "학교에 걸어가요.", exampleChinese: "走路去学校。", category: "动词" },
+                                { korean: "타다", chinese: "乘坐", example: "버스를 타요.", exampleChinese: "坐公交。", category: "动词", pos: "v." },
+                                { korean: "걸어가다", chinese: "走路去", example: "학교에 걸어가요.", exampleChinese: "走路去学校。", category: "动词", pos: "v." },
                                 // 距离相关
-                                { korean: "거리", chinese: "距离", example: "거리가 얼마나 돼요?", exampleChinese: "距离有多远？", category: "距离" },
-                                { korean: "가깝다", chinese: "近", example: "학교가 가까워요.", exampleChinese: "学校很近。", category: "距离" },
-                                { korean: "멀다", chinese: "远", example: "회사가 멀어요.", exampleChinese: "公司很远。", category: "距离" },
-                                { korean: "얼마나", chinese: "多少(时间/程度)", example: "얼마나 걸려요?", exampleChinese: "需要多久？", category: "距离" },
+                                { korean: "거리", chinese: "距离", example: "거리가 얼마나 돼요?", exampleChinese: "距离有多远？", category: "距离", pos: "adj." },
+                                { korean: "가깝다", chinese: "近", example: "학교가 가까워요.", exampleChinese: "学校很近。", category: "距离", pos: "adj." },
+                                { korean: "멀다", chinese: "远", example: "회사가 멀어요.", exampleChinese: "公司很远。", category: "距离", pos: "adj." },
+                                { korean: "얼마나", chinese: "多少(时间/程度)", example: "얼마나 걸려요?", exampleChinese: "需要多久？", category: "距离", pos: "adj." },
                                 // 表达
-                                { korean: "길이 막히다", chinese: "堵车", example: "길이 많이 막혀요.", exampleChinese: "很堵车。", category: "表达" },
-                                { korean: "걸리다", chinese: "花费(时间)", example: "한 시간 걸려요.", exampleChinese: "需要一小时。", category: "表达" }
+                                { korean: "길이 막히다", chinese: "堵车", example: "길이 많이 막혀요.", exampleChinese: "很堵车。", category: "表达", pos: "v." },
+                                { korean: "걸리다", chinese: "花费(时间)", example: "한 시간 걸려요.", exampleChinese: "需要一小时。", category: "表达", pos: "v." }
                             ]
                         },
                         {
@@ -1701,18 +1713,18 @@
                             title: "집들이에 뭘 사 가야 해요?",
                             words: [
                                 // 乔迁聚会
-                                { korean: "집들이", chinese: "乔迁聚会", example: "집들이에 초대받았어요.", exampleChinese: "被邀请参加乔迁聚会。", category: "聚会" },
-                                { korean: "초대장", chinese: "请柬", example: "초대장을 받았어요.", exampleChinese: "收到了请柬。", category: "聚会" },
-                                { korean: "휴지", chinese: "纸巾", example: "휴지를 사 갔어요.", exampleChinese: "买了纸巾带去。", category: "物品" },
-                                { korean: "세제", chinese: "洗涤剂", example: "세제를 샀어요.", exampleChinese: "买了洗涤剂。", category: "物品" },
+                                { korean: "집들이", chinese: "乔迁聚会", example: "집들이에 초대받았어요.", exampleChinese: "被邀请参加乔迁聚会。", category: "聚会", pos: "n." },
+                                { korean: "초대장", chinese: "请柬", example: "초대장을 받았어요.", exampleChinese: "收到了请柬。", category: "聚会", pos: "n." },
+                                { korean: "휴지", chinese: "纸巾", example: "휴지를 사 갔어요.", exampleChinese: "买了纸巾带去。", category: "物品", pos: "n." },
+                                { korean: "세제", chinese: "洗涤剂", example: "세제를 샀어요.", exampleChinese: "买了洗涤剂。", category: "物品", pos: "n." },
                                 // 动词
-                                { korean: "이사하다", chinese: "搬家", example: "이사했어요.", exampleChinese: "搬家了。", category: "动词" },
-                                { korean: "도와주다", chinese: "帮助", example: "도와줄 수 있어요?", exampleChinese: "能帮我吗？", category: "动词" },
-                                { korean: "초대하다", chinese: "邀请", example: "친구를 초대했어요.", exampleChinese: "邀请了朋友。", category: "动词" },
-                                { korean: "준비하다", chinese: "准备", example: "음식을 준비했어요.", exampleChinese: "准备了食物。", category: "动词" },
+                                { korean: "이사하다", chinese: "搬家", example: "이사했어요.", exampleChinese: "搬家了。", category: "动词", pos: "v." },
+                                { korean: "도와주다", chinese: "帮助", example: "도와줄 수 있어요?", exampleChinese: "能帮我吗？", category: "动词", pos: "v." },
+                                { korean: "초대하다", chinese: "邀请", example: "친구를 초대했어요.", exampleChinese: "邀请了朋友。", category: "动词", pos: "v." },
+                                { korean: "준비하다", chinese: "准备", example: "음식을 준비했어요.", exampleChinese: "准备了食物。", category: "动词", pos: "v." },
                                 // 表达
-                                { korean: "뭘", chinese: "什么(做什么)", example: "뭘 사 갈까요?", exampleChinese: "买什么去呢？", category: "表达" },
-                                { korean: "가야 하다", chinese: "必须去", example: "가야 해요.", exampleChinese: "必须去。", category: "表达" }
+                                { korean: "뭘", chinese: "什么(做什么)", example: "뭘 사 갈까요?", exampleChinese: "买什么去呢？", category: "表达", pos: "n." },
+                                { korean: "가야 하다", chinese: "必须去", example: "가야 해요.", exampleChinese: "必须去。", category: "表达", pos: "v." }
                             ]
                         },
                         {
@@ -1720,24 +1732,24 @@
                             title: "길이 막히니까 공연장까지 지하철로 갑시다",
                             words: [
                                 // 여가 활동 (休闲活动)
-                                { korean: "텔레비전", chinese: "电视", example: "텔레비전을 봐요.", exampleChinese: "看电视。", category: "休闲" },
-                                { korean: "프로그램", chinese: "节目", example: "어떤 프로그램을 좋아해요?", exampleChinese: "你喜欢什么节目？", category: "休闲" },
-                                { korean: "낮잠", chinese: "午觉", example: "낮잠을 자요.", exampleChinese: "睡午觉。", category: "休闲" },
-                                { korean: "미용실", chinese: "美容院", example: "미용실에 갔어요.", exampleChinese: "去了美容院。", category: "休闲" },
-                                { korean: "산책", chinese: "散步", example: "공원에서 산책해요.", exampleChinese: "在公园散步。", category: "休闲" },
-                                { korean: "외국어", chinese: "外语", example: "외국어를 배워요.", exampleChinese: "学外语。", category: "休闲" },
+                                { korean: "텔레비전", chinese: "电视", example: "텔레비전을 봐요.", exampleChinese: "看电视。", category: "休闲", pos: "n." },
+                                { korean: "프로그램", chinese: "节目", example: "어떤 프로그램을 좋아해요?", exampleChinese: "你喜欢什么节目？", category: "休闲", pos: "n." },
+                                { korean: "낮잠", chinese: "午觉", example: "낮잠을 자요.", exampleChinese: "睡午觉。", category: "休闲", pos: "n." },
+                                { korean: "미용실", chinese: "美容院", example: "미용실에 갔어요.", exampleChinese: "去了美容院。", category: "休闲", pos: "n." },
+                                { korean: "산책", chinese: "散步", example: "공원에서 산책해요.", exampleChinese: "在公园散步。", category: "休闲", pos: "n." },
+                                { korean: "외국어", chinese: "外语", example: "외국어를 배워요.", exampleChinese: "学外语。", category: "休闲", pos: "n." },
                                 // 문화생활 (文化生活)
-                                { korean: "공연", chinese: "演出", example: "공연을 봤어요.", exampleChinese: "看了演出。", category: "文化" },
-                                { korean: "연극", chinese: "话剧", example: "연극을 봤어요.", exampleChinese: "看了话剧。", category: "文化" },
-                                { korean: "콘서트", chinese: "演唱会", example: "콘서트에 갔어요.", exampleChinese: "去了演唱会。", category: "文化" },
-                                { korean: "표", chinese: "票", example: "표를 샀어요.", exampleChinese: "买了票。", category: "文化" },
-                                { korean: "극장", chinese: "剧场", example: "극장에서 영화를 봐요.", exampleChinese: "在剧场看电影。", category: "文化" },
-                                { korean: "영화관", chinese: "电影院", example: "영화관에 가요.", exampleChinese: "去电影院。", category: "文化" },
-                                { korean: "박물관", chinese: "博物馆", example: "박물관에 갔어요.", exampleChinese: "去了博物馆。", category: "文化" },
-                                { korean: "미술관", chinese: "美术馆", example: "미술관을 구경했어요.", exampleChinese: "参观了美术馆。", category: "文化" },
+                                { korean: "공연", chinese: "演出", example: "공연을 봤어요.", exampleChinese: "看了演出。", category: "文化", pos: "n." },
+                                { korean: "연극", chinese: "话剧", example: "연극을 봤어요.", exampleChinese: "看了话剧。", category: "文化", pos: "n." },
+                                { korean: "콘서트", chinese: "演唱会", example: "콘서트에 갔어요.", exampleChinese: "去了演唱会。", category: "文化", pos: "n." },
+                                { korean: "표", chinese: "票", example: "표를 샀어요.", exampleChinese: "买了票。", category: "文化", pos: "n." },
+                                { korean: "극장", chinese: "剧场", example: "극장에서 영화를 봐요.", exampleChinese: "在剧场看电影。", category: "文化", pos: "n." },
+                                { korean: "영화관", chinese: "电影院", example: "영화관에 가요.", exampleChinese: "去电影院。", category: "文化", pos: "n." },
+                                { korean: "박물관", chinese: "博物馆", example: "박물관에 갔어요.", exampleChinese: "去了博物馆。", category: "文化", pos: "n." },
+                                { korean: "미술관", chinese: "美术馆", example: "미술관을 구경했어요.", exampleChinese: "参观了美术馆。", category: "文化", pos: "n." },
                                 // 표현 (表达)
-                                { korean: "연기", chinese: "演技", example: "연기가 좋아요.", exampleChinese: "演技好。", category: "表达" },
-                                { korean: "인기", chinese: "人气", example: "인기가 많아요.", exampleChinese: "人气很高。", category: "表达" }
+                                { korean: "연기", chinese: "演技", example: "연기가 좋아요.", exampleChinese: "演技好。", category: "表达", pos: "n." },
+                                { korean: "인기", chinese: "人气", example: "인기가 많아요.", exampleChinese: "人气很高。", category: "表达", pos: "n." }
                             ]
                         },
                         {
@@ -1745,20 +1757,20 @@
                             title: "지방 같이 사러 가요",
                             words: [
                                 // 장소 (地点)
-                                { korean: "빵집", chinese: "面包店", example: "빵집에서 빵을 사요.", exampleChinese: "在面包店买面包。", category: "地点" },
-                                { korean: "은행", chinese: "银行", example: "은행에서 돈을 찾아요.", exampleChinese: "在银行取钱。", category: "地点" },
-                                { korean: "지하철역", chinese: "地铁站", example: "지하철역이 어디예요?", exampleChinese: "地铁站在哪里？", category: "地点" },
-                                { korean: "출구", chinese: "出口", example: "1번 출구로 나가세요.", exampleChinese: "请从1号出口出去。", category: "地点" },
-                                { korean: "횡단보도", chinese: "人行横道", example: "횡단보도를 건너세요.", exampleChinese: "请走人行横道。", category: "地点" },
+                                { korean: "빵집", chinese: "面包店", example: "빵집에서 빵을 사요.", exampleChinese: "在面包店买面包。", category: "地点", pos: "n." },
+                                { korean: "은행", chinese: "银行", example: "은행에서 돈을 찾아요.", exampleChinese: "在银行取钱。", category: "地点", pos: "n." },
+                                { korean: "지하철역", chinese: "地铁站", example: "지하철역이 어디예요?", exampleChinese: "地铁站在哪里？", category: "地点", pos: "n." },
+                                { korean: "출구", chinese: "出口", example: "1번 출구로 나가세요.", exampleChinese: "请从1号出口出去。", category: "地点", pos: "n." },
+                                { korean: "횡단보도", chinese: "人行横道", example: "횡단보도를 건너세요.", exampleChinese: "请走人行横道。", category: "地点", pos: "n." },
                                 // 방향 (方向)
-                                { korean: "오른쪽", chinese: "右边", example: "오른쪽에 있어요.", exampleChinese: "在右边。", category: "方向" },
-                                { korean: "왼쪽", chinese: "左边", example: "왼쪽으로 가세요.", exampleChinese: "请往左边走。", category: "方向" },
+                                { korean: "오른쪽", chinese: "右边", example: "오른쪽에 있어요.", exampleChinese: "在右边。", category: "方向", pos: "v." },
+                                { korean: "왼쪽", chinese: "左边", example: "왼쪽으로 가세요.", exampleChinese: "请往左边走。", category: "方向", pos: "v." },
                                 // 이동 (移动)
-                                { korean: "내리다", chinese: "下车", example: "여기에서 내리세요.", exampleChinese: "请在这里下车。", category: "动词" },
-                                { korean: "나오다", chinese: "出来", example: "1번 출구로 나오세요.", exampleChinese: "请从1号出口出来。", category: "动词" },
-                                { korean: "건너다", chinese: "穿过", example: "길을 건넙시다.", exampleChinese: "我们过马路吧。", category: "动词" },
+                                { korean: "내리다", chinese: "下车", example: "여기에서 내리세요.", exampleChinese: "请在这里下车。", category: "动词", pos: "v." },
+                                { korean: "나오다", chinese: "出来", example: "1번 출구로 나오세요.", exampleChinese: "请从1号出口出来。", category: "动词", pos: "v." },
+                                { korean: "건너다", chinese: "穿过", example: "길을 건넙시다.", exampleChinese: "我们过马路吧。", category: "动词", pos: "v." },
                                 // 표현 (表达)
-                                { korean: "근처", chinese: "附近", example: "근처에 빵집이 있어요?", exampleChinese: "附近有面包店吗？", category: "表达" }
+                                { korean: "근처", chinese: "附近", example: "근처에 빵집이 있어요?", exampleChinese: "附近有面包店吗？", category: "表达", pos: "n." }
                             ]
                         },
                         {
@@ -1766,17 +1778,17 @@
                             title: "어머니께서 꽃을 좋아하셔요",
                             words: [
                                 // 정중 표현 (敬语表达)
-                                { korean: "처음 뵙겠습니다", chinese: "初次见面", example: "안녕하세요, 처음 뵙겠습니다.", exampleChinese: "你好，初次见面。", category: "敬语" },
-                                { korean: "성함", chinese: "姓名(敬语)", example: "성함이 어떻게 되세요?", exampleChinese: "您叫什么名字？", category: "敬语" },
-                                { korean: "어떻게 되세요", chinese: "是...(敬语)", example: "나이가 어떻게 되세요?", exampleChinese: "您多大年纪？", category: "敬语" },
-                                { korean: "무슨 일을 하세요", chinese: "做什么工作", example: "무슨 일을 하세요?", exampleChinese: "您做什么工作？", category: "敬语" },
+                                { korean: "처음 뵙겠습니다", chinese: "初次见面", example: "안녕하세요, 처음 뵙겠습니다.", exampleChinese: "你好，初次见面。", category: "敬语", pos: "n." },
+                                { korean: "성함", chinese: "姓名(敬语)", example: "성함이 어떻게 되세요?", exampleChinese: "您叫什么名字？", category: "敬语", pos: "n." },
+                                { korean: "어떻게 되세요", chinese: "是...(敬语)", example: "나이가 어떻게 되세요?", exampleChinese: "您多大年纪？", category: "敬语", pos: "n." },
+                                { korean: "무슨 일을 하세요", chinese: "做什么工作", example: "무슨 일을 하세요?", exampleChinese: "您做什么工作？", category: "敬语", pos: "n." },
                                 // 가족 호칭 (家庭称呼)
-                                { korean: "어머니", chinese: "母亲(敬语)", example: "어머니께서 요리하세요.", exampleChinese: "母亲做饭。", category: "家庭" },
-                                { korean: "아버지", chinese: "父亲(敬语)", example: "아버지께서 회사에 가세요.", exampleChinese: "父亲去公司。", category: "家庭" },
-                                { korean: "선생님", chinese: "老师", example: "선생님이 가르치세요.", exampleChinese: "老师教书。", category: "职业" },
+                                { korean: "어머니", chinese: "母亲（敬语）", example: "어머니께서 요리하세요.", exampleChinese: "母亲做饭（敬语）。", category: "家庭", pos: "n." },
+                                { korean: "아버지", chinese: "父亲（敬语）", example: "아버지께서 회사에 가세요.", exampleChinese: "父亲去公司。", category: "家庭", pos: "n." },
+                                { korean: "선생님", chinese: "老师", example: "선생님이 가르치세요.", exampleChinese: "老师教书。", category: "职业", pos: "n." },
                                 // 직업 (职业)
-                                { korean: "고등학교", chinese: "高中", example: "고등학교 선생님이세요.", exampleChinese: "是高中老师。", category: "职业" },
-                                { korean: "수학", chinese: "数学", example: "수학을 가르치세요.", exampleChinese: "教数学。", category: "学科" }
+                                { korean: "고등학교", chinese: "高中", example: "고등학교 선생님이세요.", exampleChinese: "是高中老师。", category: "职业", pos: "n." },
+                                { korean: "수학", chinese: "数学", example: "수학을 가르치세요.", exampleChinese: "教数学。", category: "学科", pos: "n." }
                             ]
                         }
                     ]
@@ -1798,14 +1810,14 @@
                             lesson: "常用词",
                             title: "韩剧常见词汇",
                             words: [
-                                { korean: "사랑", chinese: "爱", example: "사랑해요.", exampleChinese: "我爱你。", category: "情感" },
-                                { korean: "운명", chinese: "命运", example: "이건 운명이에요.", exampleChinese: "这是命运。", category: "名词" },
-                                { korean: "기억", chinese: "记忆", example: "기억이 안 나요.", exampleChinese: "想不起来了。", category: "名词" },
-                                { korean: "제작비", chinese: "制作费", example: "제작비가 많이 들었어요.", exampleChinese: "制作费花了很多。", category: "影视" },
-                                { korean: "OTT", chinese: "流媒体平台", example: "OTT에서 드라마를 봐요.", exampleChinese: "在流媒体平台看剧。", category: "影视" },
-                                { korean: "시즌", chinese: "季度", example: "시즌 2가 나왔어요.", exampleChinese: "第二季出了。", category: "影视" },
-                                { korean: "제작사", chinese: "制作公司", example: "제작사에서 발표했어요.", exampleChinese: "制作公司公布了。", category: "影视" },
-                                { korean: "연예계", chinese: "演艺圈", example: "연예계에 입문했어요.", exampleChinese: "进入演艺圈了。", category: "影视" }
+                                { korean: "사랑", chinese: "爱", example: "사랑해요.", exampleChinese: "我爱你。", category: "情感", pos: "n." },
+                                { korean: "운명", chinese: "命运", example: "이건 운명이에요.", exampleChinese: "这是命运。", category: "名词", pos: "n." },
+                                { korean: "기억", chinese: "记忆", example: "기억이 안 나요.", exampleChinese: "想不起来了。", category: "名词", pos: "n." },
+                                { korean: "제작비", chinese: "制作费", example: "제작비가 많이 들었어요.", exampleChinese: "制作费花了很多。", category: "影视", pos: "n." },
+                                { korean: "OTT", chinese: "流媒体平台", example: "OTT에서 드라마를 봐요.", exampleChinese: "在流媒体平台看剧。", category: "影视", pos: "n." },
+                                { korean: "시즌", chinese: "季度", example: "시즌 2가 나왔어요.", exampleChinese: "第二季出了。", category: "影视", pos: "n." },
+                                { korean: "제작사", chinese: "制作公司", example: "제작사에서 발표했어요.", exampleChinese: "制作公司公布了。", category: "影视", pos: "n." },
+                                { korean: "연예계", chinese: "演艺圈", example: "연예계에 입문했어요.", exampleChinese: "进入演艺圈了。", category: "影视", pos: "n." }
                             ]
                         }
                     ]
@@ -1819,8 +1831,8 @@
                             lesson: "常用词",
                             title: "综艺常见词汇",
                             words: [
-                                { korean: "웃다", chinese: "笑", example: "정말 웃겨요.", exampleChinese: "真的好好笑。", category: "动词" },
-                                { korean: "재미있다", chinese: "有趣", example: "너무 재미있어요.", exampleChinese: "太有趣了。", category: "形容词" }
+                                { korean: "웃다", chinese: "笑", example: "정말 웃겨요.", exampleChinese: "真的好好笑。", category: "动词", pos: "v." },
+                                { korean: "재미있다", chinese: "有趣", example: "너무 재미있어요.", exampleChinese: "太有趣了。", category: "形容词", pos: "adj." }
                             ]
                         }
                     ]
@@ -1834,8 +1846,8 @@
                             lesson: "常用词",
                             title: "日常生活词汇",
                             words: [
-                                { korean: "편의점", chinese: "便利店", example: "편의점에 가요.", exampleChinese: "去便利店。", category: "场所" },
-                                { korean: "배달", chinese: "外卖", example: "배달을 시켰어요.", exampleChinese: "点了外卖。", category: "生活" }
+                                { korean: "편의점", chinese: "便利店", example: "편의점에 가요.", exampleChinese: "去便利店。", category: "场所", pos: "n." },
+                                { korean: "배달", chinese: "外卖", example: "배달을 시켰어요.", exampleChinese: "点了外卖。", category: "生活", pos: "n." }
                             ]
                         }
                     ]
@@ -2163,7 +2175,7 @@
                 <div class="allword-item">
                     <div class="allword-content">
                         <div class="allword-korean">${word.korean}</div>
-                        <div class="allword-chinese">${word.chinese}</div>
+                        <div class="allword-chinese">${word.pos ? '<span class="pos-tag">' + word.pos + '</span>' : ''}${word.chinese}</div>
                         <div class="allword-category">${word.lessonName} · ${word.category || ''}</div>
                     </div>
                     <button class="allword-audio-btn" onclick="speak('${word.korean}')">🔊</button>
@@ -2358,7 +2370,7 @@
                 </div>
                 <div id="flashcard-detail" style="display: none;">
                     <div class="flashcard-detail-card">
-                        <div class="chinese-text">${word.chinese}</div>
+                        <div class="chinese-text">${word.pos ? '<span class="pos-tag">' + word.pos + '</span>' : ''}${word.chinese}</div>
                         <div class="example-section">
                             <div class="example-text">${word.example || ''}</div>
                             <div class="example-chinese">${word.exampleChinese || ''}</div>
@@ -2397,7 +2409,7 @@
                         <button class="audio-btn-small" onclick="speak('${word.korean}')">🔊</button>
                         <p class="typing-hint">请输入韩文</p>
                     </div>
-                    <div class="typing-prompt">${word.chinese}</div>
+                    <div class="typing-prompt">${word.pos ? '<span class="pos-tag">' + word.pos + '</span>' : ''}${word.chinese}</div>
                     <input type="text" class="typing-input" id="typing-input" 
                            placeholder="请输入韩文..." 
                            onkeydown="handleKeyDown(event)"
@@ -2919,7 +2931,7 @@
             container.innerHTML = `
                 <div class="typing-container">
                     <p class="typing-hint">请选择正确的韩文</p>
-                    <div class="typing-prompt">${word.chinese}</div>
+                    <div class="typing-prompt">${word.pos ? '<span class="pos-tag">' + word.pos + '</span>' : ''}${word.chinese}</div>
                     <div style="margin-bottom: 20px;">
                         <button class="audio-btn" onclick="speak('${word.korean}')">🔊 播放发音</button>
                     </div>
@@ -3140,7 +3152,7 @@
                         <p class="typing-hint">例句填空 - 填韩文</p>
                     </div>
                     <div class="sentence-hint">
-                        💡 提示：${word.chinese}
+                        💡 提示：${word.pos ? '<span class="pos-tag">' + word.pos + '</span>' : ''}${word.chinese}
                     </div>
                     <div class="sentence-display">${blankSentence}</div>
                     <input type="text" class="typing-input" id="sentence-input" 
