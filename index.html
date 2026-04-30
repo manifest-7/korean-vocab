@@ -810,6 +810,61 @@
             background: #4a3c70;
         }
 
+        /* 数量选择弹窗 */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+        }
+        .modal-content {
+            background: white;
+            border-radius: 16px;
+            padding: 24px;
+            width: 280px;
+            text-align: center;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+        }
+        .count-options {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+        .count-option-btn {
+            padding: 12px 20px;
+            border: 2px solid #5B4B8A;
+            border-radius: 10px;
+            background: white;
+            color: #5B4B8A;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .count-option-btn:hover {
+            background: #5B4B8A;
+            color: white;
+        }
+        .count-cancel-btn {
+            padding: 8px 20px;
+            border: none;
+            border-radius: 8px;
+            background: #eee;
+            color: #888;
+            font-size: 0.9rem;
+            cursor: pointer;
+        }
+        .count-cancel-btn:hover {
+            background: #ddd;
+        }
+
         .wrong-actions {
             display: flex;
             gap: 12px;
@@ -1248,7 +1303,7 @@
             <button class="back-btn" onclick="showPage('wrong')">← 返回</button>
             <h2 class="page-title" id="wrong-detail-title">📝 错题详情</h2>
             <div class="wrong-actions" id="wrong-detail-actions" style="display: none; margin-bottom: 20px;">
-                <button class="nav-btn primary" onclick="practiceWrongByType()">📝 练习这些错题</button>
+                <button class="nav-btn primary" onclick="practiceWrongByType()" id="practice-wrong-btn">📝 练习这些错题</button>
             </div>
             <div class="wrong-detail-list" id="wrong-detail-list"></div>
         </div>
@@ -1352,21 +1407,21 @@
                             title: "날씨가 좋지 않아요",
                             words: [
                                 // 天气
-                                { korean: "날씨", chinese: "天气", example: "날씨가 어렵습니까?", exampleChinese: "天气怎么样？", category: "天气" },
+                                { korean: "날씨", chinese: "天气", example: "오늘 날씨가 좋습니다.", exampleChinese: "今天天气好。", category: "天气" },
                                 { korean: "하늘", chinese: "天空", example: "하늘이 맑아요.", exampleChinese: "天空很晴朗。", category: "天气" },
-                                { korean: "맑다", chinese: "晴朗", example: "날씨가 맑아요.", exampleChinese: "天气晴朗。", category: "天气" },
-                                { korean: "흐리다", chinese: "阴天", example: "하늘이 흐려요.", exampleChinese: "天空阴沉。", category: "天气" },
-                                { korean: "비", chinese: "雨", example: "비가 내립니다.", exampleChinese: "下雨了。", category: "天气" },
-                                { korean: "눈", chinese: "雪", example: "눈이 내립니까?", exampleChinese: "下雪吗？", category: "天气" },
-                                { korean: "덥다", chinese: "热", example: "날씨가 더워요.", exampleChinese: "天气很热。", category: "天气" },
-                                { korean: "춥다", chinese: "冷", example: "날씨가 추워요.", exampleChinese: "天气很冷。", category: "天气" },
-                                { korean: "따뜻하다", chinese: "温暖", example: "봄에는 날씨가 따뜻해요.", exampleChinese: "春天天气温暖。", category: "天气" },
-                                { korean: "시원하다", chinese: "凉爽", example: "가을에는 날씨가 시원해요.", exampleChinese: "秋天天气凉爽。", category: "天气" },
+                                { korean: "맑다", chinese: "晴朗", example: "하늘이 맑습니다.", exampleChinese: "天空晴朗。", category: "天气" },
+                                { korean: "흐리다", chinese: "阴天", example: "하늘이 흐립니다.", exampleChinese: "天空阴沉。", category: "天气" },
+                                { korean: "비", chinese: "雨", example: "비가 옵니다.", exampleChinese: "下雨。", category: "天气" },
+                                { korean: "눈", chinese: "雪", example: "눈이 옵니다.", exampleChinese: "下雪。", category: "天气" },
+                                { korean: "덥다", chinese: "热", example: "날씨가 덥습니다.", exampleChinese: "天气热。", category: "天气" },
+                                { korean: "춥다", chinese: "冷", example: "날씨가 춥습니다.", exampleChinese: "天气冷。", category: "天气" },
+                                { korean: "따뜻하다", chinese: "温暖", example: "날씨가 따뜻합니다.", exampleChinese: "天气暖和。", category: "天气" },
+                                { korean: "시원하다", chinese: "凉爽", example: "날씨가 시원합니다.", exampleChinese: "天气凉爽。", category: "天气" },
                                 // 季节
                                 { korean: "봄", chinese: "春天", example: "봄이에요. 날씨가 따뜻해요.", exampleChinese: "是春天。天气温暖。", category: "季节" },
                                 { korean: "여름", chinese: "夏天", example: "여름이에요. 날씨가 더워요.", exampleChinese: "是夏天。天气很热。", category: "季节" },
                                 { korean: "가을", chinese: "秋天", example: "가을이에요. 날씨가 시원해요.", exampleChinese: "是秋天。天气凉爽。", category: "季节" },
-                                { korean: "겨울", chinese: "冬天", example: "겨울이에요. 날씨가 추워요.", exampleChinese: "是冬天。天气很冷。", category: "季节" }
+                                { korean: "겨울", chinese: "冬天", example: "겨울이에요. 날씨가 춥습니다.", exampleChinese: "是冬天。天气冷。", category: "季节" }
                             ]
                         },
                         {
@@ -1823,6 +1878,8 @@
                 wrongWords = data.wrongWords || [];
                 wrongWords.forEach(item => {
                     if (!item.count && !item.totalCount) item.totalCount = 1;
+                    // 迁移：没有nextReviewTime字段的旧数据，默认0（立即可复习）
+                    if (item.nextReviewTime === undefined) item.nextReviewTime = 0;
                 });
             }
         }
@@ -2243,7 +2300,12 @@
         function startStudy(mode) {
             currentMode = mode;
             currentIndex = 0;
-            studyWords = shuffleArray([...currentLesson.words]);
+            // 错题练习时保留当前studyWords，只重新打乱
+            if (currentVocab && currentVocab.id === 'wrong') {
+                studyWords = shuffleArray([...studyWords]);
+            } else {
+                studyWords = shuffleArray([...currentLesson.words]);
+            }
             showPage('study');
             renderStudyContent();
         }
@@ -3215,6 +3277,7 @@
                 item.lastUserAnswer = userAnswer;
                 item.lastWrongMode = mode;
                 item.lastWrongTime = Date.now();
+                item.nextReviewTime = 0; // 答错立刻到期
                 // 答错重置状态
                 if (item.status === WRONG_STATUS.MASTERED) {
                     item.status = WRONG_STATUS.NEW;
@@ -3245,6 +3308,7 @@
                     lastUserAnswer: userAnswer,
                     lastWrongMode: mode,
                     lastWrongTime: Date.now(),
+                    nextReviewTime: 0, // 新错题立刻到期
                     status: WRONG_STATUS.NEW,
                     correctCount: 0
                 });
@@ -3262,6 +3326,7 @@
         };
 
         function renderWrongList() {
+            const now = Date.now();
             // 计算各状态数量
             const statusCounts = {
                 new: wrongWords.filter(w => w.status === WRONG_STATUS.NEW).length,
@@ -3322,7 +3387,7 @@
             
             // 各模式入口
             cards += Object.entries(wrongTypeNames).filter(([type]) => type !== 'all').map(([type, info]) => {
-                const count = typeCounts[type];
+                const count = wrongWords.filter(w => w.status !== WRONG_STATUS.MASTERED && w.modeCounts && w.modeCounts[type] > 0).length;
                 return `
                     <div class="wrong-category-card ${count === 0 ? 'disabled' : ''}" onclick="showWrongByType('${type}')">
                         <div class="wrong-category-info">
@@ -3341,6 +3406,7 @@
         function showWrongByType(type) {
             currentWrongType = type;
             const typeInfo = wrongTypeNames[type];
+            const now = Date.now();
             
             // 过滤：只显示未掌握的错题
             let typeWrongWords = wrongWords.filter(w => w.status !== WRONG_STATUS.MASTERED);
@@ -3350,8 +3416,13 @@
                 typeWrongWords = typeWrongWords.filter(w => w.modeCounts && w.modeCounts[type] > 0);
             }
             
-            // 智能排序：新错题优先，错误次数多的优先
+            // 智能排序：刚错的优先 → 新错题优先 → 错误次数多优先
             typeWrongWords.sort((a, b) => {
+                // 刚错的优先（趁热打铁）
+                const aRecent = (now - (a.lastWrongTime || 0));
+                const bRecent = (now - (b.lastWrongTime || 0));
+                if (aRecent < 3600000 && bRecent >= 3600000) return -1; // 1小时内错的优先
+                if (bRecent < 3600000 && aRecent >= 3600000) return 1;
                 if (a.status !== b.status) return a.status - b.status;
                 return b.totalCount - a.totalCount;
             });
@@ -3403,7 +3474,7 @@
             showPage('wrong-detail');
         }
 
-        // 练习当前类型的错题
+        // 练习当前类型的错题 - 显示数量选择弹窗
         function practiceWrongByType() {
             let typeWrongWords = wrongWords.filter(w => w.status !== WRONG_STATUS.MASTERED);
             
@@ -3416,19 +3487,76 @@
                 return;
             }
             
-            // 智能排序：新错题优先
+            showCountSelector(typeWrongWords.length);
+        }
+        
+        // 显示练习数量选择弹窗
+        function showCountSelector(totalDue) {
+            const options = [10, 15, 20];
+            const validOptions = options.filter(n => n < totalDue);
+            validOptions.push(totalDue); // "全部"选项
+            
+            // 去重并排序
+            const uniqueOptions = [...new Set(validOptions)].sort((a, b) => a - b);
+            
+            const optionLabels = uniqueOptions.map(n => {
+                if (n === totalDue) return `<button class="count-option-btn" onclick="startWrongPractice(${n})">${n}题（全部）</button>`;
+                return `<button class="count-option-btn" onclick="startWrongPractice(${n})">${n}题</button>`;
+            }).join('');
+            
+            const modal = document.createElement('div');
+            modal.id = 'count-selector-modal';
+            modal.className = 'modal-overlay';
+            modal.innerHTML = `
+                <div class="modal-content">
+                    <h3 style="margin: 0 0 15px 0; color: #5B4B8A;">📋 选择练习数量</h3>
+                    <p style="color: #888; margin: 0 0 20px 0; font-size: 0.9rem;">当前待复习 ${totalDue} 题</p>
+                    <div class="count-options">
+                        ${optionLabels}
+                    </div>
+                    <button class="count-cancel-btn" onclick="closeCountSelector()">取消</button>
+                </div>
+            `;
+            document.body.appendChild(modal);
+        }
+        
+        // 关闭数量选择弹窗
+        function closeCountSelector() {
+            const modal = document.getElementById('count-selector-modal');
+            if (modal) modal.remove();
+        }
+        
+        // 开始错题练习
+        function startWrongPractice(count) {
+            closeCountSelector();
+            
+            const now = Date.now();
+            let typeWrongWords = wrongWords.filter(w => w.status !== WRONG_STATUS.MASTERED);
+            
+            if (currentWrongType !== 'all') {
+                typeWrongWords = typeWrongWords.filter(w => w.modeCounts && w.modeCounts[currentWrongType] > 0);
+            }
+            
+            // 智能排序：刚错的优先 → 新错题优先 → 错误次数多优先
             typeWrongWords.sort((a, b) => {
+                const aRecent = (now - (a.lastWrongTime || 0));
+                const bRecent = (now - (b.lastWrongTime || 0));
+                if (aRecent < 3600000 && bRecent >= 3600000) return -1;
+                if (bRecent < 3600000 && aRecent >= 3600000) return 1;
                 if (a.status !== b.status) return a.status - b.status;
                 return b.totalCount - a.totalCount;
             });
             
-            studyWords = typeWrongWords.map(item => ({
+            // 限制数量
+            const selectedWords = typeWrongWords.slice(0, count);
+            
+            studyWords = selectedWords.map(item => ({
                 korean: item.korean,
                 chinese: item.chinese,
                 example: item.example || '',
                 exampleChinese: item.exampleChinese || '',
                 category: '错题',
-                _wrongIndex: wrongWords.indexOf(item) // 保存索引用于更新状态
+                _wrongIndex: wrongWords.indexOf(item)
             }));
             
             // 根据错题类型选择练习模式
@@ -3437,14 +3565,13 @@
                 'choice': 'choice',
                 'listen': 'listen',
                 'sentence': 'sentence',
-                'all': 'typing' // 全部错题默认用打字模式
+                'all': 'typing'
             };
             
             currentVocab = { id: 'wrong', name: '错题本' };
             currentLesson = { lesson: '错题复习', title: wrongTypeNames[currentWrongType].name };
             currentMode = modeMap[currentWrongType];
             currentIndex = 0;
-            studyWords = shuffleArray(studyWords);
             
             showPage('study');
             renderStudyContent();
@@ -3461,13 +3588,15 @@
                 const item = wrongWords[index];
                 item.correctCount = (item.correctCount || 0) + 1;
                 
-                // 连续答对2次，升级状态
+                // 连续答对2次，升级状态并设置下次复习时间
                 if (item.correctCount >= 2) {
                     if (item.status === WRONG_STATUS.NEW) {
                         item.status = WRONG_STATUS.REVIEWING;
-                        item.correctCount = 0; // 重置计数
+                        item.correctCount = 0;
+                        item.nextReviewTime = Date.now() + 1 * 24 * 60 * 60 * 1000; // 1天后复习
                     } else if (item.status === WRONG_STATUS.REVIEWING) {
                         item.status = WRONG_STATUS.MASTERED;
+                        // 已掌握不再需要复习时间
                     }
                 }
                 saveData();
