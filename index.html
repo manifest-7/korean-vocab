@@ -1410,7 +1410,7 @@
                                 { korean: "날씨", chinese: "天气", example: "오늘 날씨가 좋습니다.", exampleChinese: "今天天气好。", category: "天气" },
                                 { korean: "하늘", chinese: "天空", example: "하늘이 맑아요.", exampleChinese: "天空很晴朗。", category: "天气" },
                                 { korean: "맑다", chinese: "晴朗", example: "하늘이 맑습니다.", exampleChinese: "天空晴朗。", category: "天气" },
-                                { korean: "흐리다", chinese: "阴天", example: "하늘이 흐립니다.", exampleChinese: "天空阴沉。", category: "天气" },
+                                { korean: "흐리다", chinese: "多云", example: "하늘이 흐립니다.", exampleChinese: "天空多云。", category: "天气" },
                                 { korean: "비", chinese: "雨", example: "비가 옵니다.", exampleChinese: "下雨。", category: "天气" },
                                 { korean: "눈", chinese: "雪", example: "눈이 옵니다.", exampleChinese: "下雪。", category: "天气" },
                                 { korean: "덥다", chinese: "热", example: "날씨가 덥습니다.", exampleChinese: "天气热。", category: "天气" },
@@ -2939,25 +2939,67 @@
         function generateOptions(correctWord) {
             const options = [correctWord.korean];
             
-            // 收集所有词库的单词作为干扰项
+            // 收集所有词库的单词
             let allWords = [];
+            let sameCategoryWords = [];
+            let sameLessonWords = [];
+            
             vocabularies.textbook.forEach(vocab => {
                 vocab.lessons.forEach(lesson => {
-                    allWords = allWords.concat(lesson.words.map(w => w.korean));
+                    lesson.words.forEach(w => {
+                        allWords.push({ korean: w.korean, category: w.category || '' });
+                        // 同课词
+                        if (lesson.words.some(lw => lw.korean === correctWord.korean)) {
+                            if (w.korean !== correctWord.korean) {
+                                sameLessonWords.push(w.korean);
+                            }
+                        }
+                    });
                 });
             });
             vocabularies.extension.forEach(vocab => {
                 vocab.lessons.forEach(lesson => {
-                    allWords = allWords.concat(lesson.words.map(w => w.korean));
+                    lesson.words.forEach(w => {
+                        allWords.push({ korean: w.korean, category: w.category || '' });
+                    });
                 });
             });
             
-            // 打乱并选择不重复的干扰项
-            allWords = shuffleArray(allWords);
-            for (let i = 0; i < allWords.length && options.length < 4; i++) {
-                if (!options.includes(allWords[i])) {
-                    options.push(allWords[i]);
-                }
+            // 同主题词（排除正确答案）
+            sameCategoryWords = allWords
+                .filter(w => w.category === correctWord.category && w.korean !== correctWord.korean)
+                .map(w => w.korean);
+            
+            // 去重
+            sameCategoryWords = [...new Set(sameCategoryWords)];
+            sameLessonWords = [...new Set(sameLessonWords)];
+            const otherWords = [...new Set(allWords.map(w => w.korean))]
+                .filter(w => w !== correctWord.korean && !sameCategoryWords.includes(w) && !sameLessonWords.includes(w));
+            
+            // 混合策略：1个同主题 + 1个同课 + 1个随机
+            const shuffledCategory = shuffleArray(sameCategoryWords);
+            const shuffledLesson = shuffleArray(sameLessonWords);
+            const shuffledOther = shuffleArray(otherWords);
+            
+            // 添加同主题干扰项
+            if (shuffledCategory.length > 0) {
+                options.push(shuffledCategory[0]);
+            }
+            // 添加同课干扰项（排除已选）
+            const lessonCandidate = shuffledLesson.find(w => !options.includes(w));
+            if (lessonCandidate) {
+                options.push(lessonCandidate);
+            }
+            // 添加随机干扰项（排除已选）
+            const otherCandidate = shuffledOther.find(w => !options.includes(w));
+            if (otherCandidate) {
+                options.push(otherCandidate);
+            }
+            
+            // 如果还不够4个，用剩余词补充
+            const remaining = shuffleArray(allWords.map(w => w.korean).filter(w => !options.includes(w)));
+            for (let i = 0; i < remaining.length && options.length < 4; i++) {
+                options.push(remaining[i]);
             }
             
             return shuffleArray(options);
